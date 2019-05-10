@@ -8,7 +8,7 @@
       </li>
       <li class="flex">
         <span class="iconfont icon-huiyuan"></span>
-        <p>{{isMember}}</p>
+        <p>{{userStatus}}</p>
       </li>
     </ul>
     <Footer></Footer>
@@ -25,17 +25,28 @@ export default {
   },
   data() {
     return {
-      name: "156",
-      isMember: "会员"
+      name: "",
+      userStatus: ""
     };
   },
   mounted() {
-    Cookies.get('user')
+    let userinfo = Cookies.get('userinfo');
+    if(userinfo){
+      userinfo = JSON.parse(userinfo);
+      console.log(userinfo)
+      let {token,mobile,userStatus} = userinfo
+      if(token){
+          this.name = mobile;
+          this.userStatus = userStatus;
+      }
+    }else{
+      this.$router.push('/login/login')
+    }
   },
   methods: {
-    getUserDetail(){
-      this.$http.post('/fanxing-api/v1/user/detail')
-    }
+    // getUserDetail(){
+    //   this.$http.post('/fanxing-api/v1/user/detail')
+    // }
   }
 };
 </script>
