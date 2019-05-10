@@ -39,7 +39,10 @@ var router = new Router({
             path: '/bookRack',
             name: 'bookRack',
             component: () =>
-                import ('@/page/bookRack/index')
+                import ('@/page/bookRack/index'),
+            meta: {
+                loginChecked: true // 需要验证用户是否登录
+            }
 
         },
         {
@@ -64,7 +67,10 @@ var router = new Router({
             path: '/payFail',
             name: 'payFail',
             component: () =>
-                import ('@/page/mine/payFail')
+                import ('@/page/mine/payFail'),
+            meta: {
+                loginChecked: true // 需要验证用户是否登录
+            }
         },
         {
             path: '/login',

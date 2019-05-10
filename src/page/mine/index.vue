@@ -17,6 +17,7 @@
 <script>
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Cookies from 'js-cookie';
 export default {
   components: {
     Header,
@@ -28,7 +29,9 @@ export default {
       isMember: "会员"
     };
   },
-  mounted() {},
+  mounted() {
+    Cookies.get('user')
+  },
   methods: {
     getUserDetail(){
       this.$http.post('/fanxing-api/v1/user/detail')
