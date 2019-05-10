@@ -64,6 +64,7 @@ export default {
         })
         .then(
           ({ bstatus, data }) => {
+            // console.log(data.user)
             Cookies.set("userinfo", JSON.stringify(data.user));
             Toast({
               message: "登录成功",
