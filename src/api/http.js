@@ -31,8 +31,9 @@ http.interceptors.request.use(
 http.interceptors.response.use(function (response) {
     const result = response.data;
     const code = result.bstatus.code;
-    if (!code == 0) {
+    if (code !== 0) {
         if (code == 1001) {
+            return result;//后注释掉
             console.log('未登录')
             // store.dispatch('FedLogOut').then(() => {
             //     location.reload();
