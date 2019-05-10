@@ -8,7 +8,8 @@
       </li>
       <li class="flex">
         <span class="iconfont icon-huiyuan"></span>
-        <p>{{userStatus}}</p>
+        <p v-if="userStatus==1">会员截止日期: {{expireTimeStr}}</p>
+        <p v-else @click="goMember">立即开通会员,免费获取更多电子书资源</p>
       </li>
     </ul>
     <Footer></Footer>
@@ -26,7 +27,8 @@ export default {
   data() {
     return {
       name: "",
-      userStatus: ""
+      userStatus: "",
+      expireTimeStr: ""
     };
   },
   mounted() {
@@ -34,19 +36,20 @@ export default {
     if(userinfo){
       userinfo = JSON.parse(userinfo);
       console.log(userinfo)
-      let {token,mobile,userStatus} = userinfo
+      let {token,mobile,userStatus,expireTimeStr} = userinfo
       if(token){
           this.name = mobile;
           this.userStatus = userStatus;
+          this.expireTimeStr = expireTimeStr
       }
     }else{
       this.$router.push('/login/login')
     }
   },
   methods: {
-    // getUserDetail(){
-    //   this.$http.post('/fanxing-api/v1/user/detail')
-    // }
+    goMember(){
+      this.$router.push({name: 'member'})
+    }
   }
 };
 </script>

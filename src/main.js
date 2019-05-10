@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router';
+import './permission' 
 import axios from "@/api/http";
 // import { getLinkUrl } from '@/config';
 import MintUI from 'mint-ui';
@@ -27,7 +28,6 @@ Vue.prototype.$height = document.documentElement.clientHeight / parseInt(Vue.pro
 import "@/style/font/iconfont.css";
 import "@/style/font/iconfont.js";
 // import "@/api/array";
-
 new Vue({
     el: '#app',
     router,

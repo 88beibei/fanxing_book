@@ -43,13 +43,15 @@ var router = new Router({
             meta: {
                 loginChecked: true // 需要验证用户是否登录
             }
-
         },
         {
             path: '/mine',
             name: 'mine',
             component: () =>
-                import ('@/page/mine/index')
+                import ('@/page/mine/index'),
+            meta: {
+                loginChecked: true // 需要验证用户是否登录
+            }
         },
         {
             path: '/member',
