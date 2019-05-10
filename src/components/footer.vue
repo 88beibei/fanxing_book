@@ -1,8 +1,7 @@
 <template>
     <ul id="footer" class="flex">
-        <router-link class="flex" tag="li" v-for="(item, i) in linkList" :key="i" :to="item.link" active-class="active" @click.native="active(i)">
-            <!-- <img :src="index == i ? item.active : item.icon" /> -->
-            <i :class="['iconfont', item.icon]"></i>
+        <router-link class="flex" tag="li" v-for="(item, i) in linkList" :key="i" :to="{path: item.link,query:{index:i}}" active-class="active">
+            <i :class="['iconfont', (index == i) ? item.active : item.icon]"></i>
             <span>{{item.name}}</span>
         </router-link>
     </ul>
@@ -16,25 +15,27 @@ export default {
                 link: '/home/index',
                 name: '首页',
                 icon: 'icon-zhuye',
-                // active: 'new_active'
+                active: 'icon-homepage_selected',
             },{
                 link: '/bookRack',
                 name: '书架',
-                // icon: 'my_img',
-                // active: 'my_active'
+                icon: 'icon-shujia',
+                active: 'icon-stake-copy-copy',
             },{
                 link: '/mine',
                 name: '我的',
-                // icon: 'my_img',
-                // active: 'my_active'
+                icon: 'icon-wode1',
+                active: 'icon-zhanghu',
             }],
-            index: 0,
+            index:  this.$route.query.index || 0,
         }
     },
+    watch: {
+    },
+    mounted () {
+        
+    },
     methods: {
-        active(i){
-            this.index = i;
-        }
     }
 
 }
@@ -55,22 +56,19 @@ export default {
         color: #A2A2A2;
         &.flex{
             flex-direction: column;
+            align-items: center;
         }
-        img{/*图标*/
-            display: block;
-            width: 0.24rem;
-            height: 0.24rem;
-            margin: 0.05rem auto;
-            margin-bottom: 0.01rem;
+        i{/*图标*/
+            // font-size: 0.18rem;
+            color: #239DF2; 
+            margin-top: 0.08rem;
+            margin-bottom: 0.05rem;
         }
         span{
-            line-height: @normalFontsize;
-            font-size: @smalllFontsize;
+            font-size: 0.1rem;
+            color: #333333;
         }
         &.active{
-            span{
-                color: @fsColor3;
-            }
         }
     }
 }

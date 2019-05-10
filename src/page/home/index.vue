@@ -45,10 +45,7 @@ export default {
       this.$http
         .post("/fanxing-api/v1/index/recommend", {})
         .then(({ bstatus, data }) => {
-          // console.log(data);
-          if (bstatus.code == 0) {
-            this.recommend = data.list;
-          }
+          this.recommend = data.list;
         });
     },
     goDetail(bookId) {

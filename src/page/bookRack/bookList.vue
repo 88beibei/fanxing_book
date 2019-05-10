@@ -14,17 +14,25 @@
             :src="item.coverImg"
             alt=""
           ></div>
-        <div class="fl">
+        <div class="fl msg">
           <p>{{item.name}}</p>
-          <p>{{item.author}}</p>
+          <p>作者: {{item.author}}</p>
         </div>
       </div>
       <div
         class="del"
         @click.prevent="delItem(index,item.shelfId)"
       >删除</div>
-      <button class="btn button button-small" v-if="memCode==1" @click="goCatalog(item.bookId)">阅读</button>
-      <button class="btn button button-small" v-else-if="memCode==2" @click="goMember">续费</button>
+      <button
+        class="btn"
+        v-if="memCode==1"
+        @click="goCatalog(item.bookId)"
+      >阅读</button>
+      <button
+        class="btn button button-small"
+        v-else-if="memCode==2"
+        @click="goMember"
+      >续费</button>
     </li>
   </ul>
 </template>
@@ -49,11 +57,11 @@ export default {
       this.candelete = {};
       // splice方法是删除数组某条数据，或者向某个位置添加数据
     },
-    goCatalog(bookId){
-        this.$router.push({name: 'catalog',query:{bookId}})
+    goCatalog(bookId) {
+      this.$router.push({ name: "catalog", query: { bookId } });
     },
-    goMember(){
-        this.$router.push({name: 'member'})
+    goMember() {
+      this.$router.push({ name: "member" });
     },
     touchStart(item) {
       let touchs = event.changedTouches[0];
@@ -85,27 +93,47 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-#bookList{
-    li{
-        .btn{
-            position: absolute;
-            right: 0.5rem;
-            top: 0.5rem;
-        }
+#bookList {
+  li {
+    .btn {
+      position: absolute;
+      width: 0.5rem;
+      height: 0.24rem;
+      box-shadow: 0 2px 4px 1px rgba(197, 197, 197, 0.5);
+      border-radius: 2px;
+      // background: pink;
+      right: 0.2rem;
+      top: 0.54rem;
     }
+  }
 }
 li {
   background: #fdfdfd;
-  border-bottom: 1px solid #e1e1e1;
-  line-height: 40px;
   position: relative;
   transform: translateX(0);
   transition: all 0.3s; /*滑动效果更生动*/
-  padding-left: 10px;
+  padding: 0.24rem 0 0.24rem 0.17rem;
   .imgBox {
     img {
-      width: 1rem;
-      height: 1rem;
+      width: 0.7rem;
+      height: 0.78rem;
+    }
+  }
+  .msg {
+    p {
+      height: 0.2rem;
+      margin-left: 0.19rem;
+    }
+    p:first-child {
+      font-family: PingFangSC-Medium;
+      font-size: 0.14rem;
+      color: #333333;
+      margin-top: 0.12rem;
+      margin-bottom: 0.09rem;
+    }
+    p:last-child {
+      font-size: 0.1rem;
+      color: #999999;
     }
   }
 }
@@ -113,19 +141,22 @@ ul {
   overflow-x: hidden; /*隐藏ul x轴的滚动条*/
 }
 li.move {
-  transform: translateX(-60px); /*滑动后x轴位移-60px,使其可见*/
+  transform: translateX(-1rem); /*滑动后x轴位移-1rem,使其可见*/
 }
 .del {
   position: absolute;
   top: 0;
   right: -1px;
   z-index: 3;
-  width: 60px;
+  width: 1rem;
   height: 100%;
+  line-height: 1.26rem;
   text-align: center;
   color: #fff;
+  font-family: PingFangSC-Medium;
+  font-size: 0.16rem;
   background-color: #ff5b45;
-  transform: translateX(60px); /*默认x轴位移60px，使其隐藏*/
+  transform: translateX(1rem); /*默认x轴位移1rem，使其隐藏*/
 }
 </style>
 

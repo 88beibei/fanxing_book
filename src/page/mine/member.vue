@@ -23,6 +23,7 @@
       <p>会员类型: 6个月VIP会员</p>
       <p>支付金额: 160</p>
     </div>
+    <div v-html="content"></div>
     <button class="button button-big" @click="goRecharge">立即支付</button>
   </div>
 </template>
@@ -32,6 +33,7 @@ export default {
   data() {
     return {
       name: "",
+      content: "",
       list: [
         { title: "1个月VIP会员", price: 30 },
         { title: "3个月VIP会员", price: 80 },
@@ -49,6 +51,7 @@ export default {
       this.$http
         .post("/fanxing-api/v1/member/recharge", {})
         .then(({ bstatus, data }) => {
+          this.content = data.html
           this.$nextTick(()=>{
               document.pay_form.submit();
           });

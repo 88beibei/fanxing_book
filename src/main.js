@@ -11,12 +11,7 @@ Vue.use(MintUI)
 //请求
 // Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
-// Vue.prototype.$log = function() {
-//     console.log.apply(this, [].slice.call(arguments));
-// }
-// Vue.prototype.$get = function(name) {
-//     return this.$store.state[name];
-// }
+
 
 // var FastClick = require('fastclick');
 // FastClick.attach(document.body);
@@ -30,6 +25,7 @@ Vue.prototype.$height = document.documentElement.clientHeight / parseInt(Vue.pro
 
 
 import "@/style/font/iconfont.css";
+import "@/style/font/iconfont.js";
 // import "@/api/array";
 
 new Vue({
