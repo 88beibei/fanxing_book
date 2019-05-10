@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <router-link
+      <!-- <router-link
         class='link'
         tag='p'
         to='/home'
-      >图标</router-link>
+      >图标</router-link> -->
       <router-view></router-view>
     </div>
   </div>
@@ -13,7 +13,7 @@
 
 <script>
 // import { mapMutations, mapActions } from 'vuex';
-import { setSession, getSession } from "@/api/session";
+import { setSession, getSession } from "@/api/auth";
 import { sendSmsUrl, loginByCodeUrl, telReg } from "@/config";
 import { timing } from "@/api/utils";
 export default {
