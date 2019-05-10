@@ -24,7 +24,7 @@ Vue.prototype.$height = document.documentElement.clientHeight / parseInt(Vue.pro
 // Vue.use(layer);
 
 
-// import "@/style/font/iconfont.css";
+import "@/style/font/iconfont.css";
 // import "@/api/array";
 
 new Vue({

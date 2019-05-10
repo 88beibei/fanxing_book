@@ -1,7 +1,8 @@
 <template>
     <ul id="footer" class="flex">
-        <router-link tag="li" v-for="(item, i) in linkList" :key="i" :to="item.link" active-class="active" @click.native="active(i)">
-            <img :src="index == i ? item.active : item.icon" />
+        <router-link class="flex" tag="li" v-for="(item, i) in linkList" :key="i" :to="item.link" active-class="active" @click.native="active(i)">
+            <!-- <img :src="index == i ? item.active : item.icon" /> -->
+            <i :class="['iconfont', item.icon]"></i>
             <span>{{item.name}}</span>
         </router-link>
     </ul>
@@ -14,15 +15,15 @@ export default {
             linkList: [{
                 link: '/home/index',
                 name: '首页',
-                // icon: 'new_img',
+                icon: 'icon-zhuye',
                 // active: 'new_active'
             },{
-                link: '/home/my',
+                link: '/bookRack',
                 name: '书架',
                 // icon: 'my_img',
                 // active: 'my_active'
             },{
-                link: '/home/my',
+                link: '/mine',
                 name: '我的',
                 // icon: 'my_img',
                 // active: 'my_active'
@@ -40,7 +41,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #footer{
-    box-shadow: 1px 0 4px 1px;
+    box-shadow: 1px 0 4px 1px rgba(224,224,224,0.50);
     height: @footerHeight;
     width: 100%;
     background-color: @bgColor2;
@@ -52,6 +53,9 @@ export default {
         text-align: center;
         flex: 1;
         color: #A2A2A2;
+        &.flex{
+            flex-direction: column;
+        }
         img{/*图标*/
             display: block;
             width: 0.24rem;
