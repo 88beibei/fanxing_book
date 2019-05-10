@@ -24,6 +24,12 @@ var router = new Router({
                 import ('@/page/home/catalog')
         },
         {
+            path: '/recomment',
+            name: 'recomment',
+            component: () =>
+                import ('@/page/home/recomment')
+        },
+        {
             path: '/chapter',
             name: 'chapter',
             component: () =>

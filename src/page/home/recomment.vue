@@ -1,15 +1,10 @@
 <template>
-  <div id="home-index">
-    <Header></Header>
-    <div class="recomment">
-      <h4 class="f-l">精品推荐</h4>
-      <router-link class="f-r" to='/recomment'>更多 &gt;</router-link>
-    </div>
+  <div id="recomment">
+    <Header2 title='精品推荐'></Header2>
     <div class="book">
       <ul class="flex">
         <li v-for="(item,index) in recommend" :key="index" @click="goDetail(item.bookId)">
           <div class="book-cover" :style="{'background-image':'url('+item.bookFrontUrl+')'}">
-            <!-- <img :src="item.bookFrontUrl" alt class="bookImg"> -->
           </div>
           <p class="book-name">{{item.bookName}}</p>
           <p class="book-author">{{item.author}}</p>
@@ -21,13 +16,12 @@
 </template>
 
 <script>
-// import LeftSlider from "@/components/LeftSlider";
-import Header from "@/components/header";
+import Header2 from "@/components/header2";
 import Footer from "@/components/footer";
 export default {
-  name: "Home-index",
+  name: "recomment",
   components: {
-    Header,
+    Header2,
     Footer
   },
   data() {
@@ -60,11 +54,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#home-index {
+#recomment {
   width: 100%;
   background: #fff;
   padding-bottom: 0.49rem;
-  padding-top:0.44rem;
+  padding-top: 0.44rem;
   .recomment {
     height: 0.5rem;
     line-height: 0.5rem;
