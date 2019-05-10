@@ -1,7 +1,8 @@
 import axios from "axios";
 import qs from 'qs';
-import Cookies from 'js-cookie';
+
 import router from "@/router/index";
+import { logout } from "@/api/logout";
 import { Toast } from "mint-ui";
 
 //config.dev.proxyTable['/api'].target
@@ -34,7 +35,9 @@ http.interceptors.response.use(function (response) {
     if (code !== 0) {
         if (code == 1001) {
             return result;//后注释掉
-            console.log('未登录')
+            console.log('未登录');
+            logout();
+            location.reload();
             // store.dispatch('FedLogOut').then(() => {
             //     location.reload();
             // })
