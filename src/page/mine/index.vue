@@ -1,6 +1,12 @@
 <template>
   <div id="mine">
-    <p>我的</p>
+    <ul>
+      <li>
+        <span class="iconfont icon-zhanghu"></span>
+        <p></p>
+      </li>
+      <li></li>
+    </ul>
     <Footer></Footer>
   </div>
 </template>
@@ -12,7 +18,7 @@ export default {
   },
   data () {
     return {
-      
+    
     }
   },
   mounted () {
@@ -23,4 +29,8 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+
+</style>
+
 
