@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <router-link to=''  @click.native="goBack()"><span class="iconfont">&#xe610;</span></router-link><span class='title'>{{title}}</span>
+        <span class="iconfont" @click="goBack()">&#xe610;</span><span class='title'>{{title}}</span>
     </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
   methods: {
     goBack(){
         this.$router.go(-1)
+        console.log(111)
     }
   }
 };

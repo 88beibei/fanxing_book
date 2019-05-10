@@ -6,21 +6,23 @@
       <div class="fl">
         <h4>{{detail.bookName}}</h4>
         <p>作者：{{detail.author}}</p>
-        <p>版权：{{detail.bookName}}</p>
       </div>
     </div>
-    <div v-if="isMember==0" class='book-btn'>
-      <button class="button button-normal fl" @click="addBookRack">添加至书架</button>
-      <button class="button button-normal fr" @click="goCatalog(detail.bookId)">在线阅读</button>
+    <div class="book-btns">
+      <div v-if="isMember==1" class="book-btn">
+        <button class="btn f-l" @click="addBookRack">添加至书架</button>
+        <button class="btn btn-blue f-r" @click="goCatalog(detail.bookId)">在线阅读</button>
+      </div>
+      <div v-else-if="isMember==0" class="book-btn">
+        <button class="button button-big" @click="getMembership">开通会员</button>
+      </div>
     </div>
-    <div v-else-if="isMember==1" class='book-btn'>
-      <button class="button button-big" @click="getMembership">开通会员</button>
-    </div>
-    <div>
+
+    <div class="detail-content">
       <h5>图书简介</h5>
+      <div class="line"></div>
       <p>{{detail.introduction}}</p>
     </div>
-    
   </div>
 </template>
 <script>
@@ -134,7 +136,8 @@ export default {
 <style lang="less" scoped>
 #bookDetail {
   padding-top: 0.44rem;
-  background: #F6F6F8;
+  background: #f6f6f8;
+  // padding: 0.16rem;
   .book-content {
     padding: 0.16rem;
     .book-img {
@@ -160,8 +163,43 @@ export default {
       }
     }
   }
-  .book-btn{
-    margin-bottom: 0.2rem;
+  .book-btns {
+    padding: 0 0.16rem;
+    overflow: hidden;
+    .book-btn {
+      margin-bottom: 0.2rem;
+      .btn {
+        width: 48%;
+        height: 0.4rem;
+        border: 1px solid #DFDFE0;
+        box-shadow: 0 2px 4px 1px rgba(197, 197, 197, 0.5);
+        border-radius: 2px;
+      }
+      .btn-blue {
+        background-color: #239df2;
+        color: #fff;
+      }
+    }
+  }
+  .detail-content {
+    padding: 0.16rem;
+    h5 {
+      font-size: 0.16rem;
+      color: #333333;
+      text-align: center;
+      font-weight: 600;
+    }
+    .line {
+      width: 90%;
+      height: 1px;
+      background: #d8d8d8;
+      margin: 0.3rem 0 0.2rem 0;
+    }
+    p {
+      font-size: 14px;
+      color: #666666;
+      line-height: 0.24rem;
+    }
   }
 }
 </style>
