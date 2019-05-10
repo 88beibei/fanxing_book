@@ -1,6 +1,5 @@
 <template>
   <div id="home-index">
-    <p>首页</p>
     <div class="book">
       <ul class="flex">
         <li
@@ -63,7 +62,6 @@ export default {
 #home-index {
   width: 100%;
   height: 100%;
-  background: pink;
   .book {
     .flex {
       flex-wrap: wrap;
