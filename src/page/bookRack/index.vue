@@ -38,18 +38,12 @@ export default {
         currentPageNum,
         currentPageSize
       }).then(({bstatus,data})=>{
-          if(bstatus.code == 0){
-              if(data.totalCount > 0){ // 书架有图书
+          if(data.totalCount > 0){ // 书架有图书
                   this.isShow = false;
                   this.bookItems = data.bookItems
               }else{
                   this.isShow = true
               }
-              
-          }else if(bstatus.code == 1001){
-              console.log('登录超时')
-              this.$router.push('/login/login')
-          }
       })
     },
     // 获取用户信息

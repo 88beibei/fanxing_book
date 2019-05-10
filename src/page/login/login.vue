@@ -2,16 +2,32 @@
   <div>
     <ul>
       <li>
-        <input type="text" placeholder="请输入手机号" v-model="username">
+        <input
+          type="text"
+          placeholder="请输入手机号"
+          v-model="username"
+        >
       </li>
       <li>
-        <input type="text" placeholder="请输入密码" v-model="password">
+        <input
+          type="text"
+          placeholder="请输入密码"
+          v-model="password"
+        >
       </li>
       <li class="clear">
         <p class="fl">
-          <input type="text" placeholder="请输入验证码" v-model="vevifyCode">
+          <input
+            type="text"
+            placeholder="请输入验证码"
+            v-model="vevifyCode"
+          >
         </p>
-        <img class="fl" :src="imgSrc" @click="getNewImgCode">
+        <img
+          class="fl"
+          :src="imgSrc"
+          @click="getNewImgCode"
+        >
       </li>
       <li>
         <button @click="login">登录</button>
@@ -22,6 +38,7 @@
 <script>
 import { setSession, getSession } from "@/api/session";
 import { Toast } from "mint-ui";
+import Cookies from "js-cookie";
 export default {
   data() {
     return {
@@ -52,17 +69,19 @@ export default {
           verifyCodeToken,
           vevifyCode
         })
-        .then(({ bstatus }) => {
-          Toast({
-            message: "登录成功",
-            duration: 2000
-          });
-          setTimeout(() => {
-            this.$router.push({ path: "/home" });
-          }, 2000);
-        },()=>[
-          
-        ]);
+        .then(
+          ({ bstatus, data }) => {
+            Cookies.set("userinfo", JSON.stringify(data.user));
+            Toast({
+              message: "登录成功",
+              duration: 2000
+            });
+            setTimeout(() => {
+              this.$router.push({ path: "/home" });
+            }, 2000);
+          },
+          () => {}
+        );
     }
   }
 };
