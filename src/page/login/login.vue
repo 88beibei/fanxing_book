@@ -36,7 +36,7 @@
   </div>
 </template>
 <script>
-import { setSession, getSession } from "@/api/session";
+import { setSession, getSession } from "@/api/auth";
 import { Toast } from "mint-ui";
 import Cookies from "js-cookie";
 export default {

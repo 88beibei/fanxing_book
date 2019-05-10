@@ -9,7 +9,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta && to.meta.loginChecked && getToken()) {
     next(`/login?redirect=${to.path}`);
     // NProgress.done();
-  } else if (getToken()) {
+  } else {
     next();
     // NProgress.done();
   }

@@ -49,7 +49,7 @@
 
 <script>
 import { Toast } from "mint-ui";
-import { setSession, getSession } from "@/api/session";
+import { setSession, getSession } from "@/api/auth";
 import { telReg } from "@/config";
 import { timing } from "@/api/utils";
 export default {

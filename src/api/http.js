@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from 'qs';
 
 import router from "@/router/index";
-import { logout } from "@/api/logout";
+import { logout } from "@/api/auth";
 import { Toast } from "mint-ui";
 
 //config.dev.proxyTable['/api'].target

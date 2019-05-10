@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import http from "@/api/http";
 import { heightUrl, amountUrl, tokenUrl, timeUrl } from "@/config/index";
 Vue.use(Vuex);
-import { getSession, setSession } from "@/api/session";
+import { getSession, setSession } from "@/api/auth";
 var state = {
     token: getSession('token'),
     userId: Cookies.get('userId'),

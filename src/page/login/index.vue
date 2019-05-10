@@ -13,7 +13,7 @@
 
 <script>
 // import { mapMutations, mapActions } from 'vuex';
-import { setSession, getSession } from "@/api/session";
+import { setSession, getSession } from "@/api/auth";
 import { sendSmsUrl, loginByCodeUrl, telReg } from "@/config";
 import { timing } from "@/api/utils";
 export default {
