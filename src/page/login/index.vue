@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <router-link
+      <!-- <router-link
         class='link'
         tag='p'
         to='/home'
-      >图标</router-link>
+      >图标</router-link> -->
       <router-view></router-view>
     </div>
   </div>

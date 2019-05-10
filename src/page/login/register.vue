@@ -1,50 +1,36 @@
 <template>
-  <div>
-    <ul>
-      <li>
-        <span>+86</span>
-        <input
-          type="text"
-          placeholder="请输入手机号"
-          v-model="params.mobile"
-        >
-      </li>
-      <li class="clear">
-        <p class="fl">
-          <input
-            type="text"
-            placeholder="请输入验证码"
-            v-model="params.imgCode"
-          >
-        </p>
-        <img
-          class="fl"
-          :src="imgSrc"
-          @click="getNewImgCode"
-        >
-      </li>
-      <li class="clear">
-        <p class="fl">
-          <input
-            type="text"
-            placeholder="请输入验证码"
-            v-model="params.smsCode"
-          >
-        </p>
-        <button
-          :class="['fl','button', 'button-small', disabledCls]"
-          @click="sendSms"
-          v-html="btnValue"
-        ></button>
-      </li>
-    </ul>
-    <button
-      class="button button-big"
-      @click="register"
-    >注册</button>
-    <p>已有账号,立即注册</p>
-  </div>
+  <div class="register">
+    <div class="register-content">
+      <div class="logo">
+        <span class="iconfont">&#xe606;</span>
+        <span class="title">梵星网</span>
+      </div>
+      <ul class="register-input">
+        <li class="register-phone">
+          <span>+86</span>
+          <input type="text" class="phone" placeholder="请输入手机号" v-model="params.mobile">
+        </li>
+        <li class="clear">
+          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.imgCode">
+          <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
+        </li>
+        <li class="clear">
+          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.smsCode">
+          <button
+            :class="['fr','button', 'button-small','code-num', disabledCls]"
+            @click="sendSms"
+            v-html="btnValue"
+          ></button>
+        </li>
+      </ul>
+    </div>
 
+    <button class="confirm-btn" @click="register">下一步</button>
+    <p class="go-logo">
+      <span>已有账号？</span>
+      <router-link to="login">立即登录</router-link>
+    </p>
+  </div>
 </template>
 
 <script>
@@ -145,7 +131,7 @@ export default {
           smsCode
         })
         .then(({ bstatus, data }) => {
-            // this.$router.push({path:'/login/register'})
+          // this.$router.push({path:'/login/register'})
           if (bstatus.code == 0) {
             Toast({
               message: "手机验证成功",
@@ -153,16 +139,87 @@ export default {
               duration: 2000
             });
             setTimeout(() => {
-              this.$router.push({ path: "/login/register" ,query:{
+              this.$router.push({
+                path: "/login/register",
+                query: {
                   identifyAuthCode: data.identifyAuthCode
-              }});
+                }
+              });
             }, 2000);
-          } else{
-            Toast(bstatus.msg); 
+          } else {
+            Toast(bstatus.msg);
           }
         });
     }
   }
 };
 </script>
-
+<style lang="less" scoped>
+.register {
+  background: #fff;
+  padding: 1.3rem 0.2rem;
+  .logo {
+    text-align: center;
+    font-size: 25.2px;
+    color: #239df2;
+    margin-bottom: 0.4rem;
+  }
+  input {
+    padding: 0.13rem;
+    border: 1px solid #ededed;
+    border-radius: 2px;
+  }
+  .register-input {
+    margin-bottom: 1.2rem;
+    li {
+      margin-bottom: 0.2rem;
+      input {
+        width: 55%;
+      }
+      .auth-code {
+        width: 30%;
+        height: 0.4rem;
+      }
+      .code-num {
+        width: 30%;
+        height: 0.4rem;
+        background: #239df2;
+        border-radius: 2px;
+      }
+    }
+    .register-phone {
+      width: 100%;
+      position: relative;
+      span {
+        position: absolute;
+        left: 0.1rem;
+        top: 0.11rem;
+      }
+      .phone {
+        padding-left: 0.46rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  }
+  .go-logo {
+    text-align: center;
+    margin-top: 0.2rem;
+    font-size: 12px;
+    color: #c4c4c4;
+    line-height: 0.22rem;
+    a {
+      color: #619ffe;
+    }
+  }
+  .confirm-btn {
+    width: 100%;
+    height: 0.4rem;
+    background: #239df2;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 3px;
+  }
+}
+</style>
