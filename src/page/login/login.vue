@@ -60,7 +60,9 @@ export default {
           setTimeout(() => {
             this.$router.push({ path: "/home" });
           }, 2000);
-        });
+        },()=>[
+          
+        ]);
     }
   }
 };

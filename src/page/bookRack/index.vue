@@ -71,6 +71,9 @@ export default {
     deleteItem({index,shelfId}){
       // console.log( shelfId)
       this.bookItems.splice(index, 1);
+      if(!this.bookItems.length){
+        this.isShow = true;
+      }
       this.$http.post('/fanxing-api/v1/bookshelf/delete',{
         shelfId
       }).then(({bstatus,data})=>{

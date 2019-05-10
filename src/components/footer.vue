@@ -33,7 +33,7 @@ export default {
     watch: {
     },
     mounted () {
-        // this.index = this.$route.query.index || 0;
+        
     },
     methods: {
     }
@@ -69,9 +69,6 @@ export default {
             color: #333333;
         }
         &.active{
-            // i{
-            //     color: #239DF2; 
-            // }
         }
     }
 }
