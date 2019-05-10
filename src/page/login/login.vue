@@ -22,8 +22,8 @@
         <button @click="login">登录</button>
       </div>
       <p class="go-logo">
-        <span>已有账号？</span>
-        <router-link to="login">立即登录</router-link>
+        <span>还没有账号？</span>
+        <router-link to="/login/index">立即注册</router-link>
       </p>
     </div>
   </div>

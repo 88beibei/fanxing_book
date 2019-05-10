@@ -14,9 +14,9 @@
         </li>
       </ul>
       <div class="confirm-btn">
-        <button @click="setPassword" class>立即注册</button>
+        <button @click="setPassword">立即注册</button>
       </div>
-      <p class="go-logo"><span>已有账号？</span><router-link to="login">立即登录</router-link>
+      <p class="go-logo"><span>已有账号？</span><router-link to="/login/login">立即登录</router-link>
       </p>
     </div>
   </div>

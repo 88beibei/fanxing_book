@@ -6,17 +6,18 @@ import { Toast } from "mint-ui";
 
 NProgress.configure({ showSpinner: false })
 router.beforeEach((to, from, next) => {
-  NProgress.start();
-  if (to.meta && to.meta.loginChecked && !getToken()) {
-    Toast('请登录！');
-    next(`/login?redirect=${to.path}`);
-    // NProgress.done();
-  } else {
-    next();
-    // NProgress.done();
-  }
+    NProgress.start();
+    if (to.meta && to.meta.loginChecked && !getToken()) {
+        Toast('请登录！');
+        // next(`/login?redirect=${to.path}`);
+        next(`/login/login`);
+        // NProgress.done();
+    } else {
+        next();
+        // NProgress.done();
+    }
 })
 
 router.afterEach(() => {
-  NProgress.done()
+    NProgress.done()
 })
