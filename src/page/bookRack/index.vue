@@ -2,12 +2,14 @@
   <div id='bookrack-index'>
     <BlankRack :isShow='isShow'></BlankRack>
     <BookList :list="bookItems" :memCode="isMemberCode" @deleteItem="deleteItem"></BookList>
+    <Footer></Footer>
   </div>
 </template>
 <script>
 import Toast from "mint-ui";
 import BlankRack from "@/page/bookRack/blank";
 import BookList from "@/page/bookRack/bookList";
+import Footer from "@/components/footer";
 export default {
   data() {
     return {
@@ -20,7 +22,8 @@ export default {
   },
   components: {
     BlankRack,
-    BookList
+    BookList,
+    Footer
   },
   mounted() {
       this.getbookshelf();
@@ -56,18 +59,7 @@ export default {
         .then(({ bstatus, data }) => {
           if (bstatus.code == 0) {
             this.isMemberCode = data.userStatus
-            console.log(data.userStatus)
-            // 已登录
-            // if (data.userStatus == 1) {
-            //   // 会员状态
-            //   this.isMember = true;
-            //   this.isMemberCode = 1;
-            // } else {
-            //   // 非会员或者会员失效
-            //   this.isMember = false;
-            //   this.isMemberCode = 0;
-            //   this.name = data.name;
-            // }
+            // console.log(data.userStatus)
           } else if (bstatus.code == 1001) {
             // 未登录或者登录过期
             // this.isMember = false;
@@ -77,7 +69,7 @@ export default {
     },
     // 删除图书
     deleteItem({index,shelfId}){
-      console.log( shelfId)
+      // console.log( shelfId)
       this.bookItems.splice(index, 1);
       this.$http.post('/fanxing-api/v1/bookshelf/delete',{
         shelfId

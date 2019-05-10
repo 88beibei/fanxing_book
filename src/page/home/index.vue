@@ -51,7 +51,7 @@ export default {
         });
     },
     goDetail(bookId){
-      console.log(bookId)
+      // console.log(bookId)
        this.$router.push({path: '/bookDetail',query:{bookId}})
     }
   }
