@@ -1,8 +1,6 @@
 <template>
     <div class="header">
-        <router-link to="/home">
-            <span class="iconfont">&#xe606;</span><span class='title'>梵星网</span>
-        </router-link>
+        <router-link to=''  @click.native="goBack()"><span class="iconfont">&#xe610;</span></router-link><span class='title'>{{title}}</span>
     </div>
 </template>
 
@@ -17,10 +15,13 @@ export default {
   mounted() {
 
   },
+  props:['title'],
   computed: {},
   watch: {},
   methods: {
-    
+    goBack(){
+        this.$router.go(-1)
+    }
   }
 };
 </script>
@@ -32,7 +33,7 @@ export default {
     line-height: 0.44rem;
     background: #239DF2; 
     color: #fff;
-    padding: 0 0.2rem;
+    padding: 0 0.16rem;
     box-sizing: border-box;
     position: fixed;
     left: 0;
@@ -42,7 +43,11 @@ export default {
         font-size: 0.14rem;
     }
     .title{
-        margin-left:0.1rem;
+        margin-left:0.16rem;
+        border-left:1px solid #5AB5F4;
+        padding-left: 0.16rem;
+        height: 70%;
+        line-height: 0.308rem;
     }
 }
 </style>
