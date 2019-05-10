@@ -9,15 +9,18 @@
         <p>版权：{{detail.bookName}}</p>
       </div>
     </div>
-    <div v-if="isMember==1">
-      <button class="button button-normal" @click="addBookRack">添加至书架</button>
-      <button class="button button-normal" @click="goCatalog(detail.bookId)">在线阅读</button>
+    <div v-if="isMember==0" class='book-btn'>
+      <button class="button button-normal fl" @click="addBookRack">添加至书架</button>
+      <button class="button button-normal fr" @click="goCatalog(detail.bookId)">在线阅读</button>
     </div>
-    <div v-else-if="isMember==0">
+    <div v-else-if="isMember==1" class='book-btn'>
       <button class="button button-big" @click="getMembership">开通会员</button>
     </div>
-    <p>图书简介</p>
-    <p>{{detail.introduction}}</p>
+    <div>
+      <h5>图书简介</h5>
+      <p>{{detail.introduction}}</p>
+    </div>
+    
   </div>
 </template>
 <script>
@@ -131,6 +134,7 @@ export default {
 <style lang="less" scoped>
 #bookDetail {
   padding-top: 0.44rem;
+  background: #F6F6F8;
   .book-content {
     padding: 0.16rem;
     .book-img {
@@ -139,7 +143,6 @@ export default {
       box-sizing: border-box;
       margin-bottom: 0.06rem;
       background: center center no-repeat #fff;
-      box-shadow: 0 2px 4px 1px rgba(197, 197, 197, 0.5);
       background-size: auto 80%;
       border-radius: 4px;
     }
@@ -156,6 +159,9 @@ export default {
         margin: 0.1rem 0;
       }
     }
+  }
+  .book-btn{
+    margin-bottom: 0.2rem;
   }
 }
 </style>
