@@ -63,7 +63,10 @@ var router = new Router({
             path: '/paySuccess',
             name: 'paySuccess',
             component: () =>
-                import ('@/page/mine/paySuccess')
+                import ('@/page/mine/paySuccess'),
+            meta: {
+                loginChecked: true // 需要验证用户是否登录
+            }
         },
         {
             path: '/payFail',
@@ -82,16 +85,16 @@ var router = new Router({
             children: [{
                 path: 'index',
                 component: () =>
-                    import ('@/page/login/register'),
+                    import ('@/page/login/registerOne'),
                 meta: {
-                    title: '登录'
+                    title: '注册1'
                 }
             }, {
-                path: 'register',
+                path: 'registerTwo',
                 component: () =>
                     import ('@/page/login/registerTwo'),
                 meta: {
-                    title: '登录'
+                    title: '注册2'
                 }
             }, {
                 path: 'login',
@@ -101,6 +104,18 @@ var router = new Router({
                     title: '登录'
                 }
             }]
+        },
+        {
+            path: '/regSuccess',
+            name: 'regSuccess',
+            component: () =>
+                import ('@/page/login/registerSuccess')
+        },
+        {
+            path: '/resetSuccess',
+            name: 'resetSuccess',
+            component: () =>
+                import ('@/page/login/resetSuccess')
         },
         {
             path: '/test',

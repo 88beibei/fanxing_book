@@ -1,11 +1,6 @@
 <template>
   <div>
     <div>
-      <!-- <router-link
-        class='link'
-        tag='p'
-        to='/home'
-      >图标</router-link> -->
       <router-view></router-view>
     </div>
   </div>

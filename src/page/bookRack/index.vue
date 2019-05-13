@@ -1,5 +1,7 @@
 <template>
   <div id='bookrack-index'>
+    <!-- <div>111111</div>
+    <div>aaaaaaa{{isMemberCode}}</div> -->
     <BlankRack :isShow='isShow'></BlankRack>
     <BookList :list="bookItems" :memCode="isMemberCode" @deleteItem="deleteItem"></BookList>
     <Footer></Footer>
@@ -53,11 +55,7 @@ export default {
         .then(({ bstatus, data }) => {
           if (bstatus.code == 0) {
             this.isMemberCode = data.userStatus
-            // console.log(data.userStatus)
-          } else if (bstatus.code == 1001) {
-            // 未登录或者登录过期
-            // this.isMember = false;
-            // this.isMemberCode = 2;
+            console.log(data.userStatus)
           }
         });
     },

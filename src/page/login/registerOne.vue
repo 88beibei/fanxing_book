@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <div class="register-content">
-      <div class="logo">
+      <div class="logo" @click="goHome">
         <span class="iconfont">&#xe606;</span>
         <span class="title">梵星网</span>
       </div>
@@ -11,7 +11,7 @@
           <input type="text" class="phone" placeholder="请输入手机号" v-model="params.mobile">
         </li>
         <li class="clear">
-          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.imgCode">
+          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.imgCode" :disabled="imgDisabled">
           <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
         </li>
         <li class="clear">
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       imgSrc: "",
+      imgDisabled: false,
       btnDisabled: 0,
       btnValue: "发送短信验证码",
       params: {
@@ -73,10 +74,13 @@ export default {
     }
   },
   methods: {
+    goHome(){
+      this.$router.push({name: 'home'})
+    },
     sendSms() {
       if (this.btnDisabled != 1) return;
       if (!telReg.test(this.params.mobile)) {
-        Toast("手机号不合法");
+        Toast("手机号码格式错误，请重新输入");
         return;
       }
       if (this.params.imgCode.length == 0) {
@@ -86,7 +90,7 @@ export default {
       let { mobile, imgCode } = this.params;
       let verifyCodeToken = getSession("verifyCodeToken");
       this.$http
-        .post("fanxing-api/v1/user/register/step1", {
+        .post("/fanxing-api/v1/user/register/step1", {
           mobile: mobile,
           imageCode: imgCode,
           verifyCodeToken
@@ -95,8 +99,9 @@ export default {
           console.log(bstatus);
           if (bstatus.code == 0) {
             Toast("短信发送成功");
+            this.imgDisabled = true;
             timing(
-              { maxTime: 60, disTime: 1 },
+              { maxTime: 120, disTime: 1 },
               time => {
                 // console.log(time);
                 this.btnDisabled = 2;
@@ -106,6 +111,9 @@ export default {
               () => {
                 this.btnValue = "发送短信验证码";
                 this.btnDisabled = 1;
+                this.imgDisabled = false;
+                this.params.imgCode = '';
+                this.getNewImgCode();
               }
             );
           } else if (bstatus.code == 2001) {

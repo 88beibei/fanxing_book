@@ -14,20 +14,20 @@
     </ul>
     <div class="payName">
       <p>支付方式</p>
-      <div>
-        <span class="iconfont icon-yinlianzhifu"></span>
+      <div class="tip">
+        <img :src="imgSrc" />
         <span>银联支付</span>
       </div>
     </div>
-    <div>
+    <div class="payInfo">
       <p>订单信息</p>
-      <p>充值账号:{{name}}</p>
-      <p>会员类型: 6个月VIP会员</p>
-      <p>支付金额: 160</p>
+      <p><span>充值账号: </span><span>{{name}}</span></p>
+      <p><span>会员类型:</span><span>1个月VIP会员</span></p>
+      <p><span>支付金额:</span><span>¥30</span></p>
     </div>
     <div v-html="content"></div>
     <button
-      class="button button-big"
+      class="button button-big btn"
       @click="goRecharge"
     >立即支付</button>
   </div>
@@ -35,6 +35,7 @@
 
 <script>
 import Header2 from "@/components/header2";
+import imgSrc from "@/images/paycard.png";
 export default {
   components: {
     Header2
@@ -44,6 +45,7 @@ export default {
       name: "",
       content: "",
       title: "开通会员",
+      imgSrc: imgSrc,
       list: [
         { title: "1个月VIP会员", price: 30 },
         { title: "3个月VIP会员", price: 80 },
@@ -96,12 +98,50 @@ export default {
       }
     }
   }
-  .payName{
-    font-family: PingFangSC-Medium;
-    font-size: 0.18rem;
-    color: #333333;
-    margin-top: 0.25rem;
-    margin-left: 0.25rem;
+  .payName {
+    p {
+      font-family: PingFangSC-Medium;
+      font-size: 0.18rem;
+      color: #333333;
+      // margin-top: 0.25rem;
+      // margin-left: 0.25rem;
+      margin: 0.25rem 0 0.12rem 0.25rem;
+    }
+    .tip {
+      width: 1.22rem;
+      height: 0.4rem;
+      line-height: 0.4rem;
+      margin-left: 0.2rem;
+      img {
+        width: 0.29rem;
+        height: 0.18rem;
+        margin: 0 0.12rem 0 0.14rem;
+      }
+      span {
+        font-size: 0.14rem;
+        color: #333333;
+      }
+    }
+  }
+  .payInfo {
+    p{
+      margin-left: 0.25rem;
+      font-size: 0.14rem;
+      color: #666666;
+      margin-bottom: 0.04rem;
+      span{
+        margin-right: 0.1rem;
+      }
+    }
+    p:first-child {
+      font-family: PingFangSC-Medium;
+      font-size: 0.18rem;
+      color: #333333;
+      margin: 0.26rem 0 0.09rem 0.25rem;
+    }
+  }
+  .btn{
+    margin-top: 0.5rem;
   }
 }
 </style>

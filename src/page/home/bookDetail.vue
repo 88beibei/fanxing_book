@@ -10,7 +10,10 @@
     </div>
     <div class="book-btns">
       <div v-if="isMember==1" class="book-btn">
-        <button class="btn f-l" @click="addBookRack">添加至书架</button>
+        <div>
+          <button class="btn f-l" @click="addBookRack" v-if="!shelfStatus">添加至书架</button>
+          <button class="btn f-l" v-else>已添加书架</button>
+        </div>
         <button class="btn btn-blue f-r" @click="goCatalog(detail.bookId)">在线阅读</button>
       </div>
       <div v-else-if="isMember==0" class="book-btn">
@@ -36,6 +39,7 @@ export default {
       detail: "",
       isMember: 2,
       isMemberCode: 2, // 默认未登录
+      shelfStatus: false,
       name: "" // 用户手机号
     };
   },
@@ -72,7 +76,7 @@ export default {
     // 获取用户信息
     getUserDetail() {
       this.$http
-        .post("/fanxing-api/v1/user/detail", {})
+        .post("/fanxing-api/v1/user/detail", {bookId: this.bookId}, false)
         .then(({ bstatus, data }) => {
           if (bstatus.code == 0) {
             // 已登录
@@ -86,8 +90,21 @@ export default {
               this.isMemberCode = 0;
               this.name = data.name;
             }
+              this.shelfStatus =  data.shelfStatus
+              console.log(this.shelfStatus)
+            // if(data.shelfStatus){
+            //   this.shelfStatus = ture
+            // }else{
+            //   this.shelfStatus = false;
+            // }
+
           } else if (bstatus.code == 1001) {
             // 未登录或者登录过期
+            this.isMember = 0;
+            this.isMemberCode = 2;
+          }
+        },()=>{
+          if(bstatus.code == 1001){
             this.isMember = 0;
             this.isMemberCode = 2;
           }
@@ -122,6 +139,7 @@ export default {
               position: "top",
               duration: 3000
             });
+            this.shelfStatus = true;
           } else {
             Toast({
               message: bstatus.msg,

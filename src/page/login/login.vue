@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="register-content">
-      <div class="logo">
+      <div class="logo" @click="goHome">
         <span class="iconfont">&#xe606;</span>
         <span class="title">梵星网</span>
       </div>
@@ -38,12 +38,15 @@ export default {
       username: "",
       password: "",
       vevifyCode: "",
-      imgSrc: ""
+      imgSrc: "",
+      path: "",
     };
   },
   mounted() {
     // 获取图形验证码
     this.getNewImgCode();
+    console.log(this.$route.query)
+    this.path = this.$route.query.redirect
   },
   methods: {
     getNewImgCode() {
@@ -76,6 +79,9 @@ export default {
           },
           () => {}
         );
+    },
+    goHome(){
+      this.$router.push({name: 'home'})
     }
   }
 };

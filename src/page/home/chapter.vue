@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import {Toast} from "mint-ui";
 export default {
   data() {
     return {
@@ -17,7 +18,8 @@ export default {
       chapter: 1,
       bookId: 1,
       startX: 0,
-      endX: 0
+      endX: 0,
+      totalCount: 0
     };
   },
   mounted() {
@@ -41,6 +43,7 @@ export default {
             var reg = /<body[^>]*>([\s\S]*)<\/body>/;
             var arr = reg.exec(data.content);
             this.content = arr[1];
+            this.totalCount = data.totalCount;
           } else if (bstatus.code == 1003) {
             console.log("已经滑到最后了");
           }
@@ -56,21 +59,24 @@ export default {
       // 记录结束位置
       this.endX = e.changedTouches[0].clientX;
       let slideDis = this.startX - this.endX;
-      if (slideDis > 30) {
+      if (slideDis > 80) {
         //   console.log('左滑')
-        this.chapter += 1;
-        this.getDetails();
-        document.documentElement.scrollTop = 0;
+        if(this.chapter < this.totalCount){
+          this.chapter += 1;
+          this.getDetails();
+          document.documentElement.scrollTop = 0;
+        }else{
+          Toast("已至最后一章")
+        }
       }
-      if (slideDis < -30) {
+      if (slideDis < -80) {
         //   console.log('右滑')
         if(this.chapter > 1){
            this.chapter -= 1;
             this.getDetails();
             document.documentElement.scrollTop = 0;
         }else{
-
-            console.log('已经滑到最左边了')
+            Toast("已至第一章")
         }
       }
     }
