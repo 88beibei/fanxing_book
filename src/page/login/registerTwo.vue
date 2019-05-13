@@ -1,165 +1,84 @@
 <template>
-  <div class="register">
+  <div class="set-pwd">
     <div class="register-content">
-      <div class="logo" @click="goHome">
+      <div class="logo">
         <span class="iconfont">&#xe606;</span>
         <span class="title">梵星网</span>
       </div>
       <ul class="register-input">
-        <li class="register-phone">
-          <span>+86</span>
-          <input type="text" class="phone" placeholder="请输入手机号" v-model="params.mobile">
+        <li class="register-pwd">
+          <input type="password" class="pwd" placeholder="请设置登录密码(支持8-20位数字、字母)" v-model="passWord">
         </li>
-        <!-- <li class="clear">
-          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.imgCode">
-          <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
-        </li> -->
-        <li class="clear">
-          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.smsCode">
-          <button
-            :class="['fr','button', 'button-small','code-num', disabledCls]"
-            @click="sendSms"
-            v-html="btnValue"
-          ></button>
+        <li class="register-pwd">
+          <input type="password" placeholder="请重复输入登录密码(支持8-20位数字、字母)" v-model="repeatPassWord">
         </li>
       </ul>
+      <div class="confirm-btn">
+        <button @click="setPassword">确认</button>
+      </div>
+      <p class="go-logo"><span>已有账号？</span><router-link to="/login/login">立即登录</router-link>
+      </p>
     </div>
-
-    <button class="confirm-btn" @click="registerTwo">下一步</button>
-    <p class="go-logo">
-      <span>已有账号？</span>
-      <router-link to="login">立即登录</router-link>
-    </p>
   </div>
 </template>
 
 <script>
 import { Toast } from "mint-ui";
-import { setSession, getSession } from "@/api/auth";
-import { telReg } from "@/config";
-import { timing } from "@/api/utils";
 export default {
-  name: "Login-register",
   data() {
     return {
-      imgSrc: "",
-      btnDisabled: 0,
-      btnValue: "发送短信验证码",
-      params: {
-        mobile: "",
-        imgCode: "",
-        smsCode: "" //手机验证码
-      }
+      identifyAuthCode: "",
+      passWord: "",
+      repeatPassWord: ""
     };
   },
-  watch: {
-    "params.mobile"(val) {
-      console.log(val);
-      if (val.length > 0 && this.btnDisabled != 2) {
-        this.btnDisabled = 1;
-      } else if (val.length == 0) {
-        this.btnDisabled = 0;
-      }
-    }
-  },
   mounted() {
-      this.params.mobile = this.$route.query.mobile
-  },
-  computed: {
-    disabledCls() {
-      var conf = ["disabled", "", "timing"];
-      return conf[this.btnDisabled];
-    }
+    let { identifyAuthCode } = this.$route.query;
+    this.identifyAuthCode = identifyAuthCode;
   },
   methods: {
-    goHome(){
-      this.$router.push({name: 'home'})
-    },
-    sendSms() {
-      if (this.btnDisabled != 1) return;
-      // if (!telReg.test(this.params.mobile)) {
-      //   Toast("手机号码格式错误，请重新输入");
-      //   return;
-      // }
-      // if (this.params.imgCode.length == 0) {
-      //   Toast("图形验证码未填");
-      //   return;
-      // }
-      let { mobile, imgCode } = this.params;
-      let verifyCodeToken = getSession("verifyCodeToken");
-      this.$http
-        .post("/fanxing-api/v1/user/register/step1", {
-          mobile: mobile,
-          imageCode: imgCode,
-          verifyCodeToken
-        },false)
-        .then(({ bstatus }) => {
-          console.log(bstatus);
-          if (bstatus.code == 0) {
-            Toast("短信发送成功");
-            timing(
-              { maxTime: 120, disTime: 1 },
-              time => {
-                // console.log(time);
-                this.btnDisabled = 2;
-                this.btnValue =
-                  '<font color="#0ABC8">' + time + "s</font> 重新获取";
-              },
-              () => {
-                this.btnValue = "发送短信验证码";
-                this.btnDisabled = 1;
-              }
-            );
-          }
-          //  else if (bstatus.code == 2001) {
-          //   Toast(bstatus.msg);
-          // } else {
-          //   this.btnDisabled = 1;
-          // }
-        },()=>{
-          if(bstatus.code == 2001){
-            Toast(bstatus.msg);
-          }else{
-            this.btnDisabled = 1;
-          }
-        });
-    },
- 
-    registerTwo() {
-      let { mobile, smsCode } = this.params;
-      let verifyCodeToken = getSession("verifyCodeToken");
-      this.$http
-        .post("/fanxing-api/v1/user/register/step2", {
-          mobile,
-          verifyCodeToken,
-          smsCode
-        })
-        .then(({ bstatus, data }) => {
-          // this.$router.push({path:'/login/register'})
-          if (bstatus.code == 0) {
-            Toast({
-              message: "手机验证成功",
-              position: "middle",
-              duration: 2000
-            });
-            setTimeout(() => {
-              this.$router.push({
-                path: "/login/register",
-                query: {
-                  identifyAuthCode: data.identifyAuthCode
-                }
+    setPassword() {
+      let passwordReg = /^[0-9A-Za-z]{8,20}$/;
+      if (this.passWord.length == 0) {
+        Toast("请输入密码");
+        return;
+      } else if (!passwordReg.test(this.passWord)) {
+        Toast("请输入8-20位数字字母");
+        return;
+      }
+
+      if (this.passWord == this.repeatPassWord) {
+        let { identifyAuthCode, passWord, repeatPassWord } = this;
+        this.$http
+          .post("/fanxing-api/v1/user/register/step3", {
+            identifyAuthCode:identifyAuthCode,
+            passWord,
+            repeatPassWord
+          })
+          .then(({ bstatus }) => {
+            if (bstatus.code == 0) {
+              Toast({
+                message: "操作成功",
+                // iconClass: "icon icon-success",
+                duration: 2000
               });
-            }, 2000);
-          } else {
-            Toast(bstatus.msg);
-          }
-        });
+              setTimeout(() => {
+                this.$router.push({ path: "/login/login" });
+              }, 2000);
+            } else {
+              Toast(bstatus.msg);
+            }
+          });
+      } else {
+        Toast("两次输入的密码不一致");
+      }
     }
   }
 };
 </script>
 <style lang="less" scoped>
-.register {
+.set-pwd {
+  height: 100%;
   background: #fff;
   padding: 1.3rem 0.2rem;
   .logo {
@@ -172,38 +91,27 @@ export default {
     padding: 0.13rem;
     border: 1px solid #ededed;
     border-radius: 2px;
+    box-sizing: border-box;
   }
   .register-input {
     margin-bottom: 1.2rem;
-    li {
+    .register-pwd {
+      width: 100%;
       margin-bottom: 0.2rem;
       input {
-        width: 55%;
-      }
-      .auth-code {
-        width: 30%;
-        height: 0.4rem;
-      }
-      .code-num {
-        width: 30%;
-        height: 0.4rem;
-        background: #239df2;
-        border-radius: 2px;
+        width: 100%;
       }
     }
-    .register-phone {
+  }
+  .confirm-btn {
+    button {
       width: 100%;
-      position: relative;
-      span {
-        position: absolute;
-        left: 0.1rem;
-        top: 0.11rem;
-      }
-      .phone {
-        padding-left: 0.46rem;
-        width: 100%;
-        box-sizing: border-box;
-      }
+      height: 0.4rem;
+      background: #239df2;
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 3px;
     }
   }
   .go-logo {
@@ -211,19 +119,9 @@ export default {
     margin-top: 0.2rem;
     font-size: 12px;
     color: #c4c4c4;
-    line-height: 0.22rem;
     a {
       color: #619ffe;
     }
-  }
-  .confirm-btn {
-    width: 100%;
-    height: 0.4rem;
-    background: #239df2;
-    font-size: 16px;
-    color: #ffffff;
-    font-weight: 600;
-    border-radius: 3px;
   }
 }
 </style>

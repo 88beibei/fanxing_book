@@ -150,7 +150,7 @@ export default {
             });
             setTimeout(() => {
               this.$router.push({
-                path: "/login/register",
+                path: "/login/registerTwo",
                 query: {
                   identifyAuthCode: data.identifyAuthCode
                 }

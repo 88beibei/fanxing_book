@@ -56,10 +56,10 @@ export default {
             repeatPassWord
           })
           .then(({ bstatus }) => {
-            if (bstatus.code == 1001) {
+            if (bstatus.code == 0) {
               Toast({
                 message: "操作成功",
-                iconClass: "icon icon-success",
+                // iconClass: "icon icon-success",
                 duration: 2000
               });
               setTimeout(() => {
