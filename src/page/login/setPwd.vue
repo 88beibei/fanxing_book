@@ -63,7 +63,7 @@ export default {
                 duration: 2000
               });
               setTimeout(() => {
-                this.$router.push({ path: "/login/login" });
+                this.$router.push({ path: "/resetSuccess" });
               }, 2000);
             } else {
               Toast(bstatus.msg);
