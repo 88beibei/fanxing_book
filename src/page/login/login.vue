@@ -15,7 +15,7 @@
         <li class="clear">
           <input class="fl" type="text" placeholder="请输入验证码" v-model="vevifyCode">
           <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
-          <p class="fr forget-pwd">忘记密码</p>
+          <router-link to='/login/forgetpwd' class="fr forget-pwd">忘记密码</router-link>
         </li>
       </ul>
       <div class="confirm-btn">
