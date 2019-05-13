@@ -1,9 +1,9 @@
 <template>
-  <div class="register">
+  <div class="forget-pwd">
     <div class="register-content">
-      <div class="logo" @click="goHome">
+      <div class="logo">
         <span class="iconfont">&#xe606;</span>
-        <span class="title">梵星网</span>
+        <span class="title">梵星网123</span>
       </div>
       <ul class="register-input">
         <li class="register-phone">
@@ -11,7 +11,7 @@
           <input type="text" class="phone" placeholder="请输入手机号" v-model="params.mobile">
         </li>
         <li class="clear">
-          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.imgCode" :disabled="imgDisabled">
+          <input class="fl" type="text" :disabled='isDisabled' placeholder="请输入验证码" v-model="params.imgCode">
           <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
         </li>
         <li class="clear">
@@ -26,10 +26,10 @@
     </div>
 
     <button class="confirm-btn" @click="register">下一步</button>
-    <p class="go-logo">
+    <!-- <p class="go-logo">
       <span>已有账号？</span>
       <router-link to="login">立即登录</router-link>
-    </p>
+    </p> -->
   </div>
 </template>
 
@@ -43,7 +43,6 @@ export default {
   data() {
     return {
       imgSrc: "",
-      imgDisabled: false,
       btnDisabled: 0,
       btnValue: "发送短信验证码",
       isDisabled:false,
@@ -75,13 +74,10 @@ export default {
     }
   },
   methods: {
-    goHome(){
-      this.$router.push({name: 'home'})
-    },
     sendSms() {
       if (this.btnDisabled != 1) return;
       if (!telReg.test(this.params.mobile)) {
-        Toast("手机号码格式错误，请重新输入");
+        Toast("手机号不合法");
         return;
       }
       if (this.params.imgCode.length == 0) {
@@ -91,16 +87,17 @@ export default {
       let { mobile, imgCode } = this.params;
       let verifyCodeToken = getSession("verifyCodeToken");
       this.$http
-        .post("/fanxing-api/v1/user/register/step1", {
+        .post("fanxing-api/v1/user/register/step1", {
           mobile: mobile,
           imageCode: imgCode,
-          verifyCodeToken
+          verifyCodeToken,
+          businessType:'2'
         })
         .then(({ bstatus }) => {
           console.log(bstatus);
           if (bstatus.code == 0) {
+            this.isDisabled = true;
             Toast("短信发送成功");
-            this.imgDisabled = true;
             timing(
               { maxTime: 120, disTime: 1 },
               time => {
@@ -112,8 +109,7 @@ export default {
               () => {
                 this.btnValue = "发送短信验证码";
                 this.btnDisabled = 1;
-                this.imgDisabled = false;
-                this.params.imgCode = '';
+                this.isDisabled = false;
                 this.getNewImgCode();
               }
             );
@@ -150,7 +146,7 @@ export default {
             });
             setTimeout(() => {
               this.$router.push({
-                path: "/login/register",
+                path: "/login/setpwd",
                 query: {
                   identifyAuthCode: data.identifyAuthCode
                 }
@@ -166,7 +162,8 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.register {
+.forget-pwd {
+  height: 100%;
   background: #fff;
   padding: 1.3rem 0.2rem;
   .logo {
@@ -204,7 +201,8 @@ export default {
       span {
         position: absolute;
         left: 0.1rem;
-        top: 0.11rem;
+        top: 0.12rem;
+        font-size: 0.12rem;
       }
       .phone {
         padding-left: 0.46rem;

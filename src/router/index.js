@@ -103,6 +103,20 @@ var router = new Router({
                 meta: {
                     title: '登录'
                 }
+            },{
+                path: 'forgetpwd',
+                component: () =>
+                    import ('@/page/login/forgetPwd'),
+                meta: {
+                    title: '登录'
+                }
+            },{
+                path: 'setpwd',
+                component: () =>
+                    import ('@/page/login/setPwd'),
+                meta: {
+                    title: '登录'
+                }
             }]
         },
         {
