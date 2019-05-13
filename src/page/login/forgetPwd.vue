@@ -99,7 +99,7 @@ export default {
             this.isDisabled = true;
             Toast("短信发送成功");
             timing(
-              { maxTime: 60, disTime: 1 },
+              { maxTime: 120, disTime: 1 },
               time => {
                 // console.log(time);
                 this.btnDisabled = 2;
@@ -109,6 +109,8 @@ export default {
               () => {
                 this.btnValue = "发送短信验证码";
                 this.btnDisabled = 1;
+                this.isDisabled = false;
+                this.getNewImgCode();
               }
             );
           } else if (bstatus.code == 2001) {
@@ -152,6 +154,7 @@ export default {
             }, 2000);
           } else {
             Toast(bstatus.msg);
+            this.getNewImgCode();
           }
         });
     }

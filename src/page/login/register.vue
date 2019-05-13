@@ -11,7 +11,7 @@
           <input type="text" class="phone" placeholder="请输入手机号" v-model="params.mobile">
         </li>
         <li class="clear">
-          <input class="fl" type="text" placeholder="请输入验证码" v-model="params.imgCode">
+          <input class="fl" type="text" :disabled='isDisabled' placeholder="请输入验证码" v-model="params.imgCode">
           <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
         </li>
         <li class="clear">
@@ -45,6 +45,7 @@ export default {
       imgSrc: "",
       btnDisabled: 0,
       btnValue: "发送短信验证码",
+      isDisabled:false,
       params: {
         mobile: "",
         imgCode: "",
@@ -95,8 +96,9 @@ export default {
           console.log(bstatus);
           if (bstatus.code == 0) {
             Toast("短信发送成功");
+            this.isDisabled = true;
             timing(
-              { maxTime: 60, disTime: 1 },
+              { maxTime: 120, disTime: 1 },
               time => {
                 // console.log(time);
                 this.btnDisabled = 2;
@@ -106,12 +108,14 @@ export default {
               () => {
                 this.btnValue = "发送短信验证码";
                 this.btnDisabled = 1;
+                this.isDisabled = false;
               }
             );
           } else if (bstatus.code == 2001) {
             Toast(bstatus.msg);
           } else {
             this.btnDisabled = 1;
+            this.isDisabled = false;
           }
         });
     },
@@ -148,6 +152,7 @@ export default {
             }, 2000);
           } else {
             Toast(bstatus.msg);
+            this.getNewImgCode();
           }
         });
     }
