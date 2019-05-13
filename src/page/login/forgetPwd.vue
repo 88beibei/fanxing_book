@@ -87,7 +87,7 @@ export default {
       let { mobile, imgCode } = this.params;
       let verifyCodeToken = getSession("verifyCodeToken");
       this.$http
-        .post("fanxing-api/v1/user/register/step1", {
+        .post("/fanxing-api/v1/user/register/step1", {
           mobile: mobile,
           imageCode: imgCode,
           verifyCodeToken,
