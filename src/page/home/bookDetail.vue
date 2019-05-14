@@ -14,7 +14,7 @@
           <button :class="{'btn': true,'f-l': true, 'disabled': isDisabled}" @click="addBookRack" v-if="!shelfStatus">添加至书架</button>
           <button class="btn f-l" v-else>已添加书架</button>
         </div>
-        <button class="btn btn-blue f-r" @click="goCatalog(detail.bookId)">在线阅读</button>
+        <button class="btn btn-blue f-r" @click="goChapter(detail.bookId)">在线阅读</button>
       </div>
       <div v-else-if="isMember==0" class="book-btn">
         <button class="button button-big" @click="getMembership">开通会员</button>
@@ -69,8 +69,8 @@ export default {
           }
         });
     },
-    // 跳转到目录
-    goCatalog(bookId) {
+    // 跳转到相应章节
+    goChapter(bookId) {
       console.log(bookId);
       // this.$router.push({ name: "catalog", query: { bookId } });
       this.$router.push({ name: "chapter", query: { bookId } });

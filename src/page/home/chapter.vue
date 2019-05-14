@@ -1,10 +1,9 @@
 <template>
 <div class='chapter'>
-  <Header2></Header2>
   <div class='set-bar' v-show='showbar'>
-    <span class='f-l iconfont l-icon' @click='showCate'>&#xe60e;</span>
+    <span :class="{'f-l':true, 'iconfont': true, 'l-icon': true, 'isChecked':isChecked}" @click='showCate'>&#xe60e;</span>
     <span class='f-r iconfont r-icon' @click='showbgc'>&#xe717;</span>
-    <Catalog v-show='showCateContent'></Catalog>
+    <Catalog v-show='showCateContent' @hideCata="hideCata" @goDetail="goDetail"></Catalog>
   </div>
   <div
     id='mine-index'
@@ -28,12 +27,13 @@ export default {
     return {
       content: "",
       chapter: 1,
-      bookId: 1,
+      bookId: "",
       startX: 0,
       endX: 0,
       totalCount: 0,
       showbar:false,
-      showCateContent:false
+      showCateContent:false,
+      isChecked: false,
     };
   },
   components:{
@@ -42,13 +42,26 @@ export default {
   },
   mounted() {
     console.log(this.$route.query)
-    let {bookId,chapter} = this.$route.query
-    console.log(typeof Number(chapter))
+    // let {bookId,chapter} = this.$route.query
+    let {bookId} = this.$route.query
+    // console.log(typeof Number(chapter))
     this.bookId = bookId;
-    this.chapter = chapter;
+    // this.chapter = chapter;
     this.getDetails();
   },
   methods: {
+    hideCata(){
+      this.showCateContent = false;
+      this.isChecked = false;
+    },
+    goDetail({bookId,chapter}){
+        this.bookId = bookId;
+        this.chapter = chapter;
+        this.getDetails();
+        this.showSet();
+        document.documentElement.scrollTop = 0;
+
+    },
     getDetails() {
       let { bookId, chapter } = this;
       this.$http
@@ -62,6 +75,7 @@ export default {
             var arr = reg.exec(data.content);
             this.content = arr[1];
             this.totalCount = data.totalCount;
+            console.log( this.totalCount)
           } else if (bstatus.code == 1003) {
             console.log("已经滑到最后了");
           }
@@ -79,6 +93,8 @@ export default {
       let slideDis = this.startX - this.endX;
       if (slideDis > 80) {
         //   console.log('左滑')
+        console.log('this.chapter' + this.chapter)
+        console.log('this.totalCount' + this.totalCount)
         if(this.chapter < this.totalCount){
           this.chapter += 1;
           this.getDetails();
@@ -104,6 +120,7 @@ export default {
     //点击目录图标显示目录
     showCate(){
       this.showCateContent = !this.showCateContent;
+      this.isChecked = this.showCateContent
     },
     showbgc(){
 
@@ -113,7 +130,7 @@ export default {
 </script>
 <style lang="less">
 .chapter{
-  padding-top: 0.44rem;
+  // padding-top: 0.44rem;
   position: relative;
   .set-bar{
     width: 100%;
@@ -121,12 +138,15 @@ export default {
     line-height: 0.32rem;
     background-color: #fff;
     position: fixed;
-    top: 0.44rem;
+    top: 0;
     left: 0;
     // padding: 0 0.2rem;
     box-sizing: border-box;
     .l-icon{
       margin-left: 0.2rem;
+      &.isChecked{
+        color: #239DF2;
+      }
     }
     .r-icon{
       margin-right: 0.2rem;
@@ -135,7 +155,7 @@ export default {
 }
 #mine-index {
   padding: 0.12rem 0.1rem;
-  background: pink;
+  background: F6F6F8;
   word-wrap: break-word;
   font-size: 0.14rem;
   ul,

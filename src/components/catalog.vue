@@ -2,7 +2,7 @@
   <div class='cate'>
     <div class='cate-content'>
       <span class='f-l l-content'>目录</span>
-      <span class='iconfont f-r'>&#xe60f;</span>
+      <span class='iconfont f-r' @click="hideCata">&#xe60f;</span>
     </div>
     <ul>
       <li
@@ -30,6 +30,9 @@ export default {
     this.getCatalog();
   },
   methods: {
+    hideCata(){
+        this.$emit("hideCata")
+    },
     getCatalog() {
       let { bookId } = this;
       this.$http
@@ -44,17 +47,21 @@ export default {
     },
     goDetail(bookId, chapter) {
       console.log(bookId, chapter);
-      this.$router.push({ name: "chapter", query: { bookId, chapter } });
+      this.$emit("goDetail",{bookId,chapter})
+      // this.$router.push({ name: "chapter", query: { bookId, chapter } });
     }
   }
 };
 </script>
 <style lang="less" scoped>
 .cate{
-  position: relative;
+  // position: relative;
   left: 0;
   top: 0.32rem;
   width: 100%;
+  height: 4.58rem;
+  overflow: hidden;
+  overflow-y: scroll;
   background-color: #fff;
   .cate-content{
     height: 0.38rem;
@@ -62,7 +69,7 @@ export default {
     border-top:1px solid #ccc;
     border-bottom:1px solid #ccc;
     .l-content{
-      margin-left: -0.16rem;
+      margin-left: 0.16rem;
     }
   }
   ul{
