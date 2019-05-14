@@ -26,13 +26,14 @@
       <button
         class="btn"
         v-if="memCode==1"
-        @click="goCatalog(item.bookId)"
+        @click="goChapter(item.bookId)"
       >阅读</button>
       <button
         class="btn button button-small"
         v-else-if="memCode==2"
         @click="goMember"
       >续费</button>
+       <div class="line"></div>
     </li>
   </ul>
 </template>
@@ -57,8 +58,9 @@ export default {
       this.candelete = {};
       // splice方法是删除数组某条数据，或者向某个位置添加数据
     },
-    goCatalog(bookId) {
-      this.$router.push({ name: "catalog", query: { bookId } });
+    goChapter(bookId) {
+      // this.$router.push({ name: "catalog", query: { bookId } });
+      this.$router.push({ name: "chapter", query: { bookId } });
     },
     goMember() {
       this.$router.push({ name: "member" });
@@ -94,6 +96,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #bookList {
+  margin-top: 0.44rem;
   li {
     .btn {
       position: absolute;
@@ -105,18 +108,25 @@ export default {
       right: 0.2rem;
       top: 0.54rem;
     }
+    .line{
+      height: 1px;
+      background: #ededed;
+      margin-top: 0.19rem;
+      margin-right: 0.2rem;
+    }
   }
 }
 li {
-  background: #fdfdfd;
+  background: #fff;
   position: relative;
   transform: translateX(0);
   transition: all 0.3s; /*滑动效果更生动*/
-  padding: 0.24rem 0 0.24rem 0.17rem;
+  padding: 0.2rem 0 0 0.17rem;
   .imgBox {
     img {
       width: 0.7rem;
-      height: 0.78rem;
+      height: 0.85rem;
+      box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
     }
   }
   .msg {

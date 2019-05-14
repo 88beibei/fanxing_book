@@ -68,6 +68,11 @@ export default {
     line-height: 0.38rem;
     border-top:1px solid #ccc;
     border-bottom:1px solid #ccc;
+    .f-r{
+      // margin-right: 0.14rem;
+      font-size: 0.2rem;
+      padding: 0 0.14rem;
+    }
     .l-content{
       margin-left: 0.16rem;
     }

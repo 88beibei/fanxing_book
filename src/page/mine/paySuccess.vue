@@ -29,7 +29,7 @@ export default {
       })
     },
     sure(){
-     let goBeforeMember = sessionStorage.getItem("toMemberPath") || '/home';
+     let goBeforeMember =  localStorage.getItem("toMemberPath") || '/home';
       this.$router.push({path: goBeforeMember});
     }
   }

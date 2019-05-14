@@ -28,7 +28,7 @@ export default {
 <style lang="less">
 #app {
   // font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  font-family: 'PingFangSC-Regular';
+  font-family: PingFangSC-Regular;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;

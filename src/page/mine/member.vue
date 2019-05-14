@@ -69,6 +69,9 @@ export default {
             document.pay_form.submit();
           });
         });
+    },
+    getUserDetail(){
+      // this.$http.post()
     }
   }
 };

@@ -78,7 +78,7 @@ export default {
     // 获取用户信息
     getUserDetail() {
       this.$http
-        .post("/fanxing-api/v1/user/detail", {bookId: this.bookId}, false)
+        .post("/fanxing-api/v1/user/detail", {bookId: this.bookId})
         .then(({ bstatus, data }) => {
           if (bstatus.code == 0) {
             // 已登录
@@ -95,17 +95,13 @@ export default {
               this.shelfStatus =  data.shelfStatus
               console.log(this.shelfStatus)
 
-          } 
-          // else if (bstatus.code == 1001) {
-          //   // 未登录或者登录过期
-          //   this.isMember = 0;
-          //   this.isMemberCode = 2;
-          // }
-        },()=>{
-          if(bstatus.code == 1001){
+          }  else if (bstatus.code == 1001) {
+            // 未登录或者登录过期
+            console.log('aaaa111')
             this.isMember = 0;
             this.isMemberCode = 2;
           }
+        },()=>{
         });
     },
     // 开通会员

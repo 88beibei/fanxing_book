@@ -11,8 +11,8 @@
           <div class="book-cover" :style="{'background-image':'url('+item.bookFrontUrl+')'}">
             <!-- <img :src="item.bookFrontUrl" alt class="bookImg"> -->
           </div>
-          <p class="book-name">{{item.bookName}}</p>
-          <p class="book-author">{{item.author}}</p>
+          <p class="book-name txt">{{item.bookName}}</p>
+          <p class="book-author txt">{{item.author}}</p>
         </li>
       </ul>
     </div>
@@ -107,11 +107,16 @@ export default {
         .book-name {
           font-size: 0.14rem;
           color: #333333;
-          margin-bottom: 0.05rem;
+          margin-bottom: 0.05rem;   
         }
         .book-author {
           font-size: 0.12rem;
           color: #999999;
+        }
+        .txt{
+          overflow:hidden;
+          text-overflow:ellipsis; 
+          white-space: nowrap;
         }
       }
       .bookImg {

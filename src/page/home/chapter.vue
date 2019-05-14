@@ -142,22 +142,26 @@ export default {
     left: 0;
     // padding: 0 0.2rem;
     box-sizing: border-box;
+    
     .l-icon{
       margin-left: 0.2rem;
+      font-size: 0.18rem;
       &.isChecked{
         color: #239DF2;
       }
     }
     .r-icon{
       margin-right: 0.2rem;
+      color: #666666;
+      font-size: 0.18rem;
     }
   }
 }
 #mine-index {
-  padding: 0.12rem 0.1rem;
-  background: F6F6F8;
+  padding: 0.12rem 0.18rem;
+  background: #F6F6F8;
   word-wrap: break-word;
-  font-size: 0.14rem;
+  font-size: 0.16rem;
   ul,
   li {
     list-style-type: none;

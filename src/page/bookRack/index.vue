@@ -1,7 +1,6 @@
 <template>
   <div id='bookrack-index'>
-    <!-- <div>111111</div>
-    <div>aaaaaaa{{isMemberCode}}</div> -->
+    <Header></Header>
     <BlankRack :isShow='isShow'></BlankRack>
     <BookList :list="bookItems" :memCode="isMemberCode" @deleteItem="deleteItem"></BookList>
     <Footer></Footer>
@@ -12,6 +11,7 @@ import Toast from "mint-ui";
 import BlankRack from "@/page/bookRack/blank";
 import BookList from "@/page/bookRack/bookList";
 import Footer from "@/components/footer";
+import Header from "@/components/header";
 export default {
   data() {
     return {
@@ -25,7 +25,8 @@ export default {
   components: {
     BlankRack,
     BookList,
-    Footer
+    Footer,
+    Header,
   },
   mounted() {
       this.getbookshelf();

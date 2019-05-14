@@ -11,7 +11,7 @@ router.beforeEach((to, from, next) => {
     // console.log('path::::' + to.path)
     if (to.path == '/member') {
         // console.log('from.path:::' + from.path)
-        sessionStorage.setItem("toMemberPath", from.path);
+        localStorage.setItem("toMemberPath", from.path);
     }
     if (to.meta && to.meta.loginChecked && !getToken()) {
         Toast('请登录！');

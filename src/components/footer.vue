@@ -59,13 +59,13 @@ export default {
             align-items: center;
         }
         i{/*图标*/
-            // font-size: 0.18rem;
+            font-size: 0.18rem;
             color: #239DF2; 
-            margin-top: 0.08rem;
-            margin-bottom: 0.05rem;
+            margin-top: 0.07rem;
+            margin-bottom: 0.03rem;
         }
         span{
-            font-size: 0.1rem;
+            font-size: 0.12rem;
             color: #333333;
         }
         &.active{

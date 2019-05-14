@@ -24,6 +24,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #blank {
+  margin-top: 0.44rem;
   span {
     display: block;
     text-align: center;
