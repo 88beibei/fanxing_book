@@ -53,6 +53,11 @@ var router = new Router({
                 loginChecked: true // 需要验证用户是否登录
             }
         },
+        // {
+        //     path: '/mine/blank',
+        //     component: ()=>
+        //         import ('@/page/mine/blank')
+        // },
         {
             path: '/member',
             name: 'member',

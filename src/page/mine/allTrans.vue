@@ -1,6 +1,7 @@
 <template>
   <div id="allTrans">
-    <ul>
+    <MineBlank v-if="isBlank"></MineBlank>
+    <ul v-else>
       <li
         v-for="(item,index) in allTransList"
         :key="index"
@@ -14,13 +15,19 @@
         <p>会员有效期: {{item.effectiveTimeToShow}} - {{item.expireTimeToShow}}</p>
       </li>
     </ul>
+    
   </div>
 </template>
 <script>
+import MineBlank from "@/page/mine/blank";
 export default {
+    components: {
+        MineBlank
+    },
   data() {
     return {
-      allTransList: []
+      allTransList: [],
+      isBlank: false,
     };
   },
   mounted() {
@@ -55,9 +62,9 @@ export default {
           if (bstatus.code == 0) {
             if (data.totalCount > 0) {
               this.allTransList = data.list;
-              this.isTrans = false;
+              this.isBlank = false;
             } else {
-              this.isTrans = true;
+              this.isBlank = true;
             }
           }
         });
