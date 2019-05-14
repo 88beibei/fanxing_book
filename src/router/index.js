@@ -78,6 +78,12 @@ var router = new Router({
             }
         },
         {
+            path: '/tipMessage',
+            name: 'tipMessage',
+            component: () =>
+                import ('@/page/mine/tipMessage')
+        },
+        {
             path: '/login',
             name: 'login',
             redirect: '/login/index',
@@ -103,14 +109,14 @@ var router = new Router({
                 meta: {
                     title: '登录'
                 }
-            },{
+            }, {
                 path: 'forgetpwd',
                 component: () =>
                     import ('@/page/login/forgetPwd'),
                 meta: {
                     title: '登录'
                 }
-            },{
+            }, {
                 path: 'setpwd',
                 component: () =>
                     import ('@/page/login/setPwd'),

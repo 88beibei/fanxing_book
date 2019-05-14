@@ -14,7 +14,7 @@
         </li>
       </ul>
       <div class="confirm-btn">
-        <button @click="setPassword">确认</button>
+        <button @click="setPassword" :class="{disabled: isDisabled}">确认</button>
       </div>
       <p class="go-logo"><span>已有账号？</span><router-link to="/login/login">立即登录</router-link>
       </p>
@@ -29,7 +29,8 @@ export default {
     return {
       identifyAuthCode: "",
       passWord: "",
-      repeatPassWord: ""
+      repeatPassWord: "",
+      isDisabled: false,
     };
   },
   mounted() {
@@ -49,6 +50,10 @@ export default {
 
       if (this.passWord == this.repeatPassWord) {
         let { identifyAuthCode, passWord, repeatPassWord } = this;
+        this.isDisabled = true;
+        setTimeout(()=>{
+            this.isDisabled = false;
+        },10000)
         this.$http
           .post("/fanxing-api/v1/user/register/step3", {
             identifyAuthCode:identifyAuthCode,
@@ -112,6 +117,10 @@ export default {
       color: #ffffff;
       font-weight: 600;
       border-radius: 3px;
+      &.disabled{
+        pointer-events: none;
+        background: #999;
+      }
     }
   }
   .go-logo {

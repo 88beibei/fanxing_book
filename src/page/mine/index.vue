@@ -3,27 +3,34 @@
     <Header></Header>
     <ul>
       <li class="flex">
-        <span class="iconfont icon-zhanghu"></span>
+        <span class="iconfont icon-zhanghu icn"></span>
         <p>账户号: {{name}}</p>
       </li>
       <li class="flex">
-        <span class="iconfont icon-huiyuan"></span>
-        <p v-if="userStatus==1">
-            会员截止日期: {{expireTimeStr}} 
-            <!-- <span>续费</span> -->
+        <span class="iconfont icon-huiyuan icn"></span>
+        <p v-if="userStatus==1" class="clear">
+           <span class="fl"> 会员截止日期: {{expireTimeStr}} </span>
+           <span class="iconfont icon-xiayibu nextIcn fr"></span>
+           <span class="fr pay">续费</span>
         </p>
         <p
           v-else
           @click="goMember"
-          class="noMember"
-        >立即开通会员,免费获取更多电子书资源</p>
+          class="noMember clear"
+        >
+          <span>立即开通会员,免费获取更多电子书资源</span>
+          <span class="iconfont icon-xiayibu nextIcn fr"></span>
+        </p>
       </li>
       <li class="flex">
-        <span class="iconfont icon-tuichu"></span>
+        <span class="iconfont icon-tuichu icn"></span>
         <p
-          class="exit"
+          class="exit clear"
           @click="exit"
-        >退出登录</p>
+        >
+          <span class="fl">退出</span>
+          <span class="iconfont icon-xiayibu nextIcn fr"></span>
+        </p>
       </li>
     </ul>
     <Footer></Footer>
@@ -90,22 +97,31 @@ export default {
   ul {
     li {
       padding: 0.2rem 0;
-      span {
+       height: 0.25rem;
+        line-height: 0.25rem;
+        justify-content: center;
+      .icn {
         color: #239df2;
         font-size: 0.24rem;
         margin-left: 0.27rem;
       }
       p {
         font-size: 0.14rem;
-        color: #999999;
-        margin-left: 0.35rem;
-        height: 0.25rem;
-        line-height: 0.25rem;
-        &.exit {
-          flex: 1;
-        }
+        color: #666666;
+        margin-left: 0.22rem;
+        flex: 1;
         &.noMember{
           color: #239DF2;
+        }
+        .nextIcn{
+          font-size: 0.1rem;
+          color: #B1B1B1;
+          margin-right: 0.2rem;
+        }
+        .pay{
+          margin-right: 0.08rem;
+          font-size: 0.12rem;
+          color: #666666;
         }
       }
       &:nth-child(1){
@@ -113,7 +129,7 @@ export default {
         padding-bottom: 0.38rem;
       }
       &:nth-child(3){
-        span{
+        .icn{
           font-size: 0.2rem;
         }
       }

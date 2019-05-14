@@ -11,7 +11,7 @@
     <div class="book-btns">
       <div v-if="isMember==1" class="book-btn">
         <div>
-          <button class="btn f-l" @click="addBookRack" v-if="!shelfStatus">添加至书架</button>
+          <button :class="{'btn': true,'f-l': true, 'disabled': isDisabled}" @click="addBookRack" v-if="!shelfStatus">添加至书架</button>
           <button class="btn f-l" v-else>已添加书架</button>
         </div>
         <button class="btn btn-blue f-r" @click="goCatalog(detail.bookId)">在线阅读</button>
@@ -40,6 +40,7 @@ export default {
       isMember: 2,
       isMemberCode: 2, // 默认未登录
       shelfStatus: false,
+      isDisabled: false,
       name: "" // 用户手机号
     };
   },
@@ -93,17 +94,13 @@ export default {
             }
               this.shelfStatus =  data.shelfStatus
               console.log(this.shelfStatus)
-            // if(data.shelfStatus){
-            //   this.shelfStatus = ture
-            // }else{
-            //   this.shelfStatus = false;
-            // }
 
-          } else if (bstatus.code == 1001) {
-            // 未登录或者登录过期
-            this.isMember = 0;
-            this.isMemberCode = 2;
-          }
+          } 
+          // else if (bstatus.code == 1001) {
+          //   // 未登录或者登录过期
+          //   this.isMember = 0;
+          //   this.isMemberCode = 2;
+          // }
         },()=>{
           if(bstatus.code == 1001){
             this.isMember = 0;
@@ -129,6 +126,10 @@ export default {
     // 添加书架
     addBookRack() {
       let { bookId } = this;
+      this.isDisabled = true;
+        setTimeout(()=>{
+            this.isDisabled = false;
+        },10000)
       this.$http
         .post("/fanxing-api/v1/bookshelf/add", {
           bookId
@@ -193,6 +194,10 @@ export default {
         border: 1px solid #DFDFE0;
         box-shadow: 0 2px 4px 1px rgba(197, 197, 197, 0.5);
         border-radius: 2px;
+        &.disabled{
+          pointer-events: none;
+          background: #999;
+      }
       }
       .btn-blue {
         background-color: #239df2;
