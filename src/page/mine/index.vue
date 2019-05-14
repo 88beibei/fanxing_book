@@ -33,6 +33,15 @@
       </li>
       <li>
         <div class="flex line">
+          <span  class="iconfont icon-dingdanjilu icn"></span>
+          <p class="clear" @click="goTrans">
+             <span class="fl">订单记录</span>
+             <span class="iconfont icon-xiayibu nextIcn fr"></span>
+          </p>
+        </div>
+      </li>
+      <li>
+        <div class="flex line">
           <span class="iconfont icon-tuichu icn"></span>
           <p
             class="exit clear"
@@ -81,6 +90,9 @@ export default {
     this.getUserDetail();
   },
   methods: {
+    goTrans(){
+      this.$router.push({path: '/transList/allTrans'})
+    },
     goPay() {
       this.$router.push({ name: "member" ,query:{name:this.name}});
     },
@@ -140,7 +152,7 @@ export default {
         padding: 0.75rem 0 0.29rem 0.21rem;
         margin-bottom: 0.13rem;
       }
-      &:nth-child(3) {
+      &:nth-child(4) {
         .icn {
           font-size: 0.17rem;
         }

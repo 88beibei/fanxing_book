@@ -11,7 +11,6 @@
         </li>
       </ul>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 

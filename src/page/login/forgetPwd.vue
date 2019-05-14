@@ -3,7 +3,7 @@
     <div class="register-content">
       <div class="logo">
         <span class="iconfont">&#xe606;</span>
-        <span class="title">梵星网123</span>
+        <span class="title">梵星网</span>
       </div>
       <ul class="register-input">
         <li class="register-phone">

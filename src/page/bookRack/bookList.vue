@@ -10,10 +10,12 @@
         @touchstart.capture.stop="touchStart(item)"
         @touchend.capture.stop="touchEnd(index)"
       >
-        <div class="imgBox fl"><img
+        <div class="imgBox fl" :style="{'background-image':'url('+item.coverImg+')'}">
+          <!-- <img
             :src="item.coverImg"
             alt=""
-          ></div>
+          > -->
+          </div>
         <div class="fl msg">
           <p>{{item.name}}</p>
           <p>作者: {{item.author}}</p>
@@ -97,6 +99,7 @@ export default {
 <style lang="less" scoped>
 #bookList {
   margin-top: 0.44rem;
+  margin-bottom: 0.49rem;
   li {
     .btn {
       position: absolute;
@@ -123,11 +126,11 @@ li {
   transition: all 0.3s; /*滑动效果更生动*/
   padding: 0.2rem 0 0 0.17rem;
   .imgBox {
-    img {
-      width: 0.7rem;
-      height: 0.85rem;
-      box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
-    }
+    width: 0.7rem;
+    height: 0.85rem;
+    background: center center no-repeat #fff;
+    background-size: auto 80%;
+    box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
   }
   .msg {
     p {

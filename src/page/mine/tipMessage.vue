@@ -29,7 +29,8 @@ export default {
       })
     },
     goHome(){
-        this.$router.push({ name: 'home'});
+        alert('123456')
+        this.$router.push({ path: '/home'});
     }
   }
 };

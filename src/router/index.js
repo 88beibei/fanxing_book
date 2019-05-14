@@ -84,6 +84,22 @@ var router = new Router({
                 import ('@/page/mine/tipMessage')
         },
         {
+            path: '/transList',
+            name: 'transList',
+            redirect: '/transList/allTrans',
+            component: () =>
+                import ('@/page/mine/transList'),
+            children: [{
+                path: 'allTrans',
+                component: () =>
+                    import ('@/page/mine/allTrans')
+            }, {
+                path: 'waitTrans',
+                component: () =>
+                    import ('@/page/mine/waitTrans')
+            }]
+        },
+        {
             path: '/login',
             name: 'login',
             redirect: '/login/index',

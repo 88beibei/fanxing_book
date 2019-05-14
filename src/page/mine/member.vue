@@ -3,12 +3,13 @@
     <Header2 :title="title"></Header2>
     <ul>
       <li
-        v-for="(item,index) in list"
+        v-for="(item,index) in productList"
         :key="index"
-        class="flex"
+        :class="{'flex': true, isChecked: (index==(productId-1))}"
+        @click="checkPrice(item.productId)"
       >
-        <p>{{item.title}}</p>
-        <p>¥{{item.price}}</p>
+        <p>{{item.productName}}</p>
+        <p>{{item.productPrice}} {{item.productCurrency}}</p>
 
       </li>
     </ul>
@@ -22,8 +23,8 @@
     <div class="payInfo">
       <p>订单信息</p>
       <p><span>充值账号: </span><span>{{name}}</span></p>
-      <p><span>会员类型:</span><span>1个月VIP会员</span></p>
-      <p><span>支付金额:</span><span>¥30</span></p>
+      <p><span>会员类型:</span><span>{{productList.length ? productList[productId-1].productName : ''}}</span></p>
+      <p><span>支付金额:</span><span>{{productList.length ? productList[productId-1].productPrice : ''}} {{productList.length ? productList[0].productCurrency : ''}}</span></p>
     </div>
     <div v-html="content"></div>
     <button
@@ -46,23 +47,24 @@ export default {
       content: "",
       title: "开通会员",
       imgSrc: imgSrc,
-      list: [
-        { title: "1个月VIP会员", price: 30 },
-        { title: "3个月VIP会员", price: 80 },
-        { title: "6个月VIP会员", price: 160 },
-        { title: "1年VIP会员", price: 320 }
-      ]
+      productList: [],
+      productId: 1,
     };
   },
   mounted() {
     let { name } = this.$route.query;
     this.name = name;
+    this.getProductList();
   },
   
   methods: {
+    checkPrice(productId){
+      console.log(productId)
+      this.productId = productId
+    },
     goRecharge() {
       this.$http
-        .post("/fanxing-api/v1/member/recharge", {})
+        .post("/fanxing-api/v1/member/recharge", {productId: this.productId })
         .then(({ bstatus, data }) => {
           this.content = data.html;
           this.$nextTick(() => {
@@ -72,6 +74,13 @@ export default {
     },
     getUserDetail(){
       // this.$http.post()
+    },
+    getProductList(){
+      this.$http.post('/fanxing-api/v1/product/list',{}).then(({bstatus,data})=>{
+          if( bstatus.code ==0 ){
+            this.productList = data.list
+          }
+      })
     }
   }
 };
@@ -79,12 +88,16 @@ export default {
 <style lang="less" scoped>
 #member {
   padding-top: 0.64rem;
+  width: 100%;
+  height: 100%;
+  background: #fff;
   ul {
     li {
       height: 0.6rem;
       line-height: 0.6rem;
       margin: 0 0.2rem;
       padding: 0 0.19rem;
+       border: 2px solid #fff;
       &.flex {
         justify-content: space-between;
       }
@@ -96,7 +109,7 @@ export default {
         font-size: 0.14rem;
         color: #239df2;
       }
-      &:first-child {
+      &.isChecked {
         border: 2px solid #239df2;
         border-radius: 2px 2px 0 0;
       }
@@ -107,8 +120,6 @@ export default {
       font-family: PingFangSC-Medium;
       font-size: 0.18rem;
       color: #333333;
-      // margin-top: 0.25rem;
-      // margin-left: 0.25rem;
       margin: 0.25rem 0 0.12rem 0.25rem;
     }
     .tip {
