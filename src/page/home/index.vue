@@ -36,6 +36,15 @@ export default {
     };
   },
   mounted() {
+    // 微信环境判断
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeixin = ua.indexOf('micromessenger') != -1;
+    if (isWeixin) {
+        this.$router.push({ path: '/tipMessage' })
+        // return true;
+    } else {
+        // return false;
+    }
     this.getRecommend();
   },
   computed: {},

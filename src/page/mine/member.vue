@@ -58,6 +58,7 @@ export default {
     let { name } = this.$route.query;
     this.name = name;
   },
+  
   methods: {
     goRecharge() {
       this.$http
