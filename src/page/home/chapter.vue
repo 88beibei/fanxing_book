@@ -1,16 +1,28 @@
 <template>
+<div class='chapter'>
+  <Header2></Header2>
+  <div class='set-bar' v-show='showbar'>
+    <span class='f-l iconfont l-icon' @click='showCate'>&#xe60e;</span>
+    <span class='f-r iconfont r-icon' @click='showbgc'>&#xe717;</span>
+    <Catalog v-show='showCateContent'></Catalog>
+  </div>
   <div
     id='mine-index'
     v-html='content'
     @touchstart.capture="touchStart"
     @touchend.capture="touchEnd"
+    @click="showSet"
   >
 
   </div>
+</div>
+  
 </template>
 
 <script>
 import {Toast} from "mint-ui";
+import Header2 from "@/components/header2";
+import Catalog from "@/components/catalog";
 export default {
   data() {
     return {
@@ -19,8 +31,14 @@ export default {
       bookId: 1,
       startX: 0,
       endX: 0,
-      totalCount: 0
+      totalCount: 0,
+      showbar:false,
+      showCateContent:false
     };
+  },
+  components:{
+    Header2,
+    Catalog
   },
   mounted() {
     console.log(this.$route.query)
@@ -79,11 +97,42 @@ export default {
             Toast("已至第一章")
         }
       }
+    },
+    showSet(){
+      this.showbar = !this.showbar;
+    },
+    //点击目录图标显示目录
+    showCate(){
+      this.showCateContent = !this.showCateContent;
+    },
+    showbgc(){
+
     }
   }
 };
 </script>
 <style lang="less">
+.chapter{
+  padding-top: 0.44rem;
+  position: relative;
+  .set-bar{
+    width: 100%;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    background-color: #fff;
+    position: fixed;
+    top: 0.44rem;
+    left: 0;
+    // padding: 0 0.2rem;
+    box-sizing: border-box;
+    .l-icon{
+      margin-left: 0.2rem;
+    }
+    .r-icon{
+      margin-right: 0.2rem;
+    }
+  }
+}
 #mine-index {
   padding: 0.12rem 0.1rem;
   background: pink;

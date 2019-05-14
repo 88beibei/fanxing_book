@@ -71,7 +71,8 @@ export default {
     // 跳转到目录
     goCatalog(bookId) {
       console.log(bookId);
-      this.$router.push({ name: "catalog", query: { bookId } });
+      // this.$router.push({ name: "catalog", query: { bookId } });
+      this.$router.push({ name: "chapter", query: { bookId } });
     },
     // 获取用户信息
     getUserDetail() {
