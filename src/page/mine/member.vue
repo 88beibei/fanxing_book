@@ -1,6 +1,7 @@
 <template>
   <div id="member">
     <Header2 :title="title"></Header2>
+    <p class="product">会员套餐</p>
     <ul>
       <li
         v-for="(item,index) in productList"
@@ -52,9 +53,10 @@ export default {
     };
   },
   mounted() {
-    let { name } = this.$route.query;
-    this.name = name;
+    // let { name } = this.$route.query;
+    // this.name = name;
     this.getProductList();
+    this.getUserDetail();
   },
   
   methods: {
@@ -73,7 +75,10 @@ export default {
         });
     },
     getUserDetail(){
-      // this.$http.post()
+      this.$http.post('/fanxing-api/v1/user/detail',{}).then(({status,data})=>{
+        this.name = data.name;
+        console.log(data.name)
+      })
     },
     getProductList(){
       this.$http.post('/fanxing-api/v1/product/list',{}).then(({bstatus,data})=>{
@@ -87,15 +92,25 @@ export default {
 </script>
 <style lang="less" scoped>
 #member {
-  padding-top: 0.64rem;
+  // padding-top: 0.64rem;
   width: 100%;
   height: 100%;
   background: #fff;
+  .product{
+    padding-top: 0.64rem;
+    font-family: PingFangSC-Medium;
+    font-size: 0.18rem;
+    color: #333333;
+    margin: 0 0 0.12rem 0.25rem;
+  }
   ul {
+    box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
+    border-radius: 2px;
+    margin: 0 0.2rem;
     li {
       height: 0.6rem;
       line-height: 0.6rem;
-      margin: 0 0.2rem;
+      // margin: 0 0.2rem;
       padding: 0 0.19rem;
        border: 2px solid #fff;
       &.flex {
@@ -116,6 +131,7 @@ export default {
     }
   }
   .payName {
+    
     p {
       font-family: PingFangSC-Medium;
       font-size: 0.18rem;
@@ -127,6 +143,8 @@ export default {
       height: 0.4rem;
       line-height: 0.4rem;
       margin-left: 0.2rem;
+      box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
+      border-radius: 2px;
       img {
         width: 0.29rem;
         height: 0.18rem;

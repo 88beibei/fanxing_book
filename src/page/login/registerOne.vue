@@ -84,12 +84,13 @@ export default {
         Toast("手机号码格式错误，请重新输入");
         return;
       }
-      if (this.params.imgCode.length == 0) {
-        Toast("图形验证码未填");
+      if (this.params.imgCode.length !== 4) {
+        Toast("图片验证码错误，请重新输入");
         return;
       }
       let { mobile, imgCode } = this.params;
       let verifyCodeToken = getSession("verifyCodeToken");
+
       this.$http
         .post("/fanxing-api/v1/user/register/step1", {
           mobile: mobile,
@@ -117,12 +118,17 @@ export default {
                 this.getNewImgCode();
               }
             );
-          } else if (bstatus.code == 2001) {
-            Toast(bstatus.msg);
           } else {
+            // this.btnDisabled = 1;
+            // this.isDisabled = false;
+            // this.getNewImgCode();
+            // this.params.imgCode = '';
+          }
+        },()=>{
             this.btnDisabled = 1;
             this.isDisabled = false;
-          }
+            this.getNewImgCode();
+            this.params.imgCode = '';
         });
     },
     getNewImgCode() {
@@ -159,6 +165,7 @@ export default {
           } else {
             Toast(bstatus.msg);
             this.getNewImgCode();
+            this.vevifyCode = ''; 
           }
         });
     }
@@ -207,7 +214,8 @@ export default {
       span {
         position: absolute;
         left: 0.1rem;
-        top: 0.11rem;
+        top: 0.12rem;
+        font-size: 0.12rem;
       }
       .phone {
         padding-left: 0.46rem;

@@ -41,12 +41,21 @@ export default {
     setPassword() {
       let passwordReg = /^[0-9A-Za-z]{8,20}$/;
       if (this.passWord.length == 0) {
-        Toast("请输入密码");
+        Toast("请输入8-20位（数字、字母 ）密码");
         return;
       } else if (!passwordReg.test(this.passWord)) {
-        Toast("请输入8-20位数字字母");
+        Toast("请输入8-20位（数字、字母 ）密码");
         return;
       }
+
+      if (this.repeatPassWord.length == 0) {
+        Toast("请重复输入8-20位（数字、字母 ）密码");
+        return;
+      } else if (!passwordReg.test(this.repeatPassWord)) {
+        Toast("请重复输入8-20位（数字、字母 ）密码");
+        return;
+      }
+
 
       if (this.passWord == this.repeatPassWord) {
         let { identifyAuthCode, passWord, repeatPassWord } = this;
@@ -62,7 +71,7 @@ export default {
           .then(({ bstatus }) => {
             if (bstatus.code == 0) {
               Toast({
-                message: "操作成功",
+                message: "修改成功",
                 // iconClass: "icon icon-success",
                 duration: 2000
               });

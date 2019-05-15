@@ -30,8 +30,12 @@ export default {
     },
     sure(){
      let goBeforeMember =  localStorage.getItem("toMemberPath") || '/home';
+     let navList=['/home','/bookrack','/mine']
+     
+     let index = navList.indexOf(goBeforeMember);
+      index = (index!==-1) ? index : 0;
      let bookId = localStorage.getItem("user_bookId");
-     this.$router.push({path: goBeforeMember,query:{bookId}});
+     this.$router.push({path: goBeforeMember,query:{bookId,index}});
     }
   }
 };

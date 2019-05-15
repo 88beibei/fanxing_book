@@ -29,8 +29,9 @@ export default {
       })
     },
     goHome(){
-        alert('123456')
-        this.$router.push({ path: '/home'});
+        // alert('123456')
+        location.href="http://localhost:8088/#/home";
+        // this.$router.push({ path: '/home'});
     }
   }
 };

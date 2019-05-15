@@ -31,6 +31,7 @@
 <script>
 import { setSession, getSession } from "@/api/auth";
 import { Toast } from "mint-ui";
+import { telReg } from "@/config";
 import Cookies from "js-cookie";
 export default {
   data() {
@@ -56,6 +57,14 @@ export default {
         "/fanxing-api/v1/user/imageCode?verifyCodeToken=" + timestamp;
     },
     login() {
+      if (!telReg.test(this.username)) {
+        Toast("手机号码格式错误，请重新输入");
+        return;
+      }
+      if (this.vevifyCode.length !==4 ) {
+        Toast("图片验证码错误，请重新输入");
+        return;
+      }
       let { username, password, vevifyCode } = this;
       let verifyCodeToken = getSession("verifyCodeToken");
       this.$http
@@ -68,6 +77,7 @@ export default {
         .then(
           ({ bstatus, data }) => {
             // console.log(data.user)
+            // debugger
             Cookies.set("userinfo", JSON.stringify(data.user));
             Toast({
               message: "登录成功",
@@ -77,7 +87,10 @@ export default {
               this.$router.push({ path: "/home" });
             }, 2000);
           },
-          () => {}
+          () => {
+            this.getNewImgCode();
+            this.vevifyCode = ''; 
+          }
         );
     },
     goHome(){

@@ -48,6 +48,9 @@ export default {
     this.bookId = bookId;
     // this.chapter = chapter;
     this.getDetails();
+
+    console.log(document.documentElement.scrollTop)
+   
   },
   methods: {
     hideCata(){
@@ -99,6 +102,7 @@ export default {
           this.chapter += 1;
           this.getDetails();
           document.documentElement.scrollTop = 0;
+          document.body.scrollTop =0 
         }else{
           Toast("已至最后一章")
         }
@@ -109,6 +113,7 @@ export default {
            this.chapter -= 1;
             this.getDetails();
             document.documentElement.scrollTop = 0;
+            document.body.scrollTop =0 
         }else{
             Toast("已至第一章")
         }

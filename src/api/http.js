@@ -56,7 +56,7 @@ http.interceptors.response.use(function(response) {
 export default {
     post(url, params, hasFailTip = true) {
         return http.post(url, params).then(res => {
-            console.log('res' + JSON.stringify(res))
+            // console.log('res' + JSON.stringify(res))
             return res;
         }, err => {
             if (hasFailTip) {

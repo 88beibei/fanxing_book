@@ -17,12 +17,12 @@ var router = new Router({
             component: () =>
                 import ('@/page/home/bookDetail')
         },
-        {
-            path: '/catalog',
-            name: 'catalog',
-            component: () =>
-                import ('@/page/home/catalog')
-        },
+        // {
+        //     path: '/catalog',
+        //     name: 'catalog',
+        //     component: () =>
+        //         import ('@/page/home/catalog')
+        // },
         {
             path: '/recomment',
             name: 'recomment',

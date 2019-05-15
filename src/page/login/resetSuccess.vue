@@ -16,7 +16,8 @@ import Cookies from "js-cookie";
 export default {
   data() {
     return {
-      time: 5
+      time: 5,
+      timer: null,
     };
   },
   mounted() {
@@ -27,15 +28,19 @@ export default {
       this.$router.push("/login/login");
     },
     goLoginAuto() {
-      let timer = null;
-      clearInterval(timer);
-      timer = setInterval(() => {
+      // let timer = null;
+      clearInterval(this.timer);
+      this.timer = setInterval(() => {
         this.time -= 1;
         if(this.time <=0){
+            clearInterval(this.timer);
             this.$router.push("/login/login");
         }
       }, 1000);
     }
+  },
+  destroyed () {
+      clearInterval(this.timer);
   }
 };
 </script>

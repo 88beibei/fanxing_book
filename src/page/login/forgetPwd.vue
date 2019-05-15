@@ -1,7 +1,7 @@
 <template>
   <div class="forget-pwd">
     <div class="register-content">
-      <div class="logo">
+      <div class="logo" @click="goHome">
         <span class="iconfont">&#xe606;</span>
         <span class="title">梵星网</span>
       </div>
@@ -74,14 +74,17 @@ export default {
     }
   },
   methods: {
+    goHome(){
+      this.$router.push({name: 'home'})
+    },
     sendSms() {
       if (this.btnDisabled != 1) return;
       if (!telReg.test(this.params.mobile)) {
-        Toast("手机号不合法");
+        Toast("手机号码格式错误，请重新输入");
         return;
       }
-      if (this.params.imgCode.length == 0) {
-        Toast("图形验证码未填");
+      if (this.params.imgCode.length !==4 ) {
+        Toast("图片验证码错误，请重新输入");
         return;
       }
       let { mobile, imgCode } = this.params;
@@ -113,12 +116,16 @@ export default {
                 this.getNewImgCode();
               }
             );
-          } else if (bstatus.code == 2001) {
-            Toast(bstatus.msg);
-          } else {
+          }  else {
             this.btnDisabled = 1;
             this.isDisabled = false;
           }
+        },()=>{
+            this.btnDisabled = 1;
+            this.isDisabled = false;
+            this.params.imgCode = '';
+            this.getNewImgCode();
+
         });
     },
     getNewImgCode() {
