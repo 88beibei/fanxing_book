@@ -60,7 +60,7 @@ export default {
             return res;
         }, err => {
             if (hasFailTip) {
-                alert(111)
+                // alert(111)
                 Toast(err);
             }
             return Promise.reject(err);
