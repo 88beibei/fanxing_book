@@ -80,7 +80,10 @@ export default {
 <style lang="less" scoped>
 .register-two {
   background: #fff;
-  padding: 1.3rem 0.2rem;
+  padding: 1.1rem 0.2rem;
+  padding-bottom: 0;
+  height: 100%;
+  box-sizing: border-box;
   .logo {
     text-align: center;
     font-size: 25.2px;

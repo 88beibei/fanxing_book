@@ -1,13 +1,6 @@
 <template>
-  <div>
-    <div>
-      <!-- <router-link
-        class='link'
-        tag='p'
-        to='/home'
-      >图标</router-link> -->
-      <router-view></router-view>
-    </div>
+  <div id='login-index'>
+      <router-view></router-view>    
   </div>
 </template>
 
@@ -45,7 +38,8 @@ export default {
 
 <style lang="less" scoped>
 #login-index {
-  padding: 0.18rem 0.2rem;
+  // padding: 0.18rem 0.2rem;
+  height: 100%;
   .link {
     color: @color2;
     font-size: @anoFontsize;
