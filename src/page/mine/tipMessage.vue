@@ -30,8 +30,8 @@ export default {
     },
     goHome(){
         // alert('123456')
-        location.href="https://develop-test.ipaynow.cn/#/home";
-        // this.$router.push({ path: '/home'});
+        // location.href="https://develop-test.ipaynow.cn/#/home";
+        this.$router.push({ path: '/home',query:{tip:1}});
     }
   }
 };
