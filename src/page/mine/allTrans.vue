@@ -71,9 +71,9 @@ export default {
 #allTrans {
   width: 100%;
   height: 100%;
-  background: #fff;
   ul {
-    padding: 0.05rem 0.32rem 0;
+    padding: 0.4rem 0.32rem 0;
+    background: #fff;
     li {
         margin-top: 0.28rem;
         border-bottom: 1px solid #ededed;

@@ -98,8 +98,8 @@ export default {
 </script>
 <style lang="less" scoped>
 #bookList {
-  margin-top: 0.44rem;
-  // padding-bottom: 0.49rem;
+  padding-top: 0.44rem;
+  padding-bottom: 0.49rem;
   li {
     .btn {
       position: absolute;

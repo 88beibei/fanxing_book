@@ -7,11 +7,12 @@
   </div>
 </template>
 <script>
-import Toast from "mint-ui";
+// import Toast from "mint-ui";
 import BlankRack from "@/page/bookRack/blank";
 import BookList from "@/page/bookRack/bookList";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import {Toast} from "mint-ui";
 export default {
   data() {
     return {
@@ -70,6 +71,7 @@ export default {
       this.$http.post('/fanxing-api/v1/bookshelf/delete',{
         shelfId
       }).then(({bstatus,data})=>{
+        console.log(data)
         if(bstatus.code == 0){
           Toast("删除成功")
         }else{
@@ -84,6 +86,7 @@ export default {
 #bookrack-index{
   width: 100%;
   height: 100%;
+  // padding-bottom: 0.49rem;
 }
 </style>
 
