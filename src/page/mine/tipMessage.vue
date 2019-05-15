@@ -30,7 +30,7 @@ export default {
     },
     goHome(){
         // alert('123456')
-        location.href="http://localhost:8088/#/home";
+        location.href="https://develop-test.ipaynow.cn/#/home";
         // this.$router.push({ path: '/home'});
     }
   }
