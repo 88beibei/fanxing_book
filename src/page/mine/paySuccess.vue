@@ -30,7 +30,8 @@ export default {
     },
     sure(){
      let goBeforeMember =  localStorage.getItem("toMemberPath") || '/home';
-      this.$router.push({path: goBeforeMember});
+     let bookId = localStorage.getItem("user_bookId");
+     this.$router.push({path: goBeforeMember,query:{bookId}});
     }
   }
 };
