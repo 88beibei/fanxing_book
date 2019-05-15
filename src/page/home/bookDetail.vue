@@ -51,6 +51,7 @@ export default {
   mounted() {
     let { bookId } = this.$route.query;
     this.bookId = bookId;
+    localStorage.setItem("user_bookId", bookId)
     console.log(this.$route.query);
     this.getDetail();
     this.getUserDetail();
@@ -106,13 +107,13 @@ export default {
     },
     // 开通会员
     getMembership() {
-      let { isMemberCode, name } = this;
+      let { isMemberCode, name, bookId} = this;
       if (isMemberCode == 0) {
         // 登录状态的非会员
         this.$router.push({
           name: "member",
           query: {
-            name
+            name,
           }
         });
       } else if (isMemberCode == 2) {
