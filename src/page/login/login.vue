@@ -89,7 +89,10 @@ export default {
 <style lang="less" scoped>
 #login {
   background: #fff;
-  padding: 1.3rem 0.2rem;
+  height: 100%;
+  padding: 1.1rem 0.2rem;
+  padding-bottom:0;
+  box-sizing: border-box;
   .logo {
     text-align: center;
     font-size: 25.2px;

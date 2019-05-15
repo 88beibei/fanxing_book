@@ -38,8 +38,8 @@ export default {
 
 <style lang="less" scoped>
 #login-index {
-  background: #fff;
-  padding: 0.18rem 0.2rem;
+  // padding: 0.18rem 0.2rem;
+  height: 100%;
   .link {
     color: @color2;
     font-size: @anoFontsize;
