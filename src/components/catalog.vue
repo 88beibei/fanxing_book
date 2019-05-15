@@ -57,11 +57,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .cate{
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0.32rem;
   width: 100%;
-  height: 4.7rem;
+  bottom: 0;
   // overflow: hidden;
   overflow-y: scroll;
   background-color: #fff;
