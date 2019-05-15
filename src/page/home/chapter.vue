@@ -49,7 +49,7 @@ export default {
     // this.chapter = chapter;
     this.getDetails();
 
-    console.log(document.documentElement.scrollTop)
+    // console.log(document.documentElement.scrollTop)
    
   },
   methods: {
@@ -62,7 +62,7 @@ export default {
         this.chapter = chapter;
         this.getDetails();
         this.showSet();
-        document.documentElement.scrollTop = 0;
+        // document.documentElement.scrollTop = 0;
 
     },
     getDetails() {
@@ -101,6 +101,7 @@ export default {
         if(this.chapter < this.totalCount){
           this.chapter += 1;
           this.getDetails();
+          window.scrollTo(0,0)
           document.documentElement.scrollTop = 0;
           document.body.scrollTop =0 
         }else{
@@ -112,6 +113,7 @@ export default {
         if(this.chapter > 1){
            this.chapter -= 1;
             this.getDetails();
+            window.scrollTo(0,0)
             document.documentElement.scrollTop = 0;
             document.body.scrollTop =0 
         }else{
