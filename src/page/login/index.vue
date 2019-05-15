@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div>
-      <router-view></router-view>
-    </div>
+  <div id="login-index">
+     <router-view></router-view>
   </div>
 </template>
 
@@ -40,6 +38,7 @@ export default {
 
 <style lang="less" scoped>
 #login-index {
+  background: #fff;
   padding: 0.18rem 0.2rem;
   .link {
     color: @color2;

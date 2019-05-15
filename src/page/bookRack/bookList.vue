@@ -99,7 +99,7 @@ export default {
 <style lang="less" scoped>
 #bookList {
   margin-top: 0.44rem;
-  margin-bottom: 0.49rem;
+  // padding-bottom: 0.49rem;
   li {
     .btn {
       position: absolute;

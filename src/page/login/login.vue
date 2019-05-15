@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div id="login">
     <div class="register-content">
       <div class="logo" @click="goHome">
         <span class="iconfont">&#xe606;</span>
@@ -87,7 +87,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.login {
+#login {
   background: #fff;
   padding: 1.3rem 0.2rem;
   .logo {

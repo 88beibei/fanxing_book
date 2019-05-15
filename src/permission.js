@@ -11,6 +11,7 @@ router.beforeEach((to, from, next) => {
     // console.log('path::::' + to.path)
     if (to.path == '/member') {
         // console.log('from.path:::' + from.path)
+        console.log('from::' + from)
         localStorage.setItem("toMemberPath", from.path);
     }
     if (to.meta && to.meta.loginChecked && !getToken()) {

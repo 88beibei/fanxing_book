@@ -3,7 +3,7 @@
     v-if="isShow"
     id="blank"
   >
-    <span class="iconfont icon-tubiaozhizuomoban"></span>
+    <span class="iconfont icon-zanwudingdan"></span>
     <p>书架空空如也,快去添加图书吧!</p>
     <button class="button button-big" @click="goHome">去添加图书</button>
   </div>
@@ -24,13 +24,16 @@ export default {
 </script>
 <style lang="less" scoped>
 #blank {
-  margin-top: 0.44rem;
+  // margin-top: 0.44rem;
+  width: 100%;
+  height: 100%;
+  background: #fff;
   span {
     display: block;
     text-align: center;
     font-size: 1.8rem;
-    color: #ccc;
-    margin: 1.49rem 0 0.55rem;
+    color: #F7F7F7;
+    padding: 1.49rem 0 0.55rem;
   }
   p {
     font-size: 0.14rem;

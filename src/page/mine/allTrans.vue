@@ -13,9 +13,10 @@
           <span>支付金额: {{item.priceAmount}} {{item.priceCurrency}}</span>
         </p>
         <p>会员有效期: {{item.effectiveTimeToShow}} - {{item.expireTimeToShow}}</p>
+       
       </li>
     </ul>
-    
+     <!-- {{formData(11111111111111)}} -->
   </div>
 </template>
 <script>
@@ -32,28 +33,19 @@ export default {
   },
   mounted() {
     this.getAllTransList();
-    //   this.formData()
   },
   computed: {
-    // formData(timeStamp) {
-    //   let timestamp4 = new Date(timeStamp);
-    //   timestamp4 = (
-    //     timestamp4.toLocaleDateString().replace(/\//g, "/") +
-    //     " " +
-    //     timestamp4.toTimeString().substr(0, 8)
-    //   ).split(" ")[0];
-    //   console.log(timestamp4);
-    // }
   },
   methods: {
     formData(timeStamp) {
       let timestamp4 = new Date(timeStamp);
-      timestamp4 = (
+      return timestamp4 = (
         timestamp4.toLocaleDateString().replace(/\//g, "/") +
         " " +
         timestamp4.toTimeString().substr(0, 8)
       ).split(" ")[0];
       console.log(timestamp4);
+     
     },
     getAllTransList() {
       this.$http
@@ -66,6 +58,8 @@ export default {
             } else {
               this.isBlank = true;
             }
+          }else{
+            
           }
         });
     }
@@ -75,7 +69,6 @@ export default {
 
 <style lang="less" scoped>
 #allTrans {
-  margin-top: 0.44rem;
   width: 100%;
   height: 100%;
   background: #fff;

@@ -11,7 +11,7 @@
     // background: #fff;
     text-align: center;
     span{
-        font-size: 1rem;
+        font-size: 1.4rem;
         color: #F7F7F7;
         margin-top: 1.89rem;
         margin-bottom: 0.47rem;
@@ -19,7 +19,7 @@
     p{
         font-size: 0.14rem;
         color: #666666;
-        padding-bottom: 2.6rem;
+        // padding-bottom: 2.6rem;
     }
 }
 </style>

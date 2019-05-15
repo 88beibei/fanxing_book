@@ -52,6 +52,8 @@ export default {
 
 <style lang="less" scoped>
 #trans{
+  width: 100%;
+  height: 100%;
     .transList{
         // margin-top: 0.44rem;
         // margin: 0.44rem auto 0;

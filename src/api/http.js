@@ -23,21 +23,22 @@ http.interceptors.request.use(
         // config.headers['webToken'] = localStorage.getItem('webToken');
         return config;
     },
-    function (error) {
+    function(error) {
         console.log(error);
         return Promise.reject(error);
     }
 );
 //响应拦截
-http.interceptors.response.use(function (response) {
+http.interceptors.response.use(function(response) {
     const result = response.data;
     const code = result.bstatus.code;
     if (code !== 0) {
         if (code == 1001) {
-            return result;//后注释掉
+            // return result; //后注释掉
             console.log('未登录');
             logout();
-            location.reload();
+            return result;
+            // location.reload();
             // store.dispatch('FedLogOut').then(() => {
             //     location.reload();
             // })
@@ -49,15 +50,17 @@ http.interceptors.response.use(function (response) {
         return result;
     }
 
-}, function (error) {
+}, function(error) {
     return Promise.reject(error);
 });
 export default {
     post(url, params, hasFailTip = true) {
         return http.post(url, params).then(res => {
+            console.log('res' + JSON.stringify(res))
             return res;
         }, err => {
             if (hasFailTip) {
+                alert(111)
                 Toast(err);
             }
             return Promise.reject(err);
