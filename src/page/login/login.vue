@@ -1,10 +1,6 @@
 <template>
   <div id="login">
     <div class="register-content">
-      <div class="logo" @click="goHome">
-        <span class="iconfont">&#xe606;</span>
-        <span class="title">梵星网</span>
-      </div>
       <ul class="register-input">
         <li class="register-pwd">
           <input type="text" placeholder="请输入手机号" v-model="username">
@@ -33,6 +29,7 @@ import { setSession, getSession } from "@/api/auth";
 import { Toast } from "mint-ui";
 import { telReg } from "@/config";
 import Cookies from "js-cookie";
+import md5 from "js-md5";
 export default {
   data() {
     return {
@@ -66,6 +63,7 @@ export default {
         return;
       }
       let { username, password, vevifyCode } = this;
+      password = md5(password);
       let verifyCodeToken = getSession("verifyCodeToken");
       this.$http
         .post("/fanxing-api/v1/user/login", {
@@ -101,17 +99,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #login {
-  background: #fff;
-  height: 100%;
-  padding: 1.1rem 0.2rem;
-  padding-bottom:0;
-  box-sizing: border-box;
-  .logo {
-    text-align: center;
-    font-size: 25.2px;
-    color: #239df2;
-    margin-bottom: 0.4rem;
-  }
+  padding: 0.4rem 0.2rem 0;
   input {
     padding: 0.13rem;
     border: 1px solid #ededed;

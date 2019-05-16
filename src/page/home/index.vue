@@ -39,7 +39,8 @@ export default {
     // 微信环境判断
     var ua = navigator.userAgent.toLowerCase();
     var isWeixin = ua.indexOf('micromessenger') != -1;
-    let {tip} =  this.$route.query
+    // let {tip} =  this.$route.query
+    let tip = sessionStorage.getItem("user_tip");
     if(!tip){
       if (isWeixin) {
           this.$router.push({ path: '/tipMessage' })
@@ -90,10 +91,15 @@ export default {
     box-sizing: border-box;
     .flex {
       flex-wrap: wrap;
-      justify-content: space-between;
+      // justify-content: space-between;
       li {
-        width: 30%;
+        // width: 30%;
+        width: 1rem;
+        margin-right: 0.18rem;
         margin-bottom: 0.2rem;
+        &:nth-child(3n){
+          margin-right: 0;
+        }
         .book-cover {
           width: 100%;
           height: 1.2rem;

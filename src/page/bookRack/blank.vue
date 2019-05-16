@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="isShow"
     id="blank"
   >
     <span class="iconfont icon-zanwudingdan"></span>
@@ -14,7 +13,7 @@ export default {
   data() {
     return {};
   },
-  props: ["isShow"],
+  // props: ["isShow"],
   methods: {
       goHome(){
           this.$router.push({name: 'home'})

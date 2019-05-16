@@ -2,8 +2,14 @@
 <div class='chapter'>
   <div class='set-bar' v-show='showbar'>
     <span :class="{'f-l':true, 'iconfont': true, 'l-icon': true, 'isChecked':isChecked}" @click='showCate'>&#xe60e;</span>
-    <span class='f-r iconfont r-icon' @click='showbgc'>&#xe717;</span>
+    <span :class="{'f-r':true, 'iconfont':true, 'r-icon':true, 'isSetChecked':isSetChecked}" @click='showbgc'>&#xe717;</span>
     <Catalog v-show='showCateContent' @hideCata="hideCata" @goDetail="goDetail"></Catalog>
+    <ul class="setBgcolor flex" v-show='showSetContent'>
+        <li class="flex" @click="setBgcolor(index)" v-for="(item,index) in bgColorList" :key="index">  
+          <span class="bgColor"></span>
+          <span class="txt">{{item.title}}</span>
+        </li>
+    </ul>
   </div>
   <div
     id='mine-index'
@@ -11,6 +17,7 @@
     @touchstart.capture="touchStart"
     @touchend.capture="touchEnd"
     @click="showSet"
+    :style="{'backgroundColor': bgColor}"
   >
 
   </div>
@@ -34,6 +41,18 @@ export default {
       showbar:false,
       showCateContent:false,
       isChecked: false,
+      isSetChecked: false,
+      showSetContent: false,
+      bgColor: '',
+      bgColorList:[{
+        title: '默认', bgColor: '#F6F6F8',
+      },{
+        title: '羊皮纸', bgColor: '#E7DFD3',  
+      },{
+        title: '护眼绿', bgColor: '#CDE5D5',  
+      },{
+        title: '夜间', bgColor: '#333333',  
+      }]
     };
   },
   components:{
@@ -41,18 +60,22 @@ export default {
     Catalog
   },
   mounted() {
-    console.log(this.$route.query)
     // let {bookId,chapter} = this.$route.query
     let {bookId} = this.$route.query
-    // console.log(typeof Number(chapter))
     this.bookId = bookId;
     // this.chapter = chapter;
     this.getDetails();
-
-    // console.log(document.documentElement.scrollTop)
+    let user_bgColor = localStorage.getItem('user_bgColor');
+    this.bgColor = user_bgColor ? user_bgColor : bgColorList[0]['bgColor'];
+  
    
   },
   methods: {
+    setBgcolor(index){
+      this.bgColor = this.bgColorList[index]['bgColor'];
+      this.showbar = false;
+      localStorage.setItem("user_bgColor",this.bgColor)
+    },
     hideCata(){
       this.showCateContent = false;
       this.isChecked = false;
@@ -101,9 +124,9 @@ export default {
         if(this.chapter < this.totalCount){
           this.chapter += 1;
           this.getDetails();
-          window.scrollTo(0,0)
+          window.scrollTo(0,0);
           document.documentElement.scrollTop = 0;
-          document.body.scrollTop =0 
+          document.body.scrollTop =0 ;
         }else{
           Toast("已至最后一章")
         }
@@ -113,9 +136,9 @@ export default {
         if(this.chapter > 1){
            this.chapter -= 1;
             this.getDetails();
-            window.scrollTo(0,0)
+            window.scrollTo(0,0);
             document.documentElement.scrollTop = 0;
-            document.body.scrollTop =0 
+            document.body.scrollTop =0 ;
         }else{
             Toast("已至第一章")
         }
@@ -127,10 +150,19 @@ export default {
     //点击目录图标显示目录
     showCate(){
       this.showCateContent = !this.showCateContent;
-      this.isChecked = this.showCateContent
+      this.isChecked = this.showCateContent;
+      if(this.showCateContent && this.showSetContent){
+        this.showSetContent = false;
+        this.isSetChecked = false;
+      }
     },
     showbgc(){
-
+      this.showSetContent = !this.showSetContent;
+      this.isSetChecked = this.showSetContent;
+      if(this.showSetContent && this.showCateContent){
+        this.showCateContent = false;
+        this.isChecked = false;
+      }
     }
   }
 };
@@ -161,12 +193,66 @@ export default {
       margin-right: 0.2rem;
       color: #666666;
       font-size: 0.18rem;
+       &.isSetChecked{
+         color: #239DF2;
+      }
     }
   }
+  .setBgcolor{
+      justify-content: space-between;
+      position: fixed;
+      width: 100%;
+      padding: 0.1rem 0.34rem 0.06rem;
+      left: 0;
+      top: 0.32rem;
+      box-sizing: border-box;
+      background: #fff;
+      border-top: 1px solid #979797;
+      border-bottom: 1px solid #979797;
+     
+      li{
+        flex-direction: column; 
+        width: 0.4rem;
+        text-align: center;
+        .bgColor{
+           width: 0.4rem;
+           height: 0.4rem;
+           border-radius: 50%;
+          //  margin-bottom: 0.04rem;
+           border: 1px solid #979797;
+        }
+        &:first-child{
+          .bgColor{
+            background: #fff;
+          }
+        }
+        &:nth-child(2){
+          .bgColor{
+               background:  #E7DFD3;
+          }
+        }
+        &:nth-child(3){
+          .bgColor{
+                background: #CDE5D5;
+          }
+        }
+        &:nth-child(4){
+          .bgColor{
+                background:  #333333;
+          }
+        }
+        .txt{
+          font-size: 0.12rem;
+          color: #333333;
+          height: 0.25rem;
+          line-height: 0.25rem;
+        }
+      }
+    }
 }
 #mine-index {
   padding: 0.12rem 0.18rem;
-  background: #F6F6F8;
+  // background: pink;
   word-wrap: break-word;
   font-size: 0.16rem;
   ul,

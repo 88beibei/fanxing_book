@@ -33,7 +33,10 @@ var router = new Router({
             path: '/chapter',
             name: 'chapter',
             component: () =>
-                import ('@/page/home/chapter')
+                import ('@/page/home/chapter'),
+            meta: {
+                loginChecked: true // 需要验证用户是否登录
+            }
         },
         {
             path: '/bookRack',

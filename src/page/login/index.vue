@@ -1,5 +1,8 @@
 <template>
   <div id="login-index">
+      <router-link class="logo" to="/home">
+        <img :src="imgSrc" alt="">
+      </router-link>
      <router-view></router-view>
   </div>
 </template>
@@ -9,11 +12,13 @@
 import { setSession, getSession } from "@/api/auth";
 import { sendSmsUrl, loginByCodeUrl, telReg } from "@/config";
 import { timing } from "@/api/utils";
+import imgSrc from "@/images/logoblue.png";
 export default {
   name: "Login-index",
   components: {},
   data() {
     return {
+      imgSrc,
       btnDisabled: 0,
       btnValue: "获取验证码",
       params: {
@@ -39,13 +44,16 @@ export default {
 <style lang="less" scoped>
 #login-index {
   // padding: 0.18rem 0.2rem;
+  width: 100%;
   height: 100%;
-  .link {
-    color: @color2;
-    font-size: @anoFontsize;
-    line-height: @mainFontsize;
-    margin-top: 0.06rem;
-    margin-bottom: 0.3rem;
+  text-align: center;
+  background: #fff;
+  .logo{
+    margin-top: 1rem;
+    img{
+      width: 2rem;
+      height: 0.64rem;
+    }
   }
 }
 </style>

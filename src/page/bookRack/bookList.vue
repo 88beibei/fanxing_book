@@ -4,6 +4,7 @@
       v-for="(item,index) in list"
       :key="index"
       :class="{move:candelete.index==index}"
+       @click="goChapter(item.bookId)"
     >
       <div
         class="clear"
@@ -23,12 +24,11 @@
       </div>
       <div
         class="del"
-        @click.prevent="delItem(index,item.shelfId)"
+        @click.stop="delItem(index,item.shelfId)"
       >删除</div>
       <button
         class="btn"
         v-if="memCode==1"
-        @click="goChapter(item.bookId)"
       >阅读</button>
       <button
         class="btn button button-small"
@@ -37,11 +37,14 @@
       >续费</button>
        <div class="line"></div>
     </li>
+    <div v-show="loading" class="loading">
+      加载中...
+    </div>
   </ul>
 </template>
 <script>
 export default {
-  props: ["list", "memCode"],
+  props: ["list", "memCode","loading"],
   data() {
     return {
       clientNum: {}, // 记录开始滑动（x1）,结束滑动（x2）的鼠标指针的位置
@@ -100,6 +103,8 @@ export default {
 #bookList {
   padding-top: 0.44rem;
   padding-bottom: 0.49rem;
+  height: 100%;
+  box-sizing: border-box;
   li {
     .btn {
       position: absolute;
@@ -117,6 +122,13 @@ export default {
       margin-top: 0.19rem;
       margin-right: 0.2rem;
     }
+  }
+  .loading{
+    width: 100%;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    text-align: center;
+    background: #fff;
   }
 }
 li {

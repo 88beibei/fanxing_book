@@ -1,10 +1,6 @@
 <template>
   <div class="set-pwd">
     <div class="register-content">
-      <div class="logo">
-        <span class="iconfont">&#xe606;</span>
-        <span class="title">梵星网</span>
-      </div>
       <ul class="register-input">
         <li class="register-pwd">
           <input type="password" class="pwd" placeholder="请设置登录密码(支持8-20位数字、字母)" v-model="passWord">
@@ -24,6 +20,7 @@
 
 <script>
 import { Toast } from "mint-ui";
+import md5 from "js-md5";
 export default {
   data() {
     return {
@@ -59,6 +56,8 @@ export default {
 
       if (this.passWord == this.repeatPassWord) {
         let { identifyAuthCode, passWord, repeatPassWord } = this;
+        passWord = md5(passWord);
+        repeatPassWord = md5(repeatPassWord);
         this.isDisabled = true;
         setTimeout(()=>{
             this.isDisabled = false;
@@ -92,18 +91,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .set-pwd {
-  height: 100%;
-  background: #fff;
-  padding: 1.1rem 0.2rem;
-  padding-bottom: 0;
-  height: 100%;
-  box-sizing: border-box;
-  .logo {
-    text-align: center;
-    font-size: 25.2px;
-    color: #239df2;
-    margin-bottom: 0.4rem;
-  }
+  padding: 0.4rem 0.2rem 0;
   input {
     padding: 0.13rem;
     border: 1px solid #ededed;

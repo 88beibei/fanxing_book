@@ -1,10 +1,6 @@
 <template>
   <div class="forget-pwd">
     <div class="register-content">
-      <div class="logo" @click="goHome">
-        <span class="iconfont">&#xe606;</span>
-        <span class="title">梵星网</span>
-      </div>
       <ul class="register-input">
         <li class="register-phone">
           <span>+86</span>
@@ -170,17 +166,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .forget-pwd {
-  height: 100%;
-  background: #fff;
-  padding: 1.1rem 0.2rem;
-  padding-bottom: 0;
-  box-sizing: border-box;
-  .logo {
-    text-align: center;
-    font-size: 25.2px;
-    color: #239df2;
-    margin-bottom: 0.4rem;
-  }
+  padding: 0.4rem 0.2rem 0;
   input {
     padding: 0.13rem;
     border: 1px solid #ededed;
@@ -210,7 +196,7 @@ export default {
       span {
         position: absolute;
         left: 0.1rem;
-        top: 0.12rem;
+        top: 0.125rem;
         font-size: 0.12rem;
       }
       .phone {

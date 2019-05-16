@@ -6,8 +6,8 @@
         <li v-for="(item,index) in recommend" :key="index" @click="goDetail(item.bookId)">
           <div class="book-cover" :style="{'background-image':'url('+item.bookFrontUrl+')'}">
           </div>
-          <p class="book-name">{{item.bookName}}</p>
-          <p class="book-author">{{item.author}}</p>
+          <p class="book-name txt">{{item.bookName}}</p>
+          <p class="book-author txt">{{item.author}}</p>
         </li>
       </ul>
     </div>
@@ -77,10 +77,15 @@ export default {
     box-sizing: border-box;
     .flex {
       flex-wrap: wrap;
-      justify-content: space-between;
+      // justify-content: space-between;
       li {
-        width: 30%;
+        // width: 30%;
+        width: 1rem;
+        margin-right: 0.18rem;
         margin-bottom: 0.2rem;
+        &:nth-child(3n){
+          margin-right: 0;
+        }
         .book-cover {
           width: 100%;
           height: 1.2rem;
@@ -99,6 +104,11 @@ export default {
         .book-author {
           font-size: 0.12rem;
           color: #999999;
+        }
+        .txt{
+          overflow:hidden;
+          text-overflow:ellipsis; 
+          white-space: nowrap;
         }
       }
       .bookImg {

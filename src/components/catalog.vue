@@ -65,6 +65,7 @@ export default {
   // overflow: hidden;
   overflow-y: scroll;
   background-color: #fff;
+  z-index: 99;
   .cate-content{
     height: 0.38rem;
     line-height: 0.38rem;

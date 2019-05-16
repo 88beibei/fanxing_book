@@ -46,6 +46,9 @@ export default {
 </script>
 <style lang="less" scoped>
 #paySuccess {
+  width: 100%;
+  height: 100%;
+  background: #fff;
   .tip {
     color: #239df2;
     text-align: center;

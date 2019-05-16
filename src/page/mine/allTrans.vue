@@ -1,7 +1,12 @@
 <template>
   <div id="allTrans">
     <MineBlank v-if="isBlank"></MineBlank>
-    <ul v-else>
+    <ul 
+      v-infinite-scroll="loadMore2"
+      infinite-scroll-distance="10"
+      infinite-scroll-immediate-check= false
+      infinite-scroll-disabled="loading"
+      v-else>
       <li
         v-for="(item,index) in allTransList"
         :key="index"
@@ -15,12 +20,16 @@
         <p>会员有效期: {{item.effectiveTimeToShow}} - {{item.expireTimeToShow}}</p>
        
       </li>
+      <div v-show="loading" class="loading">
+      加载中...
+    </div>
     </ul>
      <!-- {{formData(11111111111111)}} -->
   </div>
 </template>
 <script>
 import MineBlank from "@/page/mine/blank";
+import { InfiniteScroll } from "mint-ui";
 export default {
     components: {
         MineBlank
@@ -29,6 +38,10 @@ export default {
     return {
       allTransList: [],
       isBlank: false,
+      currentPage: 1,
+      pageSize: 5,
+      totalCount: 0,
+      loading: false,
     };
   },
   mounted() {
@@ -37,6 +50,18 @@ export default {
   computed: {
   },
   methods: {
+    // 上拉加载更多
+    loadMore2(){
+        if(this.currentPage < this.totalCount){
+          this.currentPage +=1;
+          this.loading = true;
+          setTimeout(()=>{
+            this.getAllTransList();
+            this.loading = false;
+            console.log(1111)
+          },1500)
+        }
+    },
     formData(timeStamp) {
       let timestamp4 = new Date(timeStamp);
       return timestamp4 = (
@@ -48,18 +73,23 @@ export default {
      
     },
     getAllTransList() {
+      let {currentPage,pageSize} = this;
       this.$http
-        .post("/fanxing-api/v1/trans/list", {})
+        .post("/fanxing-api/v1/trans/list", {
+          currentPage,
+          pageSize
+        })
         .then(({ bstatus, data }) => {
           if (bstatus.code == 0) {
             if (data.totalCount > 0) {
-              this.allTransList = data.list;
-              this.isBlank = false;
+               this.isBlank = false;
+              this.totalCount = Math.ceil(data.totalCount/this.pageSize);
+              this.allTransList = this.allTransList.concat(data.list);
+              console.log(this.totalCount)
+              console.log('length',this.allTransList.length);
             } else {
               this.isBlank = true;
             }
-          }else{
-            
           }
         });
     }
@@ -74,6 +104,8 @@ export default {
   ul {
     padding: 0.4rem 0.32rem 0;
     background: #fff;
+    // height: 100%;
+    // box-sizing: border-box;
     li {
         margin-top: 0.28rem;
         border-bottom: 1px solid #ededed;
@@ -101,6 +133,14 @@ export default {
         }
       }
     }
+  }
+  .loading{
+    width: 100%;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    text-align: center;
+    background: #fff;
+    transition: 0.3s;
   }
 }
 </style>

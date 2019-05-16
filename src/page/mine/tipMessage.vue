@@ -19,6 +19,7 @@ export default {
   },
   mounted() {
     // this.getMember();
+    sessionStorage.setItem("user_tip",1);
   },
   methods: {
     getMember(){
@@ -31,7 +32,8 @@ export default {
     goHome(){
         // alert('123456')
         // location.href="https://develop-test.ipaynow.cn/#/home";
-        this.$router.push({ path: '/home',query:{tip:1}});
+        // this.$router.push({ path: '/home',query:{tip:1}});
+        this.$router.push({ path: '/home'});
     }
   }
 };
