@@ -2,17 +2,18 @@
   <div id='bookrack-index'>
     <Header></Header>
     <BlankRack v-if='isShow'></BlankRack>
-    <BookList
-      :list="bookItems"
-      :memCode="isMemberCode"
-      :loading="loading"
-      @deleteItem="deleteItem"
-      v-infinite-scroll="loadMore"
-      infinite-scroll-distance="10"
-      infinite-scroll-immediate-check= false
-      infinite-scroll-disabled="loading"
+    <EasyRefresh
+      :userSelect="false"
+      :loadMore="loadMore"
       v-else
-    ></BookList>
+    >
+      <BookList
+        :list="bookItems"
+        :memCode="isMemberCode"
+        :loading="loading"
+        @deleteItem="deleteItem"
+      ></BookList>
+    </EasyRefresh>
     <Footer></Footer>
   </div>
 </template>
@@ -31,7 +32,7 @@ export default {
       bookItems: [],
       isMemberCode: "",
       totalPageSize: 0,
-      loading: false,
+      loading: false
     };
   },
   components: {
@@ -46,16 +47,25 @@ export default {
   },
   methods: {
     // 上拉加载更多
-    loadMore(){
-      if(this.currentPageNum < this.totalPageSize){
+    loadMore(done) {
+      if (this.currentPageNum < this.totalPageSize) {
+        done(false);
         this.currentPageNum += 1;
-         this.loading = true;
-         setTimeout(()=>{
-           this.getbookshelf();
-           this.loading = false;
-         },1500)
+        this.getbookshelf();
+      } else {
+        done(true);
       }
     },
+    // loadMore(){
+    //   if(this.currentPageNum < this.totalPageSize){
+    //     this.currentPageNum += 1;
+    //      this.loading = true;
+    //      setTimeout(()=>{
+    //        this.getbookshelf();
+    //        this.loading = false;
+    //      },3000)
+    //   }
+    // },
     // 获取书架列表内容
     getbookshelf() {
       let { currentPageNum, currentPageSize } = this;
@@ -99,9 +109,11 @@ export default {
           shelfId
         })
         .then(({ bstatus, data }) => {
-          console.log(data);
           if (bstatus.code == 0) {
-            Toast("删除成功");
+            Toast({
+              message: '删除成功',
+              duration: 1000
+            });
           } else {
             Toast(bstatus.msg);
           }
@@ -114,7 +126,8 @@ export default {
 #bookrack-index {
   width: 100%;
   height: 100%;
-  // padding-bottom: 0.49rem
+  // padding-bottom: 0.49rem;
+  // box-sizing: border-box;
 }
 </style>
 

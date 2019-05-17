@@ -5,7 +5,7 @@
     <span :class="{'f-r':true, 'iconfont':true, 'r-icon':true, 'isSetChecked':isSetChecked}" @click='showbgc'>&#xe717;</span>
     <Catalog v-show='showCateContent' @hideCata="hideCata" @goDetail="goDetail"></Catalog>
     <ul class="setBgcolor flex" v-show='showSetContent'>
-        <li class="flex" @click="setBgcolor(index)" v-for="(item,index) in bgColorList" :key="index">  
+        <li class="flex" @click="setBgcolor(index)" v-for="(item,index) in list" :key="index">  
           <span class="bgColor"></span>
           <span class="txt">{{item.title}}</span>
         </li>
@@ -44,7 +44,7 @@ export default {
       isSetChecked: false,
       showSetContent: false,
       bgColor: '',
-      bgColorList:[{
+      list:[{
         title: '默认', bgColor: '#F6F6F8',
       },{
         title: '羊皮纸', bgColor: '#E7DFD3',  
@@ -66,13 +66,11 @@ export default {
     // this.chapter = chapter;
     this.getDetails();
     let user_bgColor = localStorage.getItem('user_bgColor');
-    this.bgColor = user_bgColor ? user_bgColor : bgColorList[0]['bgColor'];
-  
-   
+    this.bgColor = user_bgColor ? user_bgColor : "#F6F6F8";
   },
   methods: {
     setBgcolor(index){
-      this.bgColor = this.bgColorList[index]['bgColor'];
+      this.bgColor = this.list[index]['bgColor'];
       this.showbar = false;
       localStorage.setItem("user_bgColor",this.bgColor)
     },

@@ -23,10 +23,11 @@ export default {
 </script>
 <style lang="less" scoped>
 #blank {
-  // margin-top: 0.44rem;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   background: #fff;
+  padding-bottom: 0.49rem;
+  box-sizing: border-box;
   span {
     display: block;
     text-align: center;

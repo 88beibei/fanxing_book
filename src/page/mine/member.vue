@@ -27,11 +27,11 @@
       <p><span>会员类型:</span><span>{{productList.length ? productList[productId-1].productName : ''}}</span></p>
       <p><span>支付金额:</span><span>{{productList.length ? productList[productId-1].productPrice : ''}} {{productList.length ? productList[0].productCurrency : ''}}</span></p>
     </div>
-    <div v-html="content"></div>
     <button
       class="button button-big btn"
       @click="goRecharge"
     >立即支付</button>
+    <div v-html="content"></div>
   </div>
 </template>
 

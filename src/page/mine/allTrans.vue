@@ -3,7 +3,7 @@
     <MineBlank v-if="isBlank"></MineBlank>
     <ul 
       v-infinite-scroll="loadMore2"
-      infinite-scroll-distance="10"
+      infinite-scroll-distance="50"
       infinite-scroll-immediate-check= false
       infinite-scroll-disabled="loading"
       v-else>
@@ -54,12 +54,11 @@ export default {
     loadMore2(){
         if(this.currentPage < this.totalCount){
           this.currentPage +=1;
+          this.getAllTransList();
           this.loading = true;
           setTimeout(()=>{
-            this.getAllTransList();
-            this.loading = false;
-            console.log(1111)
-          },1500)
+              this.loading = false
+          },3500)
         }
     },
     formData(timeStamp) {

@@ -25,7 +25,7 @@
             @click="goMember"
             class="noMember clear"
           >
-            <span>立即开通会员,免费获取更多电子书资源</span>
+            <span class="fl">立即开通会员,免费获取更多电子书资源</span>
             <span class="iconfont icon-xiayibu nextIcn fr"></span>
           </p>
         </div>

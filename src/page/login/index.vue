@@ -43,12 +43,13 @@ export default {
 
 <style lang="less" scoped>
 #login-index {
-  // padding: 0.18rem 0.2rem;
   width: 100%;
-  height: 100%;
+  // height: 100%;
+  padding-bottom: 0.2rem;
   text-align: center;
   background: #fff;
   .logo{
+    // margin-top: 0.8rem;
     margin-top: 1rem;
     img{
       width: 2rem;

@@ -7,11 +7,9 @@ import { Toast } from "mint-ui";
 NProgress.configure({ showSpinner: false })
 router.beforeEach((to, from, next) => {
     NProgress.start();
-    // console.log(to.meta && to.meta.loginChecked)
-    // console.log('path::::' + to.path)
-    console.log('to:::', to)
-    console.log('from:::', from)
-    console.log('getToken', getToken())
+    // console.log('to:::', to)
+    // console.log('from:::', from)
+    // console.log('getToken', getToken())
     if (to.path == '/member') {
         // console.log('from.path:::' + from.path)
         localStorage.setItem("toMemberPath", from.path);

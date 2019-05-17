@@ -8,7 +8,7 @@
 #mine-blank{
     width: 100%;
     height: 100%;
-    // background: #fff;
+    background: #fff;
     text-align: center;
     span{
         font-size: 1.4rem;
