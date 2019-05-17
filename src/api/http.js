@@ -51,7 +51,7 @@ http.interceptors.response.use(function(response) {
     }
 
 }, function(error) {
-    return Promise.reject(error);
+    return Promise.reject('网络异常！');
 });
 export default {
     post(url, params, hasFailTip = true) {
