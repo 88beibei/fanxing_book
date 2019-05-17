@@ -47,7 +47,7 @@ export default {
 <style lang="less" scoped>
 #paySuccess {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   background: #fff;
   .tip {
     color: #239df2;
@@ -70,7 +70,8 @@ export default {
     color: #b4b4b4;
     text-align: center;
     line-height: 0.18rem;
-    margin-top: 0.2rem;
+    // margin-top: 0.2rem;
+    padding: 0.2rem 0;
   }
 }
 </style>

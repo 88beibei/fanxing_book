@@ -83,7 +83,9 @@ export default {
         this.chapter = chapter;
         this.getDetails();
         this.showSet();
-        // document.documentElement.scrollTop = 0;
+        window.scrollTo(0,0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop =0 ;
 
     },
     getDetails() {
@@ -99,9 +101,9 @@ export default {
             var arr = reg.exec(data.content);
             this.content = arr[1];
             this.totalCount = data.totalCount;
-            console.log( this.totalCount)
+            // console.log( this.totalCount)
           } else if (bstatus.code == 1003) {
-            console.log("已经滑到最后了");
+            // console.log("已经滑到最后了");
           }
         });
     },
