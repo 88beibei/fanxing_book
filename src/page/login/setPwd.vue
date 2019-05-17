@@ -90,15 +90,16 @@ export default {
 </script>
 <style lang="less" scoped>
 .set-pwd {
-  padding: 0.4rem 0.2rem 0;
+  padding: 0.4rem 0.2rem 1.4rem;
   input {
     padding: 0.13rem;
     border: 1px solid #ededed;
     border-radius: 2px;
     box-sizing: border-box;
+    font-size: 0.15rem;
   }
   .register-input {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.22rem;
     .register-pwd {
       width: 100%;
       margin-bottom: 0.2rem;

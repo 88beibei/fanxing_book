@@ -166,18 +166,19 @@ export default {
 </script>
 <style lang="less" scoped>
 .forget-pwd {
-  padding: 0.4rem 0.2rem 0;
+  padding: 0.4rem 0.2rem 0.75rem;
   input {
     padding: 0.13rem;
     border: 1px solid #ededed;
     border-radius: 2px;
   }
   .register-input {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.22rem;
     li {
       margin-bottom: 0.2rem;
       input {
         width: 55%;
+        font-size: 0.15rem;
       }
       .auth-code {
         width: 30%;
@@ -188,6 +189,7 @@ export default {
         height: 0.4rem;
         background: #239df2;
         border-radius: 2px;
+        font-size: 0.13rem;
       }
     }
     .register-phone {
@@ -196,8 +198,8 @@ export default {
       span {
         position: absolute;
         left: 0.1rem;
-        top: 0.125rem;
-        font-size: 0.12rem;
+        top: 0.12rem;
+        font-size: 0.15rem;
       }
       .phone {
         padding-left: 0.46rem;

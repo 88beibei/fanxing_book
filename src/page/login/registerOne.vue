@@ -175,11 +175,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .register {
-  padding: 0.4rem 0.2rem 0;
+  padding: 0.4rem 0.2rem 0.35rem;
   input {
     padding: 0.13rem;
     border: 1px solid #ededed;
     border-radius: 2px;
+    font-size: 0.15rem;
   }
   .register-input {
     margin-bottom: 1.2rem;
@@ -197,6 +198,7 @@ export default {
         height: 0.4rem;
         background: #239df2;
         border-radius: 2px;
+        font-size: 0.13rem;
       }
     }
     .register-phone {
@@ -205,8 +207,8 @@ export default {
       span {
         position: absolute;
         left: 0.1rem;
-        top: 0.125rem;
-        font-size: 0.12rem;
+        top: 0.12rem;
+        font-size: 0.15rem;
       }
       .phone {
         padding-left: 0.46rem;
@@ -218,7 +220,7 @@ export default {
   .go-logo {
     text-align: center;
     margin-top: 0.2rem;
-    font-size: 12px;
+    // font-size: 12px;
     color: #c4c4c4;
     line-height: 0.22rem;
     a {

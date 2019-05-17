@@ -45,7 +45,7 @@ export default {
 #login-index {
   width: 100%;
   // height: 100%;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.5rem;
   text-align: center;
   background: #fff;
   .logo{

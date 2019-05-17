@@ -105,16 +105,17 @@ export default {
     border: 1px solid #ededed;
     border-radius: 2px;
     box-sizing: border-box;
-    height: 0.44rem;
+    // height: 0.44rem;
+    font-size: 0.15rem;
   }
   .register-input {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.17rem;
     .clear {
       input {
         width: 65%;
       }
       .forget-pwd {
-        font-size: 0.12rem;
+        // font-size: 0.12rem;
         color: #b4b4b4;
         line-height: 0.4rem;
       }
@@ -145,7 +146,7 @@ export default {
   .go-logo {
     text-align: center;
     margin-top: 0.2rem;
-    font-size: 12px;
+    // font-size: 12px;
     color: #c4c4c4;
     a {
       color: #619ffe;
