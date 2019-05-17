@@ -2,18 +2,16 @@
   <div id='bookrack-index'>
     <Header></Header>
     <BlankRack v-if='isShow'></BlankRack>
-    <EasyRefresh
-      :userSelect="false"
-      :loadMore="loadMore"
-      v-else
-    >
-      <BookList
-        :list="bookItems"
-        :memCode="isMemberCode"
-        :loading="loading"
-        @deleteItem="deleteItem"
-      ></BookList>
-    </EasyRefresh>
+    <BookList
+      v-infinite-scroll="loadMore"
+      infinite-scroll-distance="10"
+      infinite-scroll-immediate-check= false
+      infinite-scroll-disabled="loading"
+      :list="bookItems"
+      :memCode="isMemberCode"
+      :loading="loading"
+      @deleteItem="deleteItem"
+    ></BookList>
     <Footer></Footer>
   </div>
 </template>
@@ -28,7 +26,7 @@ export default {
     return {
       isShow: false,
       currentPageNum: 1,
-      currentPageSize: 5,
+      currentPageSize: 10,
       bookItems: [],
       isMemberCode: "",
       totalPageSize: 0,
@@ -47,25 +45,16 @@ export default {
   },
   methods: {
     // 上拉加载更多
-    loadMore(done) {
-      if (this.currentPageNum < this.totalPageSize) {
-        done(false);
+     loadMore(){
+      if(this.currentPageNum < this.totalPageSize){
         this.currentPageNum += 1;
-        this.getbookshelf();
-      } else {
-        done(true);
+         this.loading = true;
+         setTimeout(()=>{
+           this.getbookshelf();
+           this.loading = false;
+         },1500)
       }
     },
-    // loadMore(){
-    //   if(this.currentPageNum < this.totalPageSize){
-    //     this.currentPageNum += 1;
-    //      this.loading = true;
-    //      setTimeout(()=>{
-    //        this.getbookshelf();
-    //        this.loading = false;
-    //      },3000)
-    //   }
-    // },
     // 获取书架列表内容
     getbookshelf() {
       let { currentPageNum, currentPageSize } = this;
@@ -111,7 +100,7 @@ export default {
         .then(({ bstatus, data }) => {
           if (bstatus.code == 0) {
             Toast({
-              message: '删除成功',
+              message: "删除成功",
               duration: 1000
             });
           } else {

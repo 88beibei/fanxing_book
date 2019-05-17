@@ -5,9 +5,6 @@ import './permission'
 import axios from "@/api/http";
 // import { getLinkUrl } from '@/config';
 
-//引入上拉刷新
-import EasyRefresh from 'vue-easyrefresh'
-Vue.use(EasyRefresh)
 import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
 Vue.use(MintUI)

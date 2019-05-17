@@ -103,8 +103,8 @@ export default {
 #bookList {
   padding-top: 0.44rem;
   padding-bottom: 0.49rem;
-  // height: 100%;
-  // box-sizing: border-box;
+  height: 100%;
+  box-sizing: border-box;
   li {
     .btn {
       position: absolute;

@@ -91,6 +91,7 @@ export default {
     box-sizing: border-box;
     .flex {
       flex-wrap: wrap;
+      overflow: hidden;
       // justify-content: space-between;
       li {
         width: 30%;

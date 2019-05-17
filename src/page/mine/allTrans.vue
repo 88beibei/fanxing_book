@@ -3,7 +3,7 @@
     <MineBlank v-if="isBlank"></MineBlank>
     <ul 
       v-infinite-scroll="loadMore2"
-      infinite-scroll-distance="50"
+      infinite-scroll-distance="10"
       infinite-scroll-immediate-check= false
       infinite-scroll-disabled="loading"
       v-else>
@@ -39,7 +39,7 @@ export default {
       allTransList: [],
       isBlank: false,
       currentPage: 1,
-      pageSize: 5,
+      pageSize: 10,
       totalCount: 0,
       loading: false,
     };
