@@ -25,7 +25,7 @@ export default {
       this.$router.push('/home')
     },
     sure(){
-      this.$router.push('/mine')
+      this.$router.push({path:'/mine',query:{index:2}})
     }
   }
 };

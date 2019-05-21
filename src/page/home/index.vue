@@ -36,15 +36,14 @@ export default {
   },
   mounted() {
     // 微信环境判断
-    var ua = navigator.userAgent.toLowerCase();
-    var isWeixin = ua.indexOf('micromessenger') != -1;
-    // let {tip} =  this.$route.query
-    let tip = sessionStorage.getItem("user_tip");
-    if(!tip){
-      if (isWeixin) {
-          this.$router.push({ path: '/tipMessage' })
-      } 
-    }
+    // var ua = navigator.userAgent.toLowerCase();
+    // var isWeixin = ua.indexOf('micromessenger') != -1;
+    // let tip = sessionStorage.getItem("user_tip");
+    // if(!tip){
+    //   if (isWeixin) {
+    //       this.$router.push({ path: '/tipMessage' })
+    //   } 
+    // }
     this.getRecommend();
   },
   computed: {},

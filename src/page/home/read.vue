@@ -133,10 +133,8 @@ export default {
     Chapter
   },
   mounted() {
-    // let {bookId,chapter} = this.$route.query
     let { bookId } = this.$route.query;
     this.bookId = bookId;
-    // this.chapter = chapter;
     this.getDetails();
     this.currentChapter = this.first;
     let user_bgColor = localStorage.getItem("user_bgColor");
@@ -153,6 +151,10 @@ export default {
         current.page = pages;
       } else if (page == Math.floor(pages / 2) && !current.next) {
         //中间 做预处理 下一章
+        if(this.chapter < this.totalCount){
+          this.chapter += 1;
+					console.log("TCL+1: changePage -> chapter", this.chapter)
+        }
         this.request().then(txt => {
           current.next = {
             content: txt,
@@ -165,6 +167,10 @@ export default {
         });
       } else if (page == 1 && !current.prev) {
         //第一页 做预处理  上一章
+        if(this.chapter > 1){
+					console.log("TCL-1: changePage -> chapter", this.chapter)
+          this.chapter -=1
+        }
         this.request().then(txt => {
           current.prev = {
             content: txt,
@@ -198,27 +204,34 @@ export default {
     },
     pagePrev() {
       //上一章
-      let currentChapter = this.currentChapter;
-      if (!currentChapter.prev) return console.log("请求中");
-      currentChapter.turnIndex = 1;
-      currentChapter.zIndex = 2;
-      this.currentChapter = currentChapter.prev;
-      this.currentChapter.show = true;
-      setTimeout(
-        _ => {
-          currentChapter.show = false;
-          currentChapter.zIndex = 1;
-          currentChapter.turnIndex = 0;
-          this.currentChapter.zIndex = 2;
-        },
-        this.type == 2 ? 300 : 0
-      );
+        console.log(this.chapter)
+        console.log(this.currentChapter.page)
+      if(this.chapter ==1 && this.currentChapter.page == 1) {
+        console.log(this.chapter)
+        Toast("已至第一章");
+        return;
+      }else{
+        let currentChapter = this.currentChapter;
+        if (!currentChapter.prev) return console.log("请求中");
+        currentChapter.turnIndex = 1;
+        currentChapter.zIndex = 2;
+        this.currentChapter = currentChapter.prev;
+        this.currentChapter.show = true;
+        setTimeout(
+          _ => {
+            currentChapter.show = false;
+            currentChapter.zIndex = 1;
+            currentChapter.turnIndex = 0;
+            this.currentChapter.zIndex = 2;
+          },
+          this.type == 2 ? 300 : 0
+        );
+      }
     },
     request() {
-      let that = this;
       return new Promise((resolve, reject) => {
-        this.getDetails();
-        setTimeout(_ => resolve(that.first.content), 1000);
+        this.getDetails(resolve);
+        // setTimeout(_ => resolve(that.content), 1000);
       });
     },
     setBgcolor(index) {
@@ -239,7 +252,7 @@ export default {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
     },
-    getDetails() {
+    getDetails(callback) {
       let { bookId, chapter } = this;
       this.$http
         .post("/fanxing-api/v1/book/view", {
@@ -250,13 +263,14 @@ export default {
           if (bstatus.code == 0) {
             var reg = /<body[^>]*>([\s\S]*)<\/body>/;
             var arr = reg.exec(data.content);
-            // this.content = arr[1];
-            this.first.content = arr[1];
+            if(typeof callback == 'function'){
+              callback(arr[1])
+            }else{
+              this.first.content = arr[1];
+            }
             this.totalCount = data.totalCount;
-            // console.log( this.totalCount)
-          } else if (bstatus.code == 1003) {
-            // console.log("已经滑到最后了");
-          }
+            
+          } 
         });
     },
     //滑动开始

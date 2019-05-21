@@ -14,8 +14,8 @@
 			:ref="`page_${pageIndex}`"
 			:style="{
 				'z-index': getZIndex(type, pageIndex),
-				transform: pageMove(type, pageIndex),
-				transition: type == 2 && 'transform 0.3s'
+				'transform': pageMove(type, pageIndex),
+				'transition': type == 2 && 'transform 0.3s'
 			}"
 		>
 			<div
@@ -42,12 +42,13 @@ export default {
 			mounted: false,//加载完成
 			turnType: '',//滑动中 下一页next  上一页 prev
 			tiemr: null,//翻页完成延时器
+			isPaged: true,
 		}
 	},
 	computed: {
 		width() {
 			if (this.mounted) {
-				console.log('width',this.$refs.height.clientWidth)
+				// console.log('width',this.$refs.height.clientWidth)
 				return this.$refs.height.clientWidth;
 			}
 		},
@@ -60,10 +61,13 @@ export default {
 			if (this.mounted) {//需要减去上下padding部分
 				let pages = Math.ceil(this.$refs.height.clientHeight / (this.$refs.screen.clientHeight - 20));
 				//上一章 最后一页
-				console.log(this.$refs.height.clientHeight)
-				console.log(this.$refs.screen.clientHeight - 20)
-				console.log('pages',pages)
-				this.$emit('changePage', this.chapterIndex, this.currentPage, pages);
+				// console.log(this.$refs.height.clientHeight)
+				// console.log(this.$refs.screen.clientHeight - 20)
+				// console.log('pages',pages)
+				if(this.isPaged){
+					this.isPaged = false;
+					this.$emit('changePage', this.chapterIndex, this.currentPage, pages);
+				}
 				return pages;
 			}
 		}
@@ -160,6 +164,7 @@ export default {
 		position: absolute;
 		z-index: -1;
 		opacity: 0;
+		box-sizing: border-box;
 	}
 	.screen {
 		width: 100%;
@@ -168,9 +173,10 @@ export default {
 		background-color: #faf9de;
 		position: absolute;
 		div {
-			// padding: @padding;
+			padding: @padding;
 			height: 100%;
 			word-wrap: break-word;
+			box-sizing: border-box;
 		}
 	}
 }

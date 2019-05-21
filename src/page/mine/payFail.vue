@@ -5,10 +5,10 @@
         <span class="iconfont icon-shibai"></span>
         <p class="txt">支付失败</p>
       </div>
-      <div class="clear">
-        <button class="button button-normal fl btn1" @click="goHome">回首页</button>
+      <div class="flex btn">
+        <button class="button button-normal btn1" @click="goHome">回首页</button>
         <button
-        class="button button-normal btn2 fl"
+        class="button button-normal btn2"
         @click="goMember"
       >重新下单</button>
       </div>
@@ -59,8 +59,13 @@ export default {
     bottom: 0;
     margin: auto;
     width: 3.35rem;
-    height: 2.5rem;
+    height: 2.7rem;
+    // padding: 0.39rem 0.2rem 0.16rem;
     background: #fff; 
+    .btn{
+      padding: 0 0.06rem;
+      justify-content: space-between;
+    }
     .btn1{
       background: #FFFFFF;
       box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
@@ -68,7 +73,7 @@ export default {
       font-family: PingFangSC-Medium;
       font-size: 0.14rem;
       color: #666666;
-      margin: 0 0.17rem 0 0.19rem;
+      // margin: 0 0.17rem 0 0.19rem;
     }
     .btn2{
       box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);

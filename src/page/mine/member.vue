@@ -92,12 +92,11 @@ export default {
 </script>
 <style lang="less" scoped>
 #member {
-  // padding-top: 0.64rem;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   background: #fff;
   padding-bottom: 0.2rem;
-  box-sizing: border-box;
+  // box-sizing: border-box;
   .product{
     padding-top: 0.64rem;
     font-family: PingFangSC-Medium;

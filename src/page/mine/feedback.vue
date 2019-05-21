@@ -1,5 +1,5 @@
 <template>
-  <div id="feedback">
+  <div id="feedback" @click="hideTip">
     <Header2 title="问题反馈"></Header2>
     <div class="wrap">
       <div class="qusType">
@@ -7,7 +7,7 @@
         <div class="qusMsg">
           <div
             :class="{'clear':true, 'tip':true, 'border': isShow}"
-            @click="showTip"
+            @click.stop="showTip"
           >
             <span class="fl">{{typeName}}</span>
             <span class="iconfont icon-jiantou fr icn"></span>
@@ -16,7 +16,7 @@
             <li
               v-for="(item,index) in list"
               :key="index"
-              @click="getTypeCode(item.typeCode,item.typeName)"
+              @click.stop="getTypeCode(item.typeCode,item.typeName)"
             >
               {{item.typeName}}
             </li>
@@ -64,6 +64,9 @@ export default {
     this.getQuestionType();
   },
   methods: {
+    hideTip(){
+      this.isShow = false;
+    },
     showTip() {
       this.isShow = !this.isShow;
     },
@@ -143,8 +146,10 @@ export default {
           border: 1px solid #cacaca;
           background: #fff;
           box-sizing: border-box;
+          z-index: 99;
           li {
             padding: 0 0.12rem;
+            height: 0.42rem;
             line-height: 0.42rem ;
           }
         }
