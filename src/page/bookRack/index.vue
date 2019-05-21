@@ -11,6 +11,7 @@
       :memCode="isMemberCode"
       :loading="loading"
       @deleteItem="deleteItem"
+      v-else
     ></BookList>
     <Footer></Footer>
   </div>

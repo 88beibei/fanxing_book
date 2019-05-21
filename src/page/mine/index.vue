@@ -40,6 +40,19 @@
           </p>
         </div>
       </li>
+        <li>
+        <div class="flex line">
+          <span class="iconfont icon-wentifankui icn"></span>
+          <p
+            class="qus clear"
+            @click="goFeedback"
+          >
+            <span class="fl">问题反馈</span>
+            <span class="iconfont icon-xiayibu nextIcn fr"></span>
+          </p>
+        </div>
+
+      </li>
       <li>
         <div class="flex line">
           <span class="iconfont icon-tuichu icn"></span>
@@ -90,6 +103,10 @@ export default {
     this.getUserDetail();
   },
   methods: {
+    // 问题反馈
+    goFeedback(){
+      this.$router.push({path: '/feedback'})
+    },
     goTrans(){
       this.$router.push({path: '/transList/allTrans'})
     },
@@ -152,9 +169,14 @@ export default {
         padding: 0.75rem 0 0.29rem 0.21rem;
         margin-bottom: 0.13rem;
       }
-      &:nth-child(4) {
+      &:nth-child(4){
+        .icn{
+          // font-size: 0.21rem;
+        }
+      }
+      &:nth-child(5) {
         .icn {
-          font-size: 0.17rem;
+          font-size: 0.19rem;
         }
       }
       .line {

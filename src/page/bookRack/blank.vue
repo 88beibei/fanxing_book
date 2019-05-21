@@ -24,9 +24,10 @@ export default {
 <style lang="less" scoped>
 #blank {
   width: 100%;
-  // height: 100%;
+  height: 100%;
   background: #fff;
-  padding-bottom: 0.49rem;
+  // padding-bottom: 0.49rem;
+  padding-bottom: 1.2rem;
   box-sizing: border-box;
   span {
     display: block;

@@ -73,8 +73,8 @@ export default {
     // 跳转到相应章节
     goChapter(bookId) {
       console.log(bookId);
-      // this.$router.push({ name: "catalog", query: { bookId } });
       this.$router.push({ name: "chapter", query: { bookId } });
+      // this.$router.push({ name: "read", query: { bookId } });
     },
     // 获取用户信息
     getUserDetail() {

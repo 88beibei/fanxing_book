@@ -168,6 +168,7 @@ export default {
 };
 </script>
 <style lang="less">
+ * { touch-action: pan-y; } 
 .chapter{
   // padding-top: 0.44rem;
   position: relative;

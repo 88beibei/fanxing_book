@@ -57,7 +57,7 @@ export default {
   },
   watch: {
     "params.mobile"(val) {
-      console.log(val);
+      // console.log(val);
       if (val.length > 0 && this.btnDisabled != 2) {
         this.btnDisabled = 1;
       } else if (val.length == 0) {
@@ -207,7 +207,9 @@ export default {
       span {
         position: absolute;
         left: 0.1rem;
-        top: 0.12rem;
+        top: 0;
+        line-height: 0.45rem;
+        // top: 0.12rem;
         font-size: 0.15rem;
       }
       .phone {

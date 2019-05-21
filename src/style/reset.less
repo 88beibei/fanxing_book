@@ -144,11 +144,18 @@ button {
 input::-webkit-input-placeholder {
   color: @fsColor;
 }
+textarea::-webkit-input-placeholder {
+  color: @fsColor;
+}
 
-input {
+input, textarea{
   color: @fsColor1  !important;
-  -webkit-appearance: none;
   border-radius: 0;
+  border: 0 none;
+  outline: none;
+  -webkit-appearance: none; // 清除输入框内阴影
+  box-shadow: 0 0 0 100rem #fff inset;
+  -webkit-box-shadow: 0 0 0 100rem #fff inset; // 清除自动填充颜色
 }
 
 video {

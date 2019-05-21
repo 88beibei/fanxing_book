@@ -27,6 +27,12 @@ Vue.prototype.$height = document.documentElement.clientHeight / parseInt(Vue.pro
 // import layer from 'vue-layer-mobile';
 // Vue.use(layer);
 
+import VueTouch from 'vue-touchjs';
+// VueTouch.config.swipe = {
+//     threshold: 200
+// }
+Vue.use(VueTouch, { name: 'v-touch' });
+
 
 import "@/style/font/iconfont.css";
 import "@/style/font/iconfont.js";

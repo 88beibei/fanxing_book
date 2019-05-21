@@ -39,6 +39,15 @@ var router = new Router({
             }
         },
         {
+            path: '/read',
+            name: 'read',
+            component: () =>
+                import ('@/page/home/read'),
+            meta: {
+                loginChecked: true // 需要验证用户是否登录
+            }
+        },
+        {
             path: '/bookRack',
             name: 'bookRack',
             component: () =>
@@ -90,6 +99,18 @@ var router = new Router({
             name: 'tipMessage',
             component: () =>
                 import ('@/page/mine/tipMessage')
+        },
+        {
+            path: '/feedback',
+            name: 'feedback',
+            component: () =>
+                import ('@/page/mine/feedback')
+        },
+        {
+            path: '/feedbackSuccess',
+            name: 'feedbackSuccess',
+            component: () =>
+                import ('@/page/mine/feedbackSuccess')
         },
         {
             path: '/transList',
