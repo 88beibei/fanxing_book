@@ -74,7 +74,7 @@ export default {
         })
         .then(
           ({ bstatus, data }) => {
-            // console.log(data.user)
+            console.log(data.user)
             // debugger
             Cookies.set("userinfo", JSON.stringify(data.user));
             Toast({

@@ -42,7 +42,7 @@ var router = new Router({
             path: '/read',
             name: 'read',
             component: () =>
-                import ('@/page/home/read'),
+                import ('@/page/home/readTwo'),
             meta: {
                 loginChecked: true // 需要验证用户是否登录
             }

@@ -51,14 +51,12 @@
       <Chapter
         :type="type"
         :chapterIndex="index"
+        :chapter="chapter"
+        :totalCount="totalCount"
         v-if="item.show"
-        :content="item.content"
-        :currentPage="item.page"
-        :turnIndex="item.turnIndex"
+        :content="item"
         :bgColor="bgColor"
-        :isPaged="item.isPaged"
         @changePage="changePage"
-        @changeIsPaged="changeIsPaged"
         @pageNext="pageNext"
         @pagePrev="pagePrev"
         @showSet="showSet"
@@ -73,16 +71,13 @@
 import { Toast } from "mint-ui";
 import Header2 from "@/components/header2";
 import Catalog from "@/components/catalog";
-import Chapter from "@/components/chapter";
+import Chapter from "@/components/chapterTwo";
 export default {
   data() {
     return {
       content: "",
       chapter: 1,
-      chapterTip: "",
       bookId: "",
-      startX: 0,
-      endX: 0,
       totalCount: 0,
       showbar: false,
       showCateContent: false,
@@ -111,25 +106,17 @@ export default {
       type: 2,
       currentChapter: null,
       first: {
-        content: null,
+        content: '',
         page: 1,
         prev: null,
         next: null,
         show: true,
         zIndex: 2,
-        isPaged: false
-      }
+      },
+      list: []
     };
   },
   computed: {
-    list() {
-      let list = [this.first];
-      console.log(list);
-      for (let item = this.first; item.next; item = item.next) {
-        list.push(item.next);
-      }
-      return list;
-    }
   },
   components: {
     Header2,
@@ -139,109 +126,108 @@ export default {
   mounted() {
     let { bookId } = this.$route.query;
     this.bookId = bookId;
-    // this.chapterTip = this.chapter; 
-    this.getDetails();
-    this.currentChapter = this.first;
+    this.computedList();
+		// setTimeout(_ => {
+		// 	this.currentChapter.content = txt;
+		// }, 2000);
+    this.getDetails(1,content=>{
+      	this.currentChapter.content = content;
+    });
+
     let user_bgColor = localStorage.getItem("user_bgColor");
     this.bgColor = user_bgColor ? user_bgColor : "#F6F6F8";
   },
   methods: {
-    changeIsPaged() {
-      this.first.isPaged = true;
-    },
-    changePage(index, page, pages) {
-      //改变页面
-      let current = this.list[index];
-      current.page = page;
-      current.pages = pages;
+    computedList() {
+			let list = [this.first];
+			for (let item = this.first; item.next; item = item.next) {
+				list.push(item.next);
+			}
+			this.list = list;
+			this.currentChapter = list.find(v => v.show);
+			// return list;
+		},
+    changePage(index, page, pages) {//改变页面
+			let current = this.list[index];
+			current.page = page;
+			current.pages = pages;
+			if (page == 0) {//上一章最后一页
+				current.isPaged = true;
+				current.page = pages;
+      } else if (page == Math.floor(pages / 2) && !current.next && (this.chapter != this.totalCount)) {//中间 做预处理 下一章
+				this.request(this.chapter + 1).then(txt => {
+					current.next = {
+						content: txt,
+						page: 1,
+						prev: current,
+						next: null,
+						show: false,
+						zIndex: 1
+					}
+					this.computedList();
+				});
+			} else if (page == 1 && (this.chapter != 1) && !current.prev && !current.loading) {//第一页 做预处理  上一章
+				current.loading = true; //请求中
+				console.log('请求章节', current)
+				this.request(this.chapter-1).then(res => {
+					current.prev = {
+						content: res,
+						page: 0,
+						prev: null,
+						next: current,
+						show: false,
+						zIndex: 1
+					}
+					this.first = current.prev;
+					this.computedList();
+				});
+			}
+		},
+   pageNext(index) {//下一章
+   if(this.chapter == this.totalCount && this.currentChapter.page == this.currentChapter.pages){
+      Toast("已至最后一章")
+   }else{
+     this.chapter += 1;
+     let currentChapter = this.currentChapter;
+     if (!currentChapter.next) return console.log('请求中');
+     currentChapter.turnIndex = currentChapter.pages;
+     currentChapter.zIndex = 2;
+     currentChapter.next.show = true;
+     this.currentChapter = currentChapter.next;
+     setTimeout(_ => {
+       currentChapter.show = false;
+       currentChapter.zIndex = 1;
+       currentChapter.page = currentChapter.pages;
+       currentChapter.turnIndex = 0;
+       currentChapter.next.zIndex = 2;
+     }, this.type == 2 ? 300 : 0);
+   }
+				
+		},
+    pagePrev(index) {//上一章
+     if(this.chapter == 1 && this.currentChapter.page == 1) {
+       Toast("已至第一章")
+     }else{
+       this.chapter -= 1;
+       let currentChapter = this.currentChapter;
+       if (!currentChapter.prev) return console.log('请求中');
+       currentChapter.turnIndex = 1;
+       currentChapter.zIndex = 2;
+       currentChapter.prev.show = true;
+       this.currentChapter = currentChapter.prev;
+       setTimeout(_ => {
+         currentChapter.show = false;
+         currentChapter.page = 1;
+         currentChapter.zIndex = 1;
+         currentChapter.turnIndex = 0;
+         currentChapter.prev.zIndex = 2;
+       }, this.type == 2 ? 300 : 0);
+     }
 
-      console.log(page == 1 && !current.prev);
-      current.isPaged = true;
-      if (page == 0) {
-        //上一章最后一页
-        current.page = pages;
-      } else if (page == Math.floor(pages / 2) && !current.next) {
-        //中间 做预处理 下一章
-        // if (this.chapter < this.totalCount) {
-        //   this.chapter += 1;
-        // }
-        this.request(this.chapter+1).then(txt => {
-          current.next = {
-            content: txt,
-            page: 1,
-            prev: current,
-            next: null,
-            show: false,
-            zIndex: 1
-          };
-        });
-      } else if (page == 1 && !current.prev) {
-        //第一页 做预处理  上一章
-        // if (this.chapter > 1) {
-        //   this.chapter -= 1;
-        // }
-        this.request(this.chapter-1).then(txt => {
-          current.prev = {
-            content: txt,
-            page: 0,
-            prev: null,
-            next: current,
-            show: false,
-            zIndex: 1
-          };
-          this.first = current.prev;
-        });
-      }
-    },
-    pageNext() {
-      //下一章
-      // this.chapterTip += 1;
-      this.chapter += 1;
-      let currentChapter = this.currentChapter;
-      if (!currentChapter.next) return console.log("请求中");
-      currentChapter.turnIndex = currentChapter.pages;
-      currentChapter.zIndex = 2;
-      this.currentChapter = currentChapter.next;
-      this.currentChapter.show = true;
-      setTimeout(
-        _ => {
-          currentChapter.show = false;
-          currentChapter.zIndex = 1;
-          currentChapter.turnIndex = 0;
-          this.currentChapter.zIndex = 2;
-        },
-        this.type == 2 ? 300 : 0
-      );
-    },
-    pagePrev() {
-      //上一章
-      console.log("上一章", 11111);
-      if (this.chapter == 1 && this.currentChapter.page == this.currentChapter.pages) {
-        Toast("已至第一章");
-        return;
-      } else {
-        // this.chapterTip -= 1;
-        this.chapter -= 1
-        let currentChapter = this.currentChapter;
-        if (!currentChapter.prev) return console.log("请求中");
-        currentChapter.turnIndex = 1;
-        currentChapter.zIndex = 2;
-        this.currentChapter = currentChapter.prev;
-        this.currentChapter.show = true;
-        setTimeout(
-          _ => {
-            currentChapter.show = false;
-            currentChapter.zIndex = 1;
-            currentChapter.turnIndex = 0;
-            this.currentChapter.zIndex = 2;
-          },
-          this.type == 2 ? 300 : 0
-        );
-      }
-    },
-    request() {
+		},
+    request(chapter) {
       return new Promise((resolve, reject) => {
-        this.getDetails(resolve);
+        this.getDetails(chapter,resolve);
       });
     },
     setBgcolor(index) {
@@ -256,9 +242,7 @@ export default {
     goDetail({ bookId, chapter }) {
       this.bookId = bookId;
       this.chapter = chapter;
-      // this.chapterTip = this.chapter;
-
-      this.getDetails(content=> {
+      this.getDetails(chapter,content=> {
         this.first = {
           content: content,
           page: 1,
@@ -266,19 +250,18 @@ export default {
           next: null,
           show: true,
           zIndex: 2,
-          isPaged: false
         };
-        this.currentChapter = this.first;
+        this.computedList();
       });
       this.showSet();
     },
-    getDetails(callback) {
-      let { bookId, chapter } = this;
+    getDetails(chapter,callback) {
+      let { bookId } = this;
       this.$http
         .post("/fanxing-api/v1/book/view", {
           bookId: bookId,
-          chapter: chapter
-        })
+          chapter,
+        },false)
         .then(({ bstatus, data }) => {
           if (bstatus.code == 0) {
             var reg = /<body[^>]*>([\s\S]*)<\/body>/;
@@ -291,43 +274,6 @@ export default {
             this.totalCount = data.totalCount;
           }
         });
-    },
-    //滑动开始
-    touchStart(e) {
-      // 记录初始位置
-      this.startX = e.touches[0].clientX;
-    },
-    //滑动结束
-    touchEnd(e) {
-      // 记录结束位置
-      this.endX = e.changedTouches[0].clientX;
-      let slideDis = this.startX - this.endX;
-      if (slideDis > 80) {
-        //   console.log('左滑')
-        console.log("this.chapter" + this.chapter);
-        console.log("this.totalCount" + this.totalCount);
-        if (this.chapter < this.totalCount) {
-          this.chapter += 1;
-          this.getDetails();
-          window.scrollTo(0, 0);
-          document.documentElement.scrollTop = 0;
-          document.body.scrollTop = 0;
-        } else {
-          Toast("已至最后一章");
-        }
-      }
-      if (slideDis < -80) {
-        //   console.log('右滑')
-        if (this.chapter > 1) {
-          this.chapter -= 1;
-          this.getDetails();
-          window.scrollTo(0, 0);
-          document.documentElement.scrollTop = 0;
-          document.body.scrollTop = 0;
-        } else {
-          Toast("已至第一章");
-        }
-      }
     },
     showSet() {
       this.showbar = !this.showbar;

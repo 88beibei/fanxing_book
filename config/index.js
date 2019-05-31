@@ -12,7 +12,8 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/': {
-                target: 'https://develop-test.ipaynow.cn',
+                // target: 'https://develop-test.ipaynow.cn',
+                target: 'http://www.fanxingreader.com',
                 // target: 'http://192.168.30.120:18080',
                 // target: 'http://192.168.30.14:18080',
                 secure: false,

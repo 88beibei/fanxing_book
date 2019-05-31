@@ -2,13 +2,16 @@
   <div class='cate'>
     <div class='cate-content clear'>
       <span class='f-l l-content'>目录</span>
-      <span class='iconfont f-r' @click="hideCata">&#xe60f;</span>
+      <span
+        class='iconfont f-r'
+        @click="hideCata"
+      >&#xe60f;</span>
     </div>
     <ul>
       <li
         v-for="(item,index) in content"
         :key="index"
-        @click="goDetail(item.bookId,item.chapter)"
+        @click.stop="goDetail(item.bookId,item.chapter)"
       >
         {{item.indexName}}
       </li>
@@ -21,19 +24,19 @@ export default {
   data() {
     return {
       content: [],
-      bookId: '',
+      bookId: ""
     };
   },
   mounted() {
-    let {bookId} = this.$route.query
+    let { bookId } = this.$route.query;
     this.bookId = bookId;
     this.getCatalog();
     // this.cataHeight = (document.documentElement.clientHeight - 32)/100 + 'rem';
     //  console.log((document.documentElement.clientHeight - 32)/100)
   },
   methods: {
-    hideCata(){
-        this.$emit("hideCata")
+    hideCata() {
+      this.$emit("hideCata");
     },
     getCatalog() {
       let { bookId } = this;
@@ -49,14 +52,14 @@ export default {
     },
     goDetail(bookId, chapter) {
       console.log(bookId, chapter);
-      this.$emit("goDetail",{bookId,chapter})
+      this.$emit("goDetail", { bookId, chapter });
       // this.$router.push({ name: "chapter", query: { bookId, chapter } });
     }
   }
 };
 </script>
 <style lang="less" scoped>
-.cate{
+.cate {
   position: fixed;
   left: 0;
   top: 0.32rem;
@@ -66,26 +69,29 @@ export default {
   overflow-y: scroll;
   background-color: #fff;
   z-index: 99;
-  .cate-content{
+  .cate-content {
     height: 0.38rem;
     line-height: 0.38rem;
-    border-top:1px solid #ccc;
-    border-bottom:1px solid #ccc;
-    .f-r{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    .f-r {
       // margin-right: 0.14rem;
       font-size: 0.2rem;
       padding: 0 0.2rem;
     }
-    .l-content{
+    .l-content {
       margin-left: 0.16rem;
     }
   }
-  ul{
-    li{
+  ul {
+    li {
       height: 0.38rem;
       line-height: 0.38rem;
-      border-bottom: 1px dashed #ccc; 
+      border-bottom: 1px dashed #ccc;
       padding-left: 0.2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

@@ -10,17 +10,17 @@
 			class="screen"
 			v-for="pageIndex in pages"
 			:key="pageIndex"
-			v-show="!turnIndex || turnIndex == pageIndex"
+			v-show="!content.turnIndex || content.turnIndex == pageIndex"
 			:ref="`page_${pageIndex}`"
 			:style="{
 				'z-index': getZIndex(type, pageIndex),
-				'transform': pageMove(type, pageIndex),
-				'transition': type == 2 && 'transform 0.3s',
+				transform: pageMove(type, pageIndex),
+				transition: type == 2 && 'transform 0.3s',
 				'backgroundColor': bgColor
 			}"
 		>
 			<div
-				v-html="content"
+				v-html="content.content"
 				:style="{
 					columns: `${width}px ${pages}`,
 					'column-gap': '0.2rem',
@@ -28,7 +28,7 @@
 				}"
 			></div>
 		</div>
-		<div class="hidden" ref="height" v-html="content"></div>
+		<div class="hidden" ref="height" v-html="content.content"></div>
 	</div>
 </template>
 
@@ -37,54 +37,38 @@ import { setTimeout, clearTimeout } from 'timers';
 
 export default {
 	name: 'home',
-	props: ['currentPage', 'content', 'chapterIndex', 'turnIndex', 'type', 'bgColor', 'isPaged'],
+	props: ['content', 'chapterIndex', 'type', 'bgColor', 'chapter','totalCount'],
 	data() {
 		return {
-			mounted: false,//加载完成
+			isMounted: 0,//加载完成
 			turnType: '',//滑动中 下一页next  上一页 prev
 			tiemr: null,//翻页完成延时器
-			// isPaged: true,
+			pages: 0
 		}
 	},
 	computed: {
 		width() {
-			if (this.mounted) {
 				return this.$refs.height.clientWidth;
-			}
 		},
 		height() {
-			if (this.mounted) {
 				return this.$refs.screen.clientHeight;
-			}
-		},
-		pages() {
-			if (this.mounted) {//需要减去上下padding部分
-				let pages = Math.ceil(this.$refs.height.clientHeight / (document.body.clientHeight - 20));
-				//上一章 最后一页
-                console.log("TCL: pages -> this.$refs.height.clientHeight", document.body.clientHeight)
-				if(!this.isPaged){
-					this.$emit('changePage', this.chapterIndex, this.currentPage, pages);
-					this.$emit('changeIsPaged')
-				}
-                console.log("TCL: pages -> pages", pages)
-				
-				return pages;
-			}
 		}
 	},
 	methods: {
 		getZIndex(type, pageIndex) {//层级关系
+			let { page } = this.content;
 			if (type == 1 || !this.turnType) {
-				return this.currentPage == pageIndex ? 2 : 1;
+				return page == pageIndex ? 2 : 1;
 			} else if (type == 2) {//翻页中
 				if (this.turnType == 'next') {//下一页  上一页滑动
-					return this.currentPage - 1 == pageIndex ? 3 : this.getZIndex(1, pageIndex);
+					return page - 1 == pageIndex ? 3 : this.getZIndex(1, pageIndex);
 				} else {//上一页  下一页滑动
-					return this.currentPage + 1 == pageIndex ? 3 : this.getZIndex(1, pageIndex);
+					return page + 1 == pageIndex ? 3 : this.getZIndex(1, pageIndex);
 				}
 			}
 		},
 		pageMove(type, pageIndex) {//滑动动画
+			let { page, turnIndex } = this.content;
 			var move = {
 				next: 'translate3d(-100%, 0, 0)',
 				prev: 'translate3d(100%, 0, 0)'
@@ -92,42 +76,43 @@ export default {
 			//向后翻页
 			if (type == 2) {
 				//下一页
-				if (this.currentPage - 1 == pageIndex && this.turnType == 'next') {
+				if (page - 1 == pageIndex && this.turnType == 'next') {
 					return move.next;
-				} else if (this.currentPage + 1 == pageIndex && this.turnType == 'prev') {
+				} else if (page + 1 == pageIndex && this.turnType == 'prev') {
 					return move.prev;
 				}
-				if (this.turnIndex == 1 && this.turnIndex == pageIndex) {
+				if (turnIndex == 1 && turnIndex == pageIndex) {
 					return move.prev;
-				} else if (this.pages && this.turnIndex == this.pages && this.turnIndex == pageIndex) {
+				} else if (this.pages && turnIndex == this.pages && turnIndex == pageIndex) {
 					return move.next;
 				}
 
 			}
 		},
 		onLeft() {//左滑 下一页
-			if (this.timer || (this.currentPage > this.pages)) return false;//防止重复滑动
-			if (this.currentPage == this.pages) {//最后一页滑动
+			let { page, turnIndex } = this.content;
+			console.log(this.chapterIndex, page)
+			if (this.timer || (page > this.pages)) return false;//防止重复滑动
+			if (page == this.pages) {//最后一页滑动
 				this.$emit('pageNext');
-				return;
 			}
 			let type = this.type;
-			this.$emit('changePage', this.chapterIndex, this.currentPage + 1, this.pages);
-			if (type == 2) {
+			if (type == 2 && (this.chpater != this.totalCount) && (page != this.pages)) {
+				this.$emit('changePage', this.chapterIndex, page + 1, this.pages);
 				this.turnType = 'next';
 				this.moveDone();
 			}
 		},
 		onRight() {//右滑 上一页
-			if (this.timer) return false;
-			console.log('this.currentPage',this.currentPage)
-			if (this.currentPage == 1) {
+			let { page, turnIndex } = this.content;
+			console.log(this.chapterIndex, page)
+			if (this.timer || (page < 1)) return false;
+			if (page == 1) {
 				this.$emit('pagePrev', this.chapterIndex);
-				return;
 			}
 			let type = this.type;
-			this.$emit('changePage', this.chapterIndex, this.currentPage - 1, this.pages);
-			if (type == 2) {
+			if (type == 2 && this.chpater != 1 && page != 1) {
+				this.$emit('changePage', this.chapterIndex, page - 1, this.pages);
 				this.turnType = 'prev';
 				this.moveDone();
 			}
@@ -140,15 +125,29 @@ export default {
 			}, 300);
 		},
 		click() {
-			// console.log(11111111)
 			this.$emit('showSet');
 		}
 
 	},
 	mounted() {
-		this.mounted = true;
-
+		// let 'page', 'content', 'chapterIndex', 'turnIndex', 'type', 'isPaged'
+		let { page, isPaged, prev, loading } = this.content;
+		this.pages = Math.ceil(this.$refs.height.clientHeight / (this.$refs.screen.clientHeight - 20));
+				//上一章 最后一页
+		if(!isPaged){
+			this.$emit('changePage', this.chapterIndex, page, this.pages);
+		}
 	},
+	updated(){
+		let { page, isPaged, prev, loading } = this.content;
+		if(!this.pages){
+			this.pages = Math.ceil(this.$refs.height.clientHeight / (this.$refs.screen.clientHeight - 20));
+					//上一章 最后一页
+			if(!isPaged){
+				this.$emit('changePage', this.chapterIndex, page, this.pages);
+			}
+		}
+	}
 }
 </script>
 <style lang="less" scoped>
@@ -186,7 +185,7 @@ export default {
 <style lang="less">
 #content {
 	p {
-		// text-indent: 2em;
+		text-indent: 2em;
 		line-height: 1.5em;
 		margin-top: 0;
 		margin-bottom: 1.5em;
