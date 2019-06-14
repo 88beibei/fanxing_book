@@ -28,11 +28,13 @@ export default {
       passWord: "",
       repeatPassWord: "",
       isDisabled: false,
+      channelCode: "",
     };
   },
   mounted() {
     let { identifyAuthCode } = this.$route.query;
     this.identifyAuthCode = identifyAuthCode;
+    this.channelCode = localStorage.getItem("channelCode");
   },
   methods: {
     setPassword() {
@@ -55,7 +57,7 @@ export default {
 
 
       if (this.passWord == this.repeatPassWord) {
-        let { identifyAuthCode, passWord, repeatPassWord } = this;
+        let { identifyAuthCode, passWord, repeatPassWord, channelCode } = this;
         passWord = md5(passWord);
         repeatPassWord = md5(repeatPassWord);
         this.isDisabled = true;
@@ -66,7 +68,8 @@ export default {
           .post("/fanxing-api/v1/user/register/step3", {
             identifyAuthCode:identifyAuthCode,
             passWord,
-            repeatPassWord
+            repeatPassWord,
+            channelCode
           })
           .then(({ bstatus }) => {
             if (bstatus.code == 0) {

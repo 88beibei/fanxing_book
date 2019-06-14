@@ -44,7 +44,12 @@ export default {
     //       this.$router.push({ path: '/tipMessage' })
     //   } 
     // }
+
     this.getRecommend();
+
+    //获取地址栏channelCode参数
+    let channelCode = location.search.split("=")[1];
+    localStorage.setItem('channelCode', channelCode);
   },
   computed: {},
   watch: {},
@@ -57,9 +62,9 @@ export default {
         });
     },
     goDetail(bookId) {
-      console.log(bookId);
       this.$router.push({ path: "/bookDetail", query: { bookId } });
-    }
+    },
+
   }
 };
 </script>

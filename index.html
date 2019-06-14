@@ -15,23 +15,20 @@
     <!-- built files will be auto injected -->
 </body>
 <script>
-    // 生产环境
-    // var _hmt = _hmt || [];
-    // (function() {
-    //   var hm = document.createElement("script");
-    //   hm.src = "https://hm.baidu.com/hm.js?5a50f672a2a0431b3b59545f9ca9fe1d";
-    //   var s = document.getElementsByTagName("script")[0]; 
-    //   s.parentNode.insertBefore(hm, s);
-    // })();
-
-    //测试环境
+    
     var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?e4956aadda0eb01e01cc333fffc6c31d";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
+    (function() {
+      var hm = document.createElement("script");
+      // 生产环境
+      hm.src = "https://hm.baidu.com/hm.js?5a50f672a2a0431b3b59545f9ca9fe1d";
+
+      // 测试环境
+      // hm.src = "https://hm.baidu.com/hm.js?e4956aadda0eb01e01cc333fffc6c31d";
+
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
     })();
+
 </script>
 
 </html>

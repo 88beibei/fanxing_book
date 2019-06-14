@@ -3,12 +3,10 @@
     <Header2 :title="title"></Header2>
     <p class="product">会员套餐</p>
     <ul>
-      <li
-        v-for="(item,index) in productList"
-        :key="index"
-        :class="{'flex': true, isChecked: (index==(productId-1))}"
-        @click="checkPrice(item.productId)"
-      >
+      <li v-for="(item,index) in productList"
+          :key="index"
+          :class="{'flex': true, isChecked: (index==(productId-1))}"
+          @click="checkPrice(item.productId)">
         <p>{{item.productName}}</p>
         <p>{{item.productPrice}} {{item.productCurrency}}</p>
 
@@ -27,10 +25,8 @@
       <p><span>会员类型:</span><span>{{productList.length ? productList[productId-1].productName : ''}}</span></p>
       <p><span>支付金额:</span><span>{{productList.length ? productList[productId-1].productPrice : ''}} {{productList.length ? productList[0].productCurrency : ''}}</span></p>
     </div>
-    <button
-      class="button button-big btn"
-      @click="goRecharge"
-    >立即支付</button>
+    <button class="button button-big btn"
+            @click="goRecharge">立即支付</button>
     <div v-html="content"></div>
   </div>
 </template>
@@ -58,15 +54,16 @@ export default {
     this.getProductList();
     this.getUserDetail();
   },
-  
+
   methods: {
-    checkPrice(productId){
-      console.log(productId)
-      this.productId = productId
+    checkPrice(productId) {
+      this.productId = productId;
     },
     goRecharge() {
       this.$http
-        .post("/fanxing-api/v1/member/recharge", {productId: this.productId })
+        .post("/fanxing-api/v1/member/recharge", {
+          productId: this.productId,
+        })
         .then(({ bstatus, data }) => {
           this.content = data.html;
           this.$nextTick(() => {
@@ -74,18 +71,22 @@ export default {
           });
         });
     },
-    getUserDetail(){
-      this.$http.post('/fanxing-api/v1/user/detail',{}).then(({status,data})=>{
-        this.name = data.name;
-        console.log(data.name)
-      })
+    getUserDetail() {
+      this.$http
+        .post("/fanxing-api/v1/user/detail", {})
+        .then(({ status, data }) => {
+          this.name = data.name;
+          // console.log(data.name);
+        });
     },
-    getProductList(){
-      this.$http.post('/fanxing-api/v1/product/list',{}).then(({bstatus,data})=>{
-          if( bstatus.code ==0 ){
-            this.productList = data.list
+    getProductList() {
+      this.$http
+        .post("/fanxing-api/v1/product/list", {})
+        .then(({ bstatus, data }) => {
+          if (bstatus.code == 0) {
+            this.productList = data.list;
           }
-      })
+        });
     }
   }
 };
@@ -97,7 +98,7 @@ export default {
   background: #fff;
   padding-bottom: 0.2rem;
   // box-sizing: border-box;
-  .product{
+  .product {
     padding-top: 0.64rem;
     font-family: PingFangSC-Medium;
     font-size: 0.18rem;
@@ -105,7 +106,7 @@ export default {
     margin: 0 0 0.12rem 0.25rem;
   }
   ul {
-    box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
+    box-shadow: 0 2px 4px 1px rgba(197, 197, 197, 0.5);
     border-radius: 2px;
     margin: 0 0.2rem;
     li {
@@ -113,7 +114,7 @@ export default {
       line-height: 0.6rem;
       // margin: 0 0.2rem;
       padding: 0 0.19rem;
-       border: 2px solid #fff;
+      border: 2px solid #fff;
       &.flex {
         justify-content: space-between;
       }
@@ -132,7 +133,6 @@ export default {
     }
   }
   .payName {
-    
     p {
       font-family: PingFangSC-Medium;
       font-size: 0.18rem;
@@ -144,7 +144,7 @@ export default {
       height: 0.4rem;
       line-height: 0.4rem;
       margin-left: 0.2rem;
-      box-shadow: 0 2px 4px 1px rgba(197,197,197,0.50);
+      box-shadow: 0 2px 4px 1px rgba(197, 197, 197, 0.5);
       border-radius: 2px;
       img {
         width: 0.29rem;
@@ -158,12 +158,12 @@ export default {
     }
   }
   .payInfo {
-    p{
+    p {
       margin-left: 0.25rem;
       font-size: 0.14rem;
       color: #666666;
       margin-bottom: 0.04rem;
-      span{
+      span {
         margin-right: 0.1rem;
       }
     }
@@ -174,7 +174,7 @@ export default {
       margin: 0.26rem 0 0.09rem 0.25rem;
     }
   }
-  .btn{
+  .btn {
     margin-top: 0.5rem;
   }
 }
