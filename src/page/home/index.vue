@@ -49,7 +49,9 @@ export default {
 
     //获取地址栏channelCode参数
     let channelCode = location.search.split("=")[1];
-    localStorage.setItem('channelCode', channelCode);
+    if(channelCode){
+      localStorage.setItem('channelCode', channelCode);
+    }
   },
   computed: {},
   watch: {},

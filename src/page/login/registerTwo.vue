@@ -64,13 +64,17 @@ export default {
         setTimeout(()=>{
             this.isDisabled = false;
         },10000)
+
+        let data = {
+          identifyAuthCode,
+          passWord,
+          repeatPassWord,
+        }
+        if(channelCode){
+          data.channelCode = channelCode
+        }
         this.$http
-          .post("/fanxing-api/v1/user/register/step3", {
-            identifyAuthCode:identifyAuthCode,
-            passWord,
-            repeatPassWord,
-            channelCode
-          })
+          .post("/fanxing-api/v1/user/register/step3", data)
           .then(({ bstatus }) => {
             if (bstatus.code == 0) {
               Toast({
