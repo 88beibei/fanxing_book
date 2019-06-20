@@ -12,8 +12,8 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/': {
-                target: 'https://develop-test.ipaynow.cn',
-                // target: 'http://www.fanxingreader.com',
+                // target: 'https://develop-test.ipaynow.cn',
+                target: 'http://www.fanxingreader.com',
                 // // target: 'http://192.168.30.120:18080',
                 // target: 'http://192.168.30.14:18080',
                 secure: false,
@@ -25,7 +25,7 @@ module.exports = {
         },
 
         // Various Dev Server settings
-        host: 'localhost', // can be overwritten by process.env.HOST
+        host: '0.0.0.0', // can be overwritten by process.env.HOST
         port: 8088, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
         autoOpenBrowser: false,
         errorOverlay: true,

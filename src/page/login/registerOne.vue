@@ -10,10 +10,10 @@
           <span>+86</span>
           <input type="text" class="phone" placeholder="请输入手机号" v-model="params.mobile">
         </li>
-        <li class="clear">
+        <!-- <li class="clear">
           <input class="fl" type="text" placeholder="请输入验证码" v-model="params.imgCode" :disabled="imgDisabled">
           <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
-        </li>
+        </li> -->
         <li class="clear">
           <input class="fl" type="text" placeholder="请输入验证码" v-model="params.smsCode">
           <button
@@ -50,7 +50,7 @@ export default {
       isDisabled:false,
       params: {
         mobile: "",
-        imgCode: "",
+        imgCode: "", //图形验证码
         smsCode: "" //手机验证码
       }
     };
@@ -67,7 +67,7 @@ export default {
   },
   mounted() {
     // 获取图形验证码
-    this.getNewImgCode();
+    // this.getNewImgCode();
   },
   computed: {
     disabledCls() {
@@ -85,10 +85,10 @@ export default {
         Toast("手机号码格式错误，请重新输入");
         return;
       }
-      if (this.params.imgCode.length !== 4) {
-        Toast("图片验证码错误，请重新输入");
-        return;
-      }
+      // if (this.params.imgCode.length !== 4) {
+      //   Toast("图片验证码错误，请重新输入");
+      //   return;
+      // }
       let { mobile, imgCode } = this.params;
       let verifyCodeToken = getSession("verifyCodeToken");
 
@@ -96,13 +96,14 @@ export default {
         .post("/fanxing-api/v1/user/register/step1", {
           mobile: mobile,
           imageCode: imgCode,
-          verifyCodeToken
+          verifyCodeToken,
+          businessType: 1,
         })
         .then(({ bstatus }) => {
           console.log(bstatus);
           if (bstatus.code == 0) {
             Toast("短信发送成功");
-            this.imgDisabled = true;
+            // this.imgDisabled = true;
             timing(
               { maxTime: 120, disTime: 1 },
               time => {
@@ -114,22 +115,18 @@ export default {
               () => {
                 this.btnValue = "发送短信验证码";
                 this.btnDisabled = 1;
-                this.imgDisabled = false;
-                this.params.imgCode = '';
-                this.getNewImgCode();
+                // this.imgDisabled = false;
+                // this.params.imgCode = '';
+                // this.getNewImgCode();
               }
             );
           } else {
-            // this.btnDisabled = 1;
-            // this.isDisabled = false;
-            // this.getNewImgCode();
-            // this.params.imgCode = '';
           }
         },()=>{
             this.btnDisabled = 1;
-            this.isDisabled = false;
-            this.getNewImgCode();
-            this.params.imgCode = '';
+            // this.imgDisabled = false;
+            // this.getNewImgCode();
+            // this.params.imgCode = '';
         });
     },
     getNewImgCode() {
@@ -195,7 +192,7 @@ export default {
       }
       .code-num {
         width: 30%;
-        height: 0.4rem;
+        height: 0.45rem;
         background: #239df2;
         border-radius: 2px;
         font-size: 0.13rem;
@@ -203,19 +200,23 @@ export default {
     }
     .register-phone {
       width: 100%;
-      position: relative;
+      border: 1px solid #ededed; 
+      // position: relative;
+      display: flex;
+      align-items: center;
       span {
-        position: absolute;
-        left: 0.1rem;
-        top: 0;
-        line-height: 0.45rem;
+        // position: absolute;
+        margin-left: 0.13rem;
+        // top: 0;
+        // line-height: 0.45rem;
         // top: 0.12rem;
         font-size: 0.15rem;
       }
       .phone {
-        padding-left: 0.46rem;
+        padding-left: 0.1rem;
         width: 100%;
         box-sizing: border-box;
+        border: 0;
       }
     }
   }
