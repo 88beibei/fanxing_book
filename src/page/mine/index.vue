@@ -137,14 +137,15 @@ export default {
 </script>
 <style lang="less" scoped>
 #mine {
-  // padding-top: 0.75rem;
+  width: 100%;
+  height: 100%;
+  background: #F6F6F8;
   ul {
     li {
       background: #fff;
       .icn {
         color: #239df2;
         font-size: 0.22rem;
-        // margin-left: 0.21rem;
       }
       p {
         font-size: 0.14rem;
@@ -157,7 +158,6 @@ export default {
         .nextIcn {
           font-size: 0.1rem;
           color: #b1b1b1;
-          // margin-right: 0.2rem;
         }
         .pay {
           margin-right: 0.08rem;

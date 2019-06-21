@@ -152,11 +152,13 @@ export default {
 </script>
 <style lang="less" scoped>
 #bookDetail {
-  padding-top: 0.44rem;
+  // padding-top: 0.44rem;
   background: #f6f6f8;
-  // padding: 0.16rem;
+  width: 100%;
+  height: 100%;
   .book-content {
-    padding: 0.16rem;
+    // padding: 0.16rem;
+    padding: 0.6rem 0.16rem 0.16rem;
     .book-img {
       width: 1.09rem;
       height: 1.34rem;
@@ -211,7 +213,7 @@ export default {
       font-weight: 600;
     }
     .line {
-      width: 90%;
+      width: 100%;
       height: 1px;
       background: #d8d8d8;
       margin: 0.3rem 0 0.2rem 0;
