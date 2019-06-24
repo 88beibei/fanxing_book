@@ -8,11 +8,11 @@
         <li class="register-pwd">
           <input type="password" placeholder="请输入密码" v-model="password">
         </li>
-        <li class="clear">
+        <!-- <li class="clear">
           <input class="fl" type="text" placeholder="请输入验证码" v-model="vevifyCode">
           <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
           <router-link to='/login/forgetpwd' class="fr forget-pwd">忘记密码</router-link>
-        </li>
+        </li> -->
       </ul>
       <div class="confirm-btn">
         <button @click="login">登录</button>
@@ -42,8 +42,7 @@ export default {
   },
   mounted() {
     // 获取图形验证码
-    this.getNewImgCode();
-    console.log(this.$route.query)
+    // this.getNewImgCode();
     this.path = this.$route.query.redirect
   },
   methods: {
@@ -58,10 +57,10 @@ export default {
         Toast("手机号码格式错误，请重新输入");
         return;
       }
-      if (this.vevifyCode.length !==4 ) {
-        Toast("图片验证码错误，请重新输入");
-        return;
-      }
+      // if (this.vevifyCode.length !==4 ) {
+      //   Toast("图片验证码错误，请重新输入");
+      //   return;
+      // }
       let { username, password, vevifyCode } = this;
       password = md5(password);
       let verifyCodeToken = getSession("verifyCodeToken");
@@ -74,8 +73,7 @@ export default {
         })
         .then(
           ({ bstatus, data }) => {
-            console.log(data.user)
-            // debugger
+            // console.log(data.user)
             Cookies.set("userinfo", JSON.stringify(data.user));
             Toast({
               message: "登录成功",
@@ -86,8 +84,8 @@ export default {
             }, 2000);
           },
           () => {
-            this.getNewImgCode();
-            this.vevifyCode = ''; 
+            // this.getNewImgCode();
+            // this.vevifyCode = ''; 
           }
         );
     },
