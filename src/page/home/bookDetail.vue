@@ -2,7 +2,8 @@
   <div id="bookDetail">
     <Header2 title="图书详情"></Header2>
     <div class="clear book-content">
-      <div class="fl book-img" :style="{'background-image':'url('+detail.bookFrontUrl+')'}"></div>
+      <div class="fl book-img" :style="{'background-image':'url('+detail.bookFrontUrl+')'}" v-if="detail.bookFrontUrl"></div>
+      <div class="fl book-img" v-if="!detail.bookFrontUrl"></div>
       <div class="fl">
         <h4>{{detail.bookName}}</h4>
         <p>作者：{{detail.author}}</p>
@@ -36,7 +37,7 @@ export default {
   data() {
     return {
       bookId: "",
-      detail: "",
+      detail: {},
       isMember: 2,
       isMemberCode: 2, // 默认未登录
       shelfStatus: false,
