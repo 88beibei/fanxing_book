@@ -48,7 +48,8 @@ export default {
     this.getRecommend();
 
     //获取地址栏channelCode参数
-    let channelCode = location.search.split("=")[1];
+    // let channelCode = location.search.split("=")[1];
+    let {channelCode} = this.$route.query
     if(channelCode){
       localStorage.setItem('channelCode', channelCode);
     }
