@@ -48,11 +48,20 @@ export default {
     this.getRecommend();
 
     //获取地址栏channelCode参数
-    // let channelCode = location.search.split("=")[1];
-    let {channelCode} = this.$route.query
-    if(channelCode){
-      localStorage.setItem('channelCode', channelCode);
+    let channelCode = location.href.split('?')
+    if(channelCode.length>1){
+      channelCode=channelCode[1].split('&').forEach(item=>{
+        if(item.split('=').length ==2 && item.split('=')[0]=='channelCode'){
+          let value = item.split('=')[1];
+          localStorage.setItem('channelCode', value.substr(0,Math.min(32,value.length)));
+        }
+         
+      })
     }
+    // let {channelCode} = this.$route.query
+    // if(channelCode){
+    //   localStorage.setItem('channelCode', channelCode);
+    // }
   },
   computed: {},
   watch: {},
