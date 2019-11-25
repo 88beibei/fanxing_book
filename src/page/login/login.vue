@@ -5,14 +5,14 @@
         <li class="register-pwd">
           <input type="text" placeholder="请输入手机号" v-model="username">
         </li>
-        <li class="register-pwd">
+        <li class="register-pwd"  style="margin-bottom:0;">
           <input type="password" placeholder="请输入密码" v-model="password">
         </li>
-        <!-- <li class="clear">
-          <input class="fl" type="text" placeholder="请输入验证码" v-model="vevifyCode">
-          <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode">
+        <li class="clear">
+          <!-- <input class="fl" type="text" placeholder="请输入验证码" v-model="vevifyCode">
+          <img class="fr auth-code" :src="imgSrc" @click="getNewImgCode"> -->
           <router-link to='/login/forgetpwd' class="fr forget-pwd">忘记密码</router-link>
-        </li> -->
+        </li>
       </ul>
       <div class="confirm-btn">
         <button @click="login">登录</button>
